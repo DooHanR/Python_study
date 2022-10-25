@@ -109,16 +109,69 @@
 # empty = ""
 # print(len(empty))
 
+# tasks = 'get gloves,get mask,give cat vitamins,call ambulance'
+# print(tasks.split(','))
+# print(tasks.split())
+#
+# crypto_list = ['Yeti', 'Bigfoot', 'Loch Ness Monster']
+# crypto_list = ', '.join(crypto_list)
+# print("Found and signing book deals:", crypto_list)
 
+# setup = "a duck goes into a bar..."
+# print(setup.replace('duck', 'marmoset'))
+# print(setup)
 
+'''이때 항상 string과 관련한 함수들 replace, join, split 등등은
+대상이되는 스트링의 이름.기능()형식으로 사용 된다는 것에 주의하자
+ex)setup.replace('doo', 'han), setup.split(','), join은 좀 다른듯?'''
 
+# print(setup.replace('a ', 'a famous ', 100))
+# print(setup.replace('a', 'a famous ', 100))
 
+'''위 처럼 replace 하고자하는 a의 범위를 잘해야한다. a로 한결과
+출력된 결과가 개판임을 알 수가 있다.'''
 
+# world = "     earth     "
+# print(world.strip())
+# print(world.strip(' '))
+# print(world.lstrip())
+# print(world.rstrip())
+#
+# blurt = "What the..?!!"
+# print(blurt.strip('.?!'))
 
+poem = '''All that doth flow we cannot liquid name
+Or else would fire and water be the same;
+But that is liquid which is moist and wet
+Fire that property can never get.
+Then 'tis not cold that doth the fire put out
+But 'tis the wet that makes it die, no doubt.'''
 
+# print(poem[:13])
+# print(len(poem))
+# print(len(poem[:13]))
+# print(poem.startswith("All"))
+# print(poem.endswith('That\'s all. folks'))
 
+'''python에서 find함수의 기능은 해당 단어의 offset의 위치를
+도출해낸다. 그러니까 peom.find(word)를 통해 word를 찾게된다면
+해당 위치의 offset을 반환한다.'''
 
+# word = 'the'
+# print(poem.find(word))
+# print(poem.index(word))
+# print(poem.rfind(word))
+# print(poem.rindex(word))
+#
+# word = "duck"
+# print(poem.find(word))
+# print(poem.rfind(word))
+# print(poem.index(word))
+# print(poem.rindex(word))
 
+word = 'the'
+print(poem.count(word))
+print(poem.isalnum())
 
 
 
