@@ -40,7 +40,10 @@
 
 # info = r'Type a \n to get a new line in a normal string'
 # print(info)
-poem = r'''boys and girls sdfsf
-asdfsdfsdfsdfsdfasdfsdfsdf'''
-print(poem)
+# poem = r'''boys and girls sdfsf
+# asdfsdfsdfsdfsdfasdfsdfsdf'''
+# print(poem)
 # r을 따옴표 앞에 넣어줌으로써 안에있는것 그대로(raw string)을 출력할 수 있다.
+
+print('Relase the kraken ' + 'No, wait!')
+print('hey dont do that ' 'okay wait!')
