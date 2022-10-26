@@ -169,14 +169,158 @@ But 'tis the wet that makes it die, no doubt.'''
 # print(poem.index(word))
 # print(poem.rindex(word))
 
-word = 'the'
-print(poem.count(word))
-print(poem.isalnum())
+# word = 'the'
+# print(poem.count(word))
+# print(poem.isalnum())
+
+# '''10월 26일 공부 시작.'''
+#
+# setup = 'a duck goes into a bar...'
+# print(setup.strip('.'))
+#
+# '''string은 immutable 변수이다. 따라서 본래의 setup은
+# 바뀌지않고, 해당 작업을 수행한 새로운 string이 출력되는 것.'''
+#
+# print(setup.capitalize())
+# print(setup.title())
+# print(setup.upper())
+# print(setup.lower())
+# print(setup.swapcase())
+#
+# print(setup.center(100))
+# print(setup.ljust(50))
+# print(setup.rjust(50))
 
 
+# thing = 98.6
+# print(thing)
+# print('%f' % thing)
+# print('%12f' % thing)
+# print('%+12f' % thing)
+# print('%-12f' % thing)
+# print('%.3f' % thing)
+# print('%12.3f' % thing)
+# print('%-12.3f' % thing)
+
+# thing = 'woodchuck'
+# print('{}'.format(thing))
+
+''' 여기 나오는건 fstring이 아니다. python 3.0 버전 까지에서
+사용되는 string 방식.'''
+
+# thing = 'woodchuck'
+# place = 'lake'
+# dog = 'dog'
+#
+# print('The {} is in the {}'.format(thing, place))
+# print('The {} is in the {}'.format(place, thing))
+# print('The {2} is in the {1} and {0}'.format(thing, place, dog))
+#
+# print('The {thing} is in the {place}'.format(thing='duck', place='lake'))
+#
+#
+# d = {'thing': 'duck', 'place': 'bathhub'}
+# print('The {0[thing]} is in the {0[place]}.'.format(d))
 
 
+''' 지금부터 f-string. python 3.6 부터 지원하기 시작하는 신기능으로
+가장 추천되는 방식.'''
 
 
+# thing = 'wereduck'
+# place = 'werepond'
+# print(f'The {thing} is in the {place}')
+#
+# print(f'The {thing.capitalize()} is in the {place.capitalize()}')
+# print(f'The {thing.capitalize()} is in the {place.rjust(20)}')
+# print(f'The {thing:>20} is in the {place:.^20}')
+#
+# print(f'{thing =}, {place =}')
+# print(f'{thing[-4:] =}, {place.title() =}')
+# print(f'{thing = :>4.4}')
+
+'''5챕터의 things to do.'''
+
+song = """When an eel grabs your arm,
+And it causes great harm,
+That's - a moray!"""
+
+print(song.replace(' m', ' M'))
+
+questions = [
+    "We don't serve strings around here. Are you a string?",
+    "What is said on Father's Day in the forest.",
+    "What makes the sound 'Sis! Boom! Bah!'?"
+    ]
+
+answers = [
+    "An exploding sheep.",
+    "No, I'm a frayed knot.",
+    "'Pop'  goes the weasel."
+]
+
+print(f'Q:{questions[0]}\n'
+      f'A:{answers[1]}\n\n'
+      f'Q:{questions[1]}\n'
+      f'A:{answers[0]}\n\n'
+      f'Q:{questions[2]}\n'
+      f'A:{answers[2]}\n')
 
 
+"""5.3 Write the following poem by using old-style formatting.
+Substitute the strings 'roast beef', 'ham', 'head', and 'clam'
+into this string:"""
+
+a = 'roast beef'
+b = 'ham'
+c = 'head'
+d = 'clam'
+
+print("""My kitty cat likes %s,
+    My kitty cat likes %s,
+    My Kitty cat fell on his %s,
+    And now thinks he's a %s.""" % (a, b, c, d))
+
+
+"""5.4 Write a form letter by using new-style formatting
+Save the following string as letter"""
+
+letter = """Dear {salutation} {name},
+
+Thank you for your letter. We are sorry that our {product}
+{verbed} in your {room}. Please note that it should never
+be used in a {room}, especially near any {animals}.
+
+Send us your receipt and {amount} for shipping and handling.
+We will send you another {product} that, in our tests,
+is {percent}% less likely to have {verbed}.
+
+Thank you for you support
+
+Sincerely,
+{spokesman}
+{job_title}"""
+
+"""5.5 Assign values to variable strings named 'salutation',
+'name', 'product', 'verbed' (past tense verb), 'room', 'animals', 
+'percent', 'spokesman', and 'job_title'. Print letter with
+these values, using letter.format()"""
+
+print(letter.format(salutation = 'salutation',
+                    name = 'name',
+                    product = 'product',
+                    verbed = 'verbed',
+                    room = 'room',
+                    animals = 'animals',
+                    amount = 'amount',
+                    percent = 'percent',
+                    spokesman = 'spokesman',
+                    job_title = 'job_title'))
+
+
+"""After public polls to name things, a patter emerged: an English submarine
+(Boaty McBoatface), an Australian racehorse (Horsey McHorseface), and a Swedish
+train (Trainy McTrainface). Use % formatting to print the winning name at the state
+fair for a prize duck, gourd, and spitz."""
+
+"""이 교재를 계속 쓰는게 맞나 싶은, 그런 느낌이 든다."""
