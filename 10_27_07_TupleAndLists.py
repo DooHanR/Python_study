@@ -17,8 +17,8 @@ empty_tuple = ()
 print(empty_tuple)
 
 test = 'abcd'
-one_marx = 'Groucho', # 단순 string과 tuple의 차이점에 주의하자.
-one_marx = ('Groucho', )
+one_marx = 'Groucho',  # 단순 string과 tuple의 차이점에 주의하자.
+# one_marx = ('Groucho', )
 print(test)
 print(one_marx)
 print(type(test))
