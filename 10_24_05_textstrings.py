@@ -5,7 +5,7 @@
 # 왜 '', 와 ""가 따로있는걸까.
 # 그 이유는 '' 안에 ""을, ""안에 ''을 포함하기 위함이다.
 
-# print("'Nay!' said the naysayer. 'Neight'? siat the horse")
+# print("'Nay!' said the naysayer. 'Neight'? said the horse")
 # print('"i hate you" he said, i also said "me too"')
 # print("""Dont do that""")
 # print('''okay''')
@@ -80,6 +80,11 @@
 # print('P' + name[1:])
 # print(name)
 
+'''위의 과정을 거쳐도 원본은 그대로 임을 알 수 있다.
+이때 우리가 알 수 있는것은, python에서 string 변수는
+immutable 변수라는 것이다.'''
+
+# letters = 'abcdefghijklmnopqrstuvwxyz'
 # print(letters[:])
 # print(letters[20:])
 # print(letters[10:])
@@ -123,7 +128,9 @@
 
 '''이때 항상 string과 관련한 함수들 replace, join, split 등등은
 대상이되는 스트링의 이름.기능()형식으로 사용 된다는 것에 주의하자
-ex)setup.replace('doo', 'han), setup.split(','), join은 좀 다른듯?'''
+ex)setup.replace('doo', 'han), setup.split(',')
+하지만 위에서 보시다시피 join은 형태가 다르다.
+ex) ', '.join(crypto_list'''
 
 # print(setup.replace('a ', 'a famous ', 100))
 # print(setup.replace('a', 'a famous ', 100))
@@ -131,27 +138,19 @@ ex)setup.replace('doo', 'han), setup.split(','), join은 좀 다른듯?'''
 '''위 처럼 replace 하고자하는 a의 범위를 잘해야한다. a로 한결과
 출력된 결과가 개판임을 알 수가 있다.'''
 
-# world = "     earth     "
-# print(world.strip())
-# print(world.strip(' '))
-# print(world.lstrip())
-# print(world.rstrip())
+
+# poem = '''All that doth flow we cannot liquid name
+# Or else would fire and water be the same;
+# But that is liquid which is moist and wet
+# Fire that property can never get.
+# Then 'tis not cold that doth the fire put out
+# But 'tis the wet that makes it die, no doubt.'''
 #
-# blurt = "What the..?!!"
-# print(blurt.strip('.?!'))
-
-poem = '''All that doth flow we cannot liquid name
-Or else would fire and water be the same;
-But that is liquid which is moist and wet
-Fire that property can never get.
-Then 'tis not cold that doth the fire put out
-But 'tis the wet that makes it die, no doubt.'''
-
 # print(poem[:13])
 # print(len(poem))
 # print(len(poem[:13]))
-# print(poem.startswith("All"))
-# print(poem.endswith('That\'s all. folks'))
+# print(poem.startswith("All")) # poem이 해당 string으로 시작하는지. true, false로
+# print(poem.endswith('That\'s all, folks')) # poem 이 해당 string으로 끝나는 지.
 
 '''python에서 find함수의 기능은 해당 단어의 offset의 위치를
 도출해낸다. 그러니까 peom.find(word)를 통해 word를 찾게된다면
@@ -239,88 +238,88 @@ But 'tis the wet that makes it die, no doubt.'''
 # print(f'{thing[-4:] =}, {place.title() =}')
 # print(f'{thing = :>4.4}')
 
-'''5챕터의 things to do.'''
-
-song = """When an eel grabs your arm,
-And it causes great harm,
-That's - a moray!"""
-
-print(song.replace(' m', ' M'))
-
-questions = [
-    "We don't serve strings around here. Are you a string?",
-    "What is said on Father's Day in the forest.",
-    "What makes the sound 'Sis! Boom! Bah!'?"
-    ]
-
-answers = [
-    "An exploding sheep.",
-    "No, I'm a frayed knot.",
-    "'Pop'  goes the weasel."
-]
-
-print(f'Q:{questions[0]}\n'
-      f'A:{answers[1]}\n\n'
-      f'Q:{questions[1]}\n'
-      f'A:{answers[0]}\n\n'
-      f'Q:{questions[2]}\n'
-      f'A:{answers[2]}\n')
-
-
-"""5.3 Write the following poem by using old-style formatting.
-Substitute the strings 'roast beef', 'ham', 'head', and 'clam'
-into this string:"""
-
-a = 'roast beef'
-b = 'ham'
-c = 'head'
-d = 'clam'
-
-print("""My kitty cat likes %s,
-    My kitty cat likes %s,
-    My Kitty cat fell on his %s,
-    And now thinks he's a %s.""" % (a, b, c, d))
-
-
-"""5.4 Write a form letter by using new-style formatting
-Save the following string as letter"""
-
-letter = """Dear {salutation} {name},
-
-Thank you for your letter. We are sorry that our {product}
-{verbed} in your {room}. Please note that it should never
-be used in a {room}, especially near any {animals}.
-
-Send us your receipt and {amount} for shipping and handling.
-We will send you another {product} that, in our tests,
-is {percent}% less likely to have {verbed}.
-
-Thank you for you support
-
-Sincerely,
-{spokesman}
-{job_title}"""
-
-"""5.5 Assign values to variable strings named 'salutation',
-'name', 'product', 'verbed' (past tense verb), 'room', 'animals', 
-'percent', 'spokesman', and 'job_title'. Print letter with
-these values, using letter.format()"""
-
-print(letter.format(salutation = 'salutation',
-                    name = 'name',
-                    product = 'product',
-                    verbed = 'verbed',
-                    room = 'room',
-                    animals = 'animals',
-                    amount = 'amount',
-                    percent = 'percent',
-                    spokesman = 'spokesman',
-                    job_title = 'job_title'))
-
-
-"""After public polls to name things, a patter emerged: an English submarine
-(Boaty McBoatface), an Australian racehorse (Horsey McHorseface), and a Swedish
-train (Trainy McTrainface). Use % formatting to print the winning name at the state
-fair for a prize duck, gourd, and spitz."""
-
-"""이 교재를 계속 쓰는게 맞나 싶은, 그런 느낌이 든다."""
+# '''5챕터의 things to do.'''
+#
+# song = """When an eel grabs your arm,
+# And it causes great harm,
+# That's - a moray!"""
+#
+# print(song.replace(' m', ' M'))
+#
+# questions = [
+#     "We don't serve strings around here. Are you a string?",
+#     "What is said on Father's Day in the forest.",
+#     "What makes the sound 'Sis! Boom! Bah!'?"
+#     ]
+#
+# answers = [
+#     "An exploding sheep.",
+#     "No, I'm a frayed knot.",
+#     "'Pop'  goes the weasel."
+# ]
+#
+# print(f'Q:{questions[0]}\n'
+#       f'A:{answers[1]}\n\n'
+#       f'Q:{questions[1]}\n'
+#       f'A:{answers[0]}\n\n'
+#       f'Q:{questions[2]}\n'
+#       f'A:{answers[2]}\n')
+#
+#
+# """5.3 Write the following poem by using old-style formatting.
+# Substitute the strings 'roast beef', 'ham', 'head', and 'clam'
+# into this string:"""
+#
+# a = 'roast beef'
+# b = 'ham'
+# c = 'head'
+# d = 'clam'
+#
+# print("""My kitty cat likes %s,
+#     My kitty cat likes %s,
+#     My Kitty cat fell on his %s,
+#     And now thinks he's a %s.""" % (a, b, c, d))
+#
+#
+# """5.4 Write a form letter by using new-style formatting
+# Save the following string as letter"""
+#
+# letter = """Dear {salutation} {name},
+#
+# Thank you for your letter. We are sorry that our {product}
+# {verbed} in your {room}. Please note that it should never
+# be used in a {room}, especially near any {animals}.
+#
+# Send us your receipt and {amount} for shipping and handling.
+# We will send you another {product} that, in our tests,
+# is {percent}% less likely to have {verbed}.
+#
+# Thank you for you support
+#
+# Sincerely,
+# {spokesman}
+# {job_title}"""
+#
+# """5.5 Assign values to variable strings named 'salutation',
+# 'name', 'product', 'verbed' (past tense verb), 'room', 'animals',
+# 'percent', 'spokesman', and 'job_title'. Print letter with
+# these values, using letter.format()"""
+#
+# print(letter.format(salutation = 'salutation',
+#                     name = 'name',
+#                     product = 'product',
+#                     verbed = 'verbed',
+#                     room = 'room',
+#                     animals = 'animals',
+#                     amount = 'amount',
+#                     percent = 'percent',
+#                     spokesman = 'spokesman',
+#                     job_title = 'job_title'))
+#
+#
+# """After public polls to name things, a patter emerged: an English submarine
+# (Boaty McBoatface), an Australian racehorse (Horsey McHorseface), and a Swedish
+# train (Trainy McTrainface). Use % formatting to print the winning name at the state
+# fair for a prize duck, gourd, and spitz."""
+#
+# """이 교재를 계속 쓰는게 맞나 싶은, 그런 느낌이 든다."""
