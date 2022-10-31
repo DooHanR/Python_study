@@ -1,7 +1,7 @@
-'''python에서 주요한 반북문으로는 2가지 방식이 있다.
+"""python에서 주요한 반북문으로는 2가지 방식이 있다.
 1. while
 2. for
-'''
+"""
 
 # count = 1
 # while count <=5:
@@ -10,8 +10,8 @@
 #
 # print(count)
 
-'''break를 통해 탈출하기. 보통 특정 출력이 나오면 멈추고 싶지만
-그 해당시점을 특정하기 어려울때 if와 while 그리고 break를 사용해 탈출.'''
+"""break를 통해 탈출하기. 보통 특정 출력이 나오면 멈추고 싶지만
+그 해당시점을 특정하기 어려울때 if와 while 그리고 break를 사용해 탈출."""
 
 # while True:
 #     stuff = input("String to capitalize [type q to quit]: ")
@@ -19,7 +19,7 @@
 #         break
 #     print(stuff.capitalize())
 
-'''이번에는 break를 하기보다는 해당 경우를 skip하고 싶을때'''
+"""이번에는 break를 하기보다는 해당 경우를 skip하고 싶을때"""
 
 # while True:
 #     value = input("Integer, please [q to quit]: ")
@@ -28,7 +28,7 @@
 #     number = int(value)
 #     if number % 2 == 0:
 #         continue
-#     print(number, "squraed is", number * number)
+#     print(number, "squared is", number * number)
 
 
 '''else를 이용, 반복이 끝났을때 행동 지정해주기'''
@@ -45,16 +45,17 @@
 #     print('No even number found')
 
 
-''' for와 in을 이용해서 반복하기. 굉장히 유용하다
+""" for와 in을 이용해서 반복하기. 굉장히 유용하다
 일단 여기서는 6장까지만 배웠고 우리는 string에 대해서만 배웠기 때문에
 string을 통해서만 할 것이다. tuple이나 list를 이용한 방식은
-나중에 할 듯 하다.'''
+나중에 할 듯 하다."""
 
 # word = 'thud'
 # offset = 0
 # while offset < len(word):
 #     print(word[offset])
 #     offset += 1
+#
 # for letter in word:
 #     print(letter)
 
@@ -70,7 +71,7 @@ string을 통해서만 할 것이다. tuple이나 list를 이용한 방식은
 continue를 사용하는것도 while과 마찬가지이다.
 마찬가지로 continue를 사용하면 해당 루프의 다음 반복으러 넘어간다.'''
 
-''' Check Break Use wtih Else in IN
+''' Check Break Use with Else in IN
 반복문이 끝날때 braek 대신 else가 실행.
 loop가 제대로 끝났는지 확인하고 싶을떄 유용하다'''
 
@@ -95,7 +96,7 @@ step의 경우 -1을 지정해줄 수 있다. 그리고 마지막값은 stop의 
 #     print(x)
 #
 # print(list(range(0,3)))
-
+#
 # for x in range(2,-1,-1):
 #     print(x)
 #
@@ -150,20 +151,3 @@ the loop.'''
 #     else:
 #         print('oops')
 #         break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
