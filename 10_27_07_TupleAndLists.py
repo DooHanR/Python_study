@@ -39,7 +39,3 @@ print(type('Groucho'))
 marx_tuple = ('Grucho', 'Chico', 'Harpo')
 a, b, c = marx_tuple
 print(a, b, c)
-
-print("abc")
-
-print("왜 안되는거야")
