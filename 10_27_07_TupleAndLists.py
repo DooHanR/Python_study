@@ -350,7 +350,7 @@ count()함수를 이용해라."""
 # snl_skit = ['cheeseburger', 'cheeseburger', 'cheeseburger']
 # print(snl_skit.count('cheeseburger'))
 
-
+example.
 
 
 
