@@ -110,13 +110,151 @@ list는 순서나 내용이 변할 수 있을때, 그들을 추적하기 용이�
 다양한 작업을 진행 할 수 있다."""
 
 
-"""0개 에서부터 그 이상까지의 elements로 구성되며,
+"""List는 0개 부터 그 이상까지의 elements로 구성되며,
 ',' 와 '[, ]'로 구성된다."""
-empty_list = []
-weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-first_names = ['Grahm', 'John', 'Terry', 'Terry', 'Michael'] # values
-leap_years = [2000, 2004, 2008]
+# empty_list = []
+# weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+# first_names = ['Grahm', 'John', 'Terry', 'Terry', 'Michael'] # values
+# leap_years = [2000, 2004, 2008]
+#
+# print(first_names)
 
-print(first_names)
+"""순서에 상관없이 특정 value를 keep track 하고 싶다면 list보단 set이 더 적합하다.
+set 에 대해서는 chapter7에서 더 자세히 알아보게 될 것."""
+
+
+"""Create or Conver with list()
+list() function을 통해 empty list를 만들 수 있다.
+혹은 다른 iterable data type 등을 list로 변경 할 수 있다."""
+# another_empty_list = list()
+# print(another_empty_list)
+
+# print(list('cat'))
+# a_tuple = ('ready', 'fire', 'aim')
+# print(list(a_tuple)) # ()가 []로 바뀌는 차이정도?
+
+
+"""Create From a string with split()"""
+
+# split()을 이용, separator를 기준으로 string을 나눌 수 있다.
+# talk_like_a_pirate_day = '9/19/2019'
+# print(talk_like_a_pirate_day.split('/'))
+
+# 만약에 separtor 가 원본 string에 여러개가 있다면?
+# splitme = 'a/b/c//c/d///e'
+# print(splitme.split('/'))
+# print(splitme.split('//'))
+
+
+"""Get an item by [ offset ]"""
+# string에서 했던것처럼 list 에서도 offset을 이용, single value를 추출 할 수 있다.
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# for i in range(0,3):
+#     print(marxes[i])
+
+# for i in range(2,-1,-1):
+#     print(marxes[i])
+
+
+"""Get items with a Slice"""
+# list에서도 마찬가지로 slice를 통해 추출해낼 수 있다.
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# print(marxes[0:3])
+# print(marxes[::-1])
+
+""" 이런 slice 들을 통해서는 list 자체를 변화시킬 수는 없다.
+따라서 바꾸기 위해서는 list.reverse()와 같은게 필요하다."""
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# marxes.reverse()
+# print(marxes)
+
+""" slice는 초과해도 exception을 나타내지는 않지만 아무것도 출력하지 않는다."""
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# print(marxes[4:])
+# print(marxes[-6:])
+
+
+"""Add an item to the End with append()
+일반적인 방식으로는 append()를 이용해서 덧붙인다.
+ 이것은 끝에 덧붙이는 것임을 주의하라."""
+
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# marxes.append('Zeppo')
+# print(marxes)
+
+"""Add an item by Offset with insert
+insert를 사용해서 리스트의 특정 offset에 삽입할 수 있다.
+이때 그 범위를 초과해도 끝에 알아서 삽입하니 걱정 말라."""
+
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# marxes.insert(3, 'Gummo')
+# print(marxes)
+#
+# marxes.insert(10, 'Zeppo')
+# print(marxes)
+
+
+"""Duplicate All items with *
+*를 이용해서 string이나 혹은 list에서도 복사할 수 있다."""
+# print(["blah"] * 3)
+
+
+"""Combine Lists by Using extend() or +
+extend()를 사용해서 list끼리 merge할 수 있다.
+다음을 한번 살펴보자."""
+# marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+# others = ['Gummo', 'Karl']
+# marxes.extend(others)
+# print(marxes)
+
+"""혹은 '+'나 '+='를 쓰는 방법도 있다."""
+# marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+# others = ['Gummo', 'Karl']
+# print(marxes)
+# marxes += others
+# print(marxes)
+
+# marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+# others = ['Gummo', 'Karl']
+# marxes.append(others)
+# print(marxes)
+
+# 이 경우 others 라는 list가 list안에 들어가게 되는것으로
+# 리스트는 여러 종류의 type을 포함할 수 있다라는 것임을 나타낸다.
+
+
+""" Change an item by [ offset ] """
+marxes = ['Groucho', 'Chico', 'Harpo']
+marxes[2] = 'Wanda'
+print(marxes)
+
+# List는 위와 같은 방식으로 변경이 가능하지만
+# String은 immutable 이기 때문에 안된다는 점에 유의하라.
+
+
+"""Change Items with a Slice
+앞서서는 slice를 통해 sublist를 얻는 방법에 대해 알아봤다.
+하지만 여기서는 slice를 이용해 sublist에 value를 assign하는
+방식에 대해 알아볼 것이다."""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
