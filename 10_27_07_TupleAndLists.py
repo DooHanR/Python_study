@@ -482,18 +482,18 @@ list 에서 length는 item이 몇개나 있는지를 리턴한다."""
 
 
 """ Assign with = """
-a = [1, 2, 3]
-print(a)
-b = a
-print(b)
-
-a[0] = 'surprise'
-print(a) # 흥미롭다. a 만 바뀌었는데 b도 바뀌는 모습을 볼 수 있을것이다.
-print(b)
-
-b[0] = 'is it real?'
-print('this is a: ', a)
-print('this is b: ', b)
+# a = [1, 2, 3]
+# print(a)
+# b = a
+# print(b)
+#
+# a[0] = 'surprise'
+# print(a) # 흥미롭다. a 만 바뀌었는데 b도 바뀌는 모습을 볼 수 있을것이다.
+# print(b)
+#
+# b[0] = 'is it real?'
+# print('this is a: ', a)
+# print('this is b: ', b)
 
 """ 이것은 앞서 말한 box 예시 때문인데, 똑같은 box를 서로다른 이름으로만
 가리키고 있는 상황이기 때문에 안에 내용물이 변경되면서 자연스레 똑같이 변하는것."""
