@@ -589,8 +589,8 @@ list도 마찬가지로 '==', '<' 등등을 이용해 비교를 할 수 있다."
 # else: # for가 break없이 끝났을때 실행되도록.
 #     print("Didn't find anything that started with 'x")
 
-# 최초의 for가 절대 run 하지않는다면, control은 else로 간다.
-
+# # 최초의 for가 절대 run 하지않는다면, control은 else로 간다.
+#
 # cheeses = [] # cheeses가 비어있기 때문에 아래의 for문은 작동x!
 # for cheese in cheeses:
 #     print("This shop has some lovely", cheese)
@@ -599,7 +599,75 @@ list도 마찬가지로 '==', '<' 등등을 이용해 비교를 할 수 있다."
 #     print("This is not much of a cheese shop, is it?")
 
 
-""" Iterate Multiple Sequences with zip() """
+""" Iterate Multiple Sequences with zip() 
+zip()을 이용해서 multiple sequence들을 iterate 할 수 있다.
+멈추는 시점 : 가장 짧은 sequence 가 끝날때."""
+
+# days = ['Monday', 'Tuesday', 'Wednesday']
+# fruits = ['banana', 'orange', 'peach']
+# drinks = ['coffee', 'tea', 'beer']
+# desserts = ['tiramisu', 'icecream', 'pie', 'pudding']
+# for day, fruit, drink, dessert in zip(days, fruits, drinks, desserts):
+#     print(day, ": drink", drink, "- eat", fruit, "- enjoy", dessert)
+#     # 여기서는 가장 짧은게 3개로 desserts의 pudding은 절대 출력되지 못한다.
+
+"""또한 Zip을 이용해서 sequence 들로 list를 만들어 볼 수 있다."""
+
+# english = 'Monday', 'Tuesday', 'Wednesday'
+# french = 'Lundi', 'Mardi', 'Mercredi'
+# print(list(zip(english, french)))
+# print(dict(zip(english, french)))  # 조그만 영,프 사전이 완성됐다!
 
 
+""" Create a List with a Comprehension.
+여기서는 list comprehesion과 for/in 등을 활용해 list를 만드는
+방법에 대해 알아볼 것이다."""
 
+# # 1에서 5까지의 숫자가 있는 list를 만들어보자.
+# list_test = list(range(1,6)) # 가장 간단한 방법인줄 알았는데 아니래! 더 간단한게있대!
+# print(list_test)
+
+# # 위의 방식보다, list comprehension 이 가장 pythonic 한 방식이다.
+# number_list = [number for number in range(1,6)]
+# print(number_list)
+
+# # 이게 앞서 사용했던 방식보다는 쉽지는 않지만 다양한 응용이 가능하기 때문에 유용하다.
+# number_list = [number-1 for number in range(1,6)] # 맨앞의 variable은 list에 들어가게 될 값이다.
+# print(number_list)
+
+# a_list = [number for number in range(1,6) if number % 2 == 1]
+# print(a_list)
+#
+# # 동일기능을 하는 이전의 것.
+# a_list = []
+# for number in range(1,6):
+#     if number % 2 == 1:
+#         a_list.append(number)
+#
+# print(a_list)
+
+# # 지금까지는 한 set에 대해 해봤지만 이번에는 2개 이상의 set으로 한번 해보자.
+# rows = range(1, 4)
+# cols = range(1, 3)
+# for row in rows:
+#     for col in cols:
+#         print(row, col) # 굉장히 번거로운 버전이다.
+#
+# rows = range(1, 4) # 아주 간단하다, 아니 보기 편하다 !
+# cols = range(1, 3)
+# cells = [(row, col) for row in rows for col in cols]
+# for cell in cells:
+#     print(cell)
+#
+# for row, col in cells:  # tuple unpacking을 사용하는 모습.
+#     print(row, col)
+
+
+""" Lists of Lists
+list는 얘기햇듯이, 다른 종류의 element등을 포함할 수 있다."""
+small_birds = ['hummingbird', 'finch']
+extinct_birds = ['dodo', 'passenger pigeon', 'Norwegian Blue']
+carol_birds = [3, 'French hens', 2, 'turtledoves']
+all_birds = [small_birds, extinct_birds, 'macaw', carol_birds]
+
+print(all_birds)
