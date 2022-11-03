@@ -665,9 +665,42 @@ zip()을 이용해서 multiple sequence들을 iterate 할 수 있다.
 
 """ Lists of Lists
 list는 얘기햇듯이, 다른 종류의 element등을 포함할 수 있다."""
-small_birds = ['hummingbird', 'finch']
-extinct_birds = ['dodo', 'passenger pigeon', 'Norwegian Blue']
-carol_birds = [3, 'French hens', 2, 'turtledoves']
-all_birds = [small_birds, extinct_birds, 'macaw', carol_birds]
+# small_birds = ['hummingbird', 'finch']
+# extinct_birds = ['dodo', 'passenger pigeon', 'Norwegian Blue']
+# carol_birds = [3, 'French hens', 2, 'turtledoves']
+# all_birds = [small_birds, extinct_birds, 'macaw', carol_birds]
+#
+# print(all_birds)
+# for i in all_birds:
+#     print(i)
 
-print(all_birds)
+
+""" Tuple Versus Lists
+대부분의 경우에서 tuple은 list보다 기능도 적고 생성후 수정도 불가능하다.
+그런데 왜 tuple을 사용하는 걸까? 다음과 같은 이유가 있다.
+
+1. Tuple은 공간을 덜 차지 한다.
+2. Tuple은 실수로 훼손되지 않는다 (수정이 안되기 떄문)
+3. Tuple을 dictionary key로 사용할 수 있다.
+4. Named tuple은 object의 대체제가 될 수 있다.
+
+하지만 역시 대부분의 경우에서 list나 dictionary 를 쓰게 될 것이다."""
+
+
+""" There Are No Tuple Comprehensions
+Mutable Types (lists, dictionaries, and sets)들은 comprehension이 있다.
+하지만 Immutable Types(strings, tuples) 들은 그들의 section 안에있는 method
+를 통해 생성되어야 한다.
+ 이때 단순히, list의 square brackets 를 수정해서 사용하면 된다고 생각할 수도 있다.
+ ex)number = (number for number in range(1,6)) 과 같이.
+ 하지만 이는 실제로는 type을 해보면 generator 이며 tuple이 아님을 알 수 있다.
+ generator 에 대한 이야기는 추후에 더 다룰 것이다."""
+
+# number = (number for number in range(1,6))
+# print('type of number: ', type(number))
+
+# finished at 11/03 5:40 pm
+
+
+"""Things to Do
+다양한 종류의 실세계의 요소들을 lists, tuples, numbers, strings 등으로 나타낼 것이다."""
