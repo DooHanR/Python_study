@@ -15,11 +15,13 @@
 보통 경우의 "", ''를 사용할 경우 다음줄로 넘기지 못한다. """
 
 # print("Hello world")
-# poem2 = '''i do not like thee, Docter Fell
-#     The reason why, i cannot tell
-#     but this i know, and know full well:
-#     i do not like thee, Doctor Fell.
-#     '''
+# poem2 =\
+# '''
+# i do not like thee, Docter Fell
+# The reason why, i cannot tell
+# but this i know, and know full well:
+# i do not like thee, Doctor Fell.
+# '''
 #
 # print(poem2)
 #

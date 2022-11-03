@@ -499,6 +499,107 @@ list 에서 length는 item이 몇개나 있는지를 리턴한다."""
 가리키고 있는 상황이기 때문에 안에 내용물이 변경되면서 자연스레 똑같이 변하는것."""
 
 
-""" Copy with copy(), list(), or a Slice"""
+""" Copy with copy(), list(), or a Slice 
+다음의 method 들을 이용해 기존 list의 value들을
+독립적이고, 새로운 list에 copy 할 수 있다.
+1. list copy() method, 
+2. list() conversion method,
+ 3.list slice [:] """
+
+# a = [1, 2, 3]
+# b = a.copy()
+# c = list(a)
+# d = a[:]
+#
+# print('a, b, c, d: ', a, b, c, d)
+
+""" assign 과는 다르게 여기서는 copy 취급을 한다.
+이전과 다르게, a가 바뀌어도 b,c,d 의 내용이 변치않음을 의미한다."""
+
+# a[0] = 'hey stop this shit. i gonna go to home!'
+# print('this is a: ', a)
+# print('and b, c, d: ', b, c, d)
+
+
+""" Copy Everything with deepcopy()
+copy() function은 list의 value가 immutable일때는 제대로 작동한다.
+하지만 mutable value(lists, tuples, dicts ...)들은
+reference가 되기 때문에 origin의 변경은 copy에도 반영이 된다."""
+
+# a = [1, 2, [8, 9]]
+# # b = a.copy()
+# b = [1, 2]
+# c = list(a)
+# d = a[:]
+#
+# list = a, b, c, d
+# a[2][1] = 10
+#
+# for i in list:
+#     print(i)
+
+""" a[2]는 [8,9]로 list에 해당한다. 따라서 이는 mutable요소이고
+따라서 이렇게 바뀌게 되는데, 이러한 경우를 방지하기위해
+deepcopy() function을 사용해야 한다."""
+
+# import copy
+# a = [1, 2, [8, 9]]
+# b = copy.deepcopy(a)
+# print(a, b)
+#
+# a[2][1] = 10
+# print(a, b)
+
+
+"""Compare Lists
+list도 마찬가지로 '==', '<' 등등을 이용해 비교를 할 수 있다."""
+
+# a = [7, 2]
+# b = [7, 2, 9]
+# print(
+#       a == b,
+#       a <= b,
+#       a < b
+#       )
+
+
+"""Iterate with for and in
+앞서 chapter 6 에서 string 에서 iterate 해봤을텐데,
+사실 list를 통해 iterate 하는게 보다 common하다."""
+
+# cheeses = ['bri', 'gjetost', 'havarti']
+# for cheese in cheeses:
+#     print(cheese)
+
+# cheeses = ['brie', 'gjetost', 'havarti']
+# for cheese in cheeses:
+#     if cheese.startswith('g'):
+#         print("i won't eat anything that starts with 'g'")
+#         break
+#     else:
+#         print(cheese)
+
+# cheeses = ['brie', 'gjetost', 'havarti']
+# for cheese in cheeses:
+#     if cheese.startswith('x'):
+#         print("i won't eat anything that starts with 'x'")
+#         break
+#     else:
+#         print(cheese)
+# else: # for가 break없이 끝났을때 실행되도록.
+#     print("Didn't find anything that started with 'x")
+
+# 최초의 for가 절대 run 하지않는다면, control은 else로 간다.
+
+# cheeses = [] # cheeses가 비어있기 때문에 아래의 for문은 작동x!
+# for cheese in cheeses:
+#     print("This shop has some lovely", cheese)
+#     break
+# else:
+#     print("This is not much of a cheese shop, is it?")
+
+
+""" Iterate Multiple Sequences with zip() """
+
 
 
