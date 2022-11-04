@@ -102,46 +102,91 @@ dictionary에 item을 추가하는 것은 쉽다. 그저 item을 key와 value에
 dictionary의 가장 흔한 사용법이기도 하다.
 예시를 통해 자세히 알아보자."""
 
-some_pythons = {
-    'Graham': 'Chapman',
-    'John': 'Cleese',
-    'Eric': 'Idle',
-    'Terry': 'Gilliam',
-    'Michael': 'Palin',
-    'Terry': 'Jones' # Terry가 두개이고 Gilliam, Jones 중 Jones가 출력. 순서에 유의.
-}
-
-print(some_pythons['John'])
-# print(some_pythons['Groucho'])
-
-""" 찾고자 하는게 존재하지 않을 경우 exception이 발생하는데 이를 피하는 방법이 있다."""
-# 1. 'in'을 통해 해당하는게 있는지 확인하기.
-print('Groucho' in some_pythons)
-
-
-
-
-
-
-
+# some_pythons = {
+#     'Graham': 'Chapman',
+#     'John': 'Cleese',
+#     'Eric': 'Idle',
+#     'Terry': 'Gilliam',
+#     'Michael': 'Palin',
+#     'Terry': 'Jones' # Terry가 두개이고 Gilliam, Jones 중 Jones가 출력. 순서에 유의.
+# }
+#
+# print(some_pythons['John'])
+# # print(some_pythons['Groucho'])
+#
+# """ 찾고자 하는게 존재하지 않을 경우 exception이 발생하는데 이를 피하는 방법이 있다."""
+# # 1. 'in'을 통해 해당하는게 있는지 확인하기.
+# print('Groucho' in some_pythons)
+#
+# # 2. get()을 사용해서 key를 통해 value를 얻기.
+# print(some_pythons.get('John'))
+# print(some_pythons.get('Groucho', 'Not there'))  # 해당 key에 상흥하는 value가 없을때.
+# print(some_pythons.get('Groucho')) # None을 반환한다.
 
 
+""" Get All Keys with keys()
+keys() function을 통해 dictionary 내에 모든 key를 얻을 수 있다.
+다음에서는 좀 다른 dictionary sample을 사용 할 것이다."""
+
+# signals = {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
+# print(signals.keys())  # list로 변경시키고 싶다면 list(signals.keys())를 사용하자!
+# print(list(signals.keys()))
 
 
+"""Get All Values with values()
+values()를 통해서도 얻을 수 있다."""
+
+# print(list(signals.keys()))  # key
+# print(list(signals.values()))  # key에 상응하는 value
 
 
+"""Get All Key-Value Pairs with items()
+dictionary 에서 key-value pair를 얻고싶다면 items() 함수를 사용하라."""
+
+# print(list(signals.items()))  # tuple의 형태로 return 된다.
 
 
+"""Get Length with len()"""
+
+# print(len(signals))  # key-value pair의 개수를 알려줌.
 
 
+"""Combine Dictionaries with {**a, **b)
+dictionarie를 merge 하는 새로운 형식의 방법이다."""
+
+# first = {'a': 'agony', 'b': 'bliss'}
+# second = {'b': 'bagels', 'c': 'candy'}
+# print({**first, **second})
+#
+# third = {'d': 'donuts'}
+# print({**first, **second, **third})
 
 
+"""Combine Dictionaries with update()
+한 dictionary 에서 다른 dictionary로 key와 value를 복사하고 싶을때
+update() function을 사용할 수 있다."""
 
-
-
-
-
-
+# pythons = {
+#     'Chapman': 'Graham',
+#     'Cleese': 'John',
+#     'Gilliam': 'Terry',
+#     'Idle': 'Eric',
+#     'Jones': 'Terry',
+#     'Palin': 'Michael',
+#     }
+# print(pythons)
+#
+# others = {'Marx': 'Groucho', 'Howard': 'Moe'}
+#
+# # 이제 pythons에 others를 추가해보자.
+# pythons.update(others)
+# print(pythons)
+#
+# # 만약 second dictionary가 same key를 가지고 있으면 어떻게 될 까?
+# first = {'a': 1, 'b': 2}
+# second = {'b': 'platypus'}
+# first.update(second)
+# print(first)  # 두번째 dictionary 가 이기게 된다.
 
 
 
