@@ -704,3 +704,64 @@ Mutable Types (lists, dictionaries, and sets)들은 comprehension이 있다.
 
 """Things to Do
 다양한 종류의 실세계의 요소들을 lists, tuples, numbers, strings 등으로 나타낼 것이다."""
+
+# # 7.1
+# years_list = list(range(1998, 2004))
+# print(years_list)
+#
+# # 7.2
+# print(years_list[3])
+#
+# # 7.3
+# print(years_list[-1])
+#
+# # 7.4
+# things = ['mozzarella', 'cinderella', 'salmonella']
+#
+# # 7.5
+# things[1] = str(things[1]).capitalize()
+# # things[1] = things[1].capitalize
+# # things[1].capitalize()
+# print(things)
+#
+# # 7.6
+# things[0] = str(things[0]).upper()
+# # things[0] = things[0].upper()
+# print(things)
+#
+# # 7.7
+# del things[2]
+# # things.remove("salmonella")
+# # del things[-1]
+# print(things)
+#
+# # 7.8
+# surprise = ['Groucho', 'Chico', 'Harpo']
+#
+# # 7.9
+# surprise[-1] = surprise[-1][::-1].lower().capitalize()
+# print(surprise[-1])
+#
+# # 7.10
+# even = [number for number in range(10) if number % 2 == 0]
+# print(even)
+#
+# # 7.11
+# """ 문제 자체를 이해 못했다. 이게 대체 뭘까. 어려운 부분 복습이 필요 할 것."""
+# start1 = ["fee", "fie", "foe"]
+# rhymes = [
+#     ("flop", "get a mop"),
+#     ("fope", "turn the rope"),
+#     ("fa", "get your ma"),
+#     ("fudge", "call the judge"),
+#     ("fat", "pet the cat"),
+#     ("fog", "walk the dog"),
+#     ("fun", "say we're done"),
+#     ]
+#
+# start2 = "Someone better"
+# start1_caps = '! '.join([word.capitalize() + '!' for word in start1])
+#
+# for first, second in rhymes:
+#     print(f"{start1_caps} {first.capitalize()}!")
+#     print(f"{start2} {second}.")
