@@ -363,17 +363,48 @@ dictionary 에서도 마찬가지로 comprehension을 사용할 수 있다."""
 그리고 dictionary의 comprehension이 다소 복잡한듯? 이해가 약간 안되는 여지가 있다."""
 
 
+"""Sets
+set은 value없이 key만 있는 dictionary와 유사하다.
+보통 무언가가 존재한다 라는것만을 알고싶을때, 보통 사용되며
+key들만 있는 형태이다. 만약 key에 정보를 덧붙이고 싶으면
+value와 함께있는 dictionary를 써라."""
 
 
+"""Create with set()
+set을 만드는데는 두가지 방식이 있다.
+1. set()을 사용하기
+2. {} 사용하기.
+다음 예시를 통해 확인해보자."""
+
+# empty_set = set()
+# print('here is set:', empty_set, type(empty_set))
+#
+# even_numbers = {0, 2, 4, 6, 8}
+# print('is it set too?:', even_numbers, type(even_numbers))
+
+"""왜 empty_set 에서 {}을 사용하지 않느냐고 물을 수 있다.
+그 이유는, {}을 사용하면 empty dictionary 를 만들기 때문이다.
+이는 dictionary 가 {}에 대한 우선권을 가지고 있기 때문이며 마찬가지로
+표시될때 {}가 아닌 set()으로 나오는것도 이 이유 때문이다."""
 
 
+"""Convert with set()
+list, string, tuple이나 dictionary등의 duplicate value를 제거해서
+set으로 만들 수 있다. 다음의 예시를 통해 한번 살펴보자."""
+
+# print(set('letters'))  # 출력 결과를 보면 중복되는것도 하나만 있다.
+# print(set(['Dasher', 'Dancer', 'Prancer', 'Mason-Dixon']))
+# print(set(('Ummagumma', 'Echoes', 'Atom Heart Mother')))
+# print(set({'apple': 'red', 'orange': 'orange', 'cheery': 'red'}))
+
+# dictionary 의 경우 key만 출력 된다.
 
 
+"Get Length with len()"
+
+# reindeer = set( ['Dasher', 'Dancer', 'Prancer', 'Mason-Dixon'])
+# print('what is length of set:', len(reindeer))
 
 
-
-
-
-
-
-
+"""Add an Item with add()
+add() 함수를 통해 item을 set에 추가 시킬 수 있다."""
