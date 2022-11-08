@@ -34,19 +34,19 @@ dict를 dict() 함수로 만들어보기.
 너무 많은 quote와 curly bracket은 입력하기만 번거로울 뿐이다.
 따라서 이를 방지하기 위해 dict() function이 있다."""
 
-# # traditional way
+# # 기존의 방식
 # acme_customer = {'first': 'While', 'middle': 'E', 'last': 'Coyote'}
 # print(acme_customer)
-#
-# # using dict
+
+# # dict() 함수이용.
 # name = dict(Doo='HanEol', Lee='HaNa', Yee='MinHo')
 # acme_customer = dict(first="While", second="E", last="Coyote")
 # print('what is type of name: ', type(name))
 # print(name)
 # print(acme_customer)
-#
-# # 이때 argument name은 반드시 legal variable names 이여야한다.
-# # no space, no reserved words.
+
+# 이때 argument name은 반드시 legal variable names 이여야한다.
+# no space, no reserved words.
 
 
 """Convert with dict()
@@ -56,9 +56,9 @@ dictionary로 convert 할 수 있다. 예시와 함께 살펴보자."""
 
 # lol = [['a', 'b'], ['c', 'd'], ['e', 'f']] # list를 dict으로
 # print(dict(lol))  # 길이가 오직 2이여야만 한다. 그렇지않으면 error 발생하는 모습.
-# print(type(lol))
-# print(lol)  # 원본은 그대로인 모습.
-#
+# print('has lol changed? typed:', type(lol), '\n', 'base: ', lol)
+# 원본은 그대로인 모습.
+
 # lot = [('a', 'b'), ('c', 'd'), ('e', 'f')] # list을 dict로, tuple 인줄.
 # print(dict(lot))
 # print(type(lot))
@@ -80,7 +80,7 @@ dictionary로 convert 할 수 있다. 예시와 함께 살펴보자."""
 
 """Add or Change an item by [key]
 Dictionary에 key를 이용해 item을 바꾸거나 추가하기
-ictionary에 item을 추가하는 것은 쉽다. 그저 item을 key와 value에
+dictionary에 item을 추가하는 것은 쉽다. 그저 item을 key와 value에
 알맞게 할당해주면 된다. 이미 존재할 경우에는 대체되고, 그렇지 않으면
 새롭게 하나 추가된다. 그리고 list와 다르게 범위 걱정할 필요도 없다.
 한번 예시를 한번 해보자."""
@@ -96,19 +96,19 @@ ictionary에 item을 추가하는 것은 쉽다. 그저 item을 key와 value에
 # print(pythons['Chapman'])  # key를 이용해 value를 호출하는 모습.
 #
 # # 이때 우리가 Terry Gilliam 을 빼먹었다고 가정, 넣으려고 해보자.
-# pythons['Gilliam'] = 'Gerry' # key와 value를 삽입.
+# pythons['Gilliam'] = 'Gerry'  # key와 value를 삽입.
 # print(pythons)
-# pythons['Gilliam'] = 'Terry' # 변경됨.
+# pythons['Gilliam'] = 'Terry'  # 변경됨.
 # print(pythons)
-#
-# # key는 unique 한것으로, 만약 중복된다면 last key만이 출력이 된다.
+
+# key는 unique 한것으로, 만약 중복된다면 last key만이 출력이 된다.
 # some_pythons = {
 #     'Graham': 'Chapman',
 #     'John': 'Cleese',
 #     'Eric': 'Idle',
 #     'Terry': 'Gilliam',
 #     'Michael': 'Palin',
-#     'Terry': 'Jones' # Terry가 두개이고 Gilliam, Jones 중 Jones가 출력. 순서에 유의.
+#     'Terry': 'Jones'  # Terry가 두개이고 Gilliam, Jones 중 Jones가 출력. 순서에 유의.
 # }
 # print(some_pythons)
 
@@ -128,19 +128,20 @@ dictionary의 가장 흔한 사용법이기도 하다.
 # }
 
 # print(some_pythons['John'])
-# print(some_pythons['Groucho'])
+# print(some_pythons['Groucho'])  # 찾고자하는 key 값이 존재하지 않을경우.
+
 """ 찾고자 하는게 존재하지 않을 경우 exception이 발생하는데 이를 피하는 방법이 있다."""
-# # 1. 'in'을 통해 해당하는게 있는지 확인하기.
+# 1. 'in'을 통해 해당하는게 있는지 확인하기.
 # print('is it there \'Groucho\'?: ', 'Groucho' in some_pythons)
-#
-# # 2. get()을 사용해서 key를 통해 value를 얻기.
-# print(some_pythons.get('John')) # key를 입력하면 value가 반환됨.
+
+# 2. get()을 사용해서 key를 통해 value를 얻기.
+# print(some_pythons.get('John'))  # key를 입력하면 value가 반환됨.
 # print(some_pythons.get('Groucho', 'Not there'))  # 해당 key에 상흥하는 value가 없을때.
-# print(some_pythons.get('Groucho')) # None을 반환한다.
+# print(some_pythons.get('Groucho'))  # None을 반환한다.
 
 
 """ Get All Keys with keys()
-key() 함수를 통해 dictionary 내의 모든 key 얻기.
+keys() 함수를 통해 dictionary 내의 모든 key 얻기.
 keys() function을 통해 dictionary 내에 모든 key를 얻을 수 있다.
 다음에서는 좀 다른 dictionary sample을 사용 할 것이다."""
 
@@ -152,6 +153,7 @@ keys() function을 통해 dictionary 내에 모든 key를 얻을 수 있다.
 """Get All Values with values()
 values()를 통해서도 얻을 수 있다."""
 
+# signals = {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
 # print(signals)
 # print(list(signals.keys()))  # key
 # print(list(signals.values()))  # key에 상응하는 value
@@ -160,6 +162,7 @@ values()를 통해서도 얻을 수 있다."""
 """Get All Key-Value Pairs with items()
 dictionary 에서 key-value pair를 얻고싶다면 items() 함수를 사용하라."""
 
+# signals = {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
 # print(signals.items())
 # print(list(signals.items()))  # tuple의 형태로 return 된다.
 
@@ -174,13 +177,14 @@ dictionarie를 merge 하는 새로운 형식의 방법이다."""
 
 # first = {'a': 'agony', 'b': 'bliss'}
 # second = {'b': 'bagels', 'c': 'candy'}
-# exam = {**first, **second} # 두 dict를 합치는 모습.
+# exam = {**first, **second}  # 두 dict를 합치는 모습.
+# """ test = first + second, dict 에서 '+'는 지원하지 않는다. """
 #
 # print(exam)
 # print({**first, **second})
 #
 # third = {'d': 'donuts'}
-# print({**first, **second, **third})
+# print({**first, **second, **third}) # 3개 더하기도 가능.
 
 
 """Combine Dictionaries with update()
@@ -214,8 +218,17 @@ update() function을 사용할 수 있다."""
 여기서는, dictionary 내에의 item을 del 명령어를 통해
 제거하는 방법에 대해 알아 볼것이다."""
 
+# pythons = {
+#     'Chapman': 'Graham',
+#     'Cleese': 'John',
+#     'Gilliam': 'Terry',
+#     'Idle': 'Eric',
+#     'Jones': 'Terry',
+#     'Palin': 'Michael',
+#     }
+#
 # print(pythons)
-# del pythons['Marx']
+# del pythons['Palin']
 # print(pythons)
 
 
@@ -232,7 +245,7 @@ key를 얻어낼 수 있다. get()과 del의 combine 이라고도 볼 수 있다
 #     'Jones': 'Terry',
 #     'Palin': 'Michael',
 #     }
-
+#
 # print('length of pythons before pop():', len(pythons))
 # exam = pythons.pop('Palin')
 # print('pop has done, what extracted:', exam)
@@ -246,10 +259,19 @@ dictionary의 모든 item을 제거하고 싶으면 두개의 방법이 있다.
 1. clear() 함수를 사용하거나.
 2. empty dictionary 를 재 할당하거나."""
 
+# pythons = {
+#     'Chapman': 'Graham',
+#     'Cleese': 'John',
+#     'Gilliam': 'Terry',
+#     'Idle': 'Eric',
+#     'Jones': 'Terry',
+#     'Palin': 'Michael',
+#     }
+#
 # print(pythons)
-# pythons = {}
+# pythons = {}  # empty dictionary 사용.
 # print('python deleted:', pythons)
-# pythons.clear()
+# pythons.clear()  # clear() 사용.
 # print('python deleted:', pythons)
 
 
@@ -274,16 +296,25 @@ list를 통해서 dictionary를 통해 변경이 일어나면, 모두 반영/적
 
 # signals = dict(green='go', yellow='go faster', red='smile for the camera')
 # save_signals = signals
+#
+# print('this is copy:', save_signals)
+# print('this is prototype:', signals)
+#
 # signals['Blue'] = 'confuse everyone'
-# print(save_signals)  # 놀랍게도 save_signals 도 마찬가지로 변경된 모습.
+# print('this is copy', save_signals)  # 놀랍게도 save_signals 도 마찬가지로 변경된 모습.
 
 
 """Copy with copy()
 위에서 겪은 복사본까지 변하는 경험을 copy() 함수를 통해 방지 할 수 있다."""
+
 # signals = dict(green='go', yellow='go faster', red='smile for the camera')
 # original_signals = signals.copy()
+#
+# print('prototype:', signals)
+# print('copy:', original_signals)
+#
 # signals['Blue'] = 'hey stop'
-# print('is it same?:', (signals == original_signals))
+# print('After changed, is it same?:', (signals == original_signals))
 
 """위의것은 shallow copy라고 하는데, dictionary values 들이 immutalbe 일경우
 에 해당한다. 만약에 그들이 mutable 이라면 deepcopy()를 사용해야 한다."""
@@ -296,10 +327,13 @@ list를 통해서 dictionary를 통해 변경이 일어나면, 모두 반영/적
 #            'yellow': 'go faster',
 #            'red': ['stop', 'smile'], }
 #
-# signals_copy = signals.copy()
+# signals_copy = signals.copy()  # 원본을 보존.
+# print(signals)
+# print(signals_copy)
+#
 # signals['red'][1] = 'sweat'
-# print('is it equal?: ', (signals_copy == signals))  # 똑같이 바뀌었다. 문제 발생!
-
+# print(signals)
+# print(signals_copy) # copy도 같이 바뀌어버린 상황.
 # deepcopy 를 사용하면 list와 같이 mutable variable도 변하는 것을 방지할 수 있다.
 
 # import copy
@@ -309,7 +343,8 @@ list를 통해서 dictionary를 통해 변경이 일어나면, 모두 반영/적
 #
 # signals_copy = copy.deepcopy(signals)
 # signals['red'][1] = 'hello'
-# print('is it same? signals vs signals_copy:', (signals_copy == signals))
+# print('signals:', signals)
+# print('signals_copy:', signals_copy)
 # # list 내용도 변하지 않은 모습! 잘 알아두자.
 
 
@@ -324,8 +359,8 @@ list와 tuple처럼 dictionary도 '==' 와 '!=:' 로 비교 할 수 있다."""
 """Iterate with for and in.
 dictionary 에서 iterate 하는것은 key 를 return 한다."""
 
-# accusation = {'room': 'ballroom', 'weapon': 'lead pipe',
-#               'person': 'Col. Mustard'}
+accusation = {'room': 'ballroom', 'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
 
 # for card in accusation.keys():
 # for card in accusation.values():  # 이 경우에는 value 값들이 출력 된다.
@@ -408,3 +443,148 @@ set으로 만들 수 있다. 다음의 예시를 통해 한번 살펴보자."""
 
 """Add an Item with add()
 add() 함수를 통해 item을 set에 추가 시킬 수 있다."""
+
+# s = set((1,2,3))
+# d = s.copy()
+# s.add(4)
+# print('before:', d, 'after:', s)
+
+
+"""Delete an Item with remove()
+set내에 있는 value를 삭제할 수 있는 remove()가 있다."""
+
+# s = set((1,2,3))
+# d = s.copy()
+# s.remove(3)
+# print('before:', d, 'after:', s)
+
+
+"""Iterate with for and in
+dictionary 처럼 반복을 할 수 있다."""
+
+# furniture = set(('sofa', 'ottoman', 'table'))
+# for piece in furniture:
+#     print(piece)
+
+
+"""Test for a Value with in
+set의 가장 흔한 사용법중 하나이다. 다음의 예시를 잘보라."""
+
+# drinks = {
+#     'martini': {'vodka', 'vermouth'},
+#     'black russian': {'vodka', 'kahlua'},
+#     'white russian': {'cream', 'kahlua', 'vodka'},
+#     'manhattan': {'rye', 'vermouth', 'bitters'},
+#     'screwdriver': {'orange juice', 'vodka'},
+#     }
+#
+# # curly brace로 감싸여있어도, set은 그저 value 덩어리 일 뿐이다.
+#
+# # vodka가 들어있는 음료는 무엇이 있을까.
+# for name, contents in drinks.items():
+#     if 'vodka' in contents:
+#         print(name)
+#
+# # vodka를 원하긴 하지만, 유당불내증이 있고 vermouth 가 먹기싫을때.
+# for name, contents in drinks.items():
+#     if 'vodka' in contents and not ('vermouth' in contents
+#                                     or 'cream' in contents):
+#         print(name)
+
+
+"""
+Combinations and Operators.
+set values의 combinations을 확인하고 싶을땐 어떻게 해야 할까?
+ex) orange juice 나 vermouth을 지닌 음료를 찾고 싶을때.
+이때는 set intersection operator (&)를 사용해야 한다.
+"""
+
+drinks = {
+    'martini': {'vodka', 'vermouth'},
+    'black russian': {'vodka', 'kahlua'},
+    'white russian': {'cream', 'kahlua', 'vodka'},
+    'manhattan': {'rye', 'vermouth', 'bitters'},
+    'screwdriver': {'orange juice', 'vodka'},
+    }
+
+# for name, contents in drinks.items():
+#     if contents & {'vermouth', 'orange juice'}:
+#         print(name)
+
+"""
+ 간소화 되기 이전의 것.
+for name, contents in drinks.items():
+    if 'vodka' in contents and not ('vermouth' in contents 
+                                    or 'cream' in contents):
+        print(name)
+"""
+
+# for name, contents in drinks.items():
+#     if 'vodka' in contents and not contents & {'vermouth', 'cream'}:
+#         print(name)
+
+# bruss = drinks['black russian']
+# wruss = drinks['white russian']
+
+# 마찬가지로 intersection function (&)를 이용, 공통된 것을 뽑아낼 수 있다.
+# a = {1, 2}
+# b = {2, 3}
+# print(a & b)  # 부호를 이용한 방법.
+# print(a.intersection(b))  # 함수를 이용한 방법.
+# print(bruss & wruss)
+# print(bruss.intersection(wruss))
+
+
+"""
+Union을 사용하는것에는 두가지 방식이다. 논리회로 에서 배운 OR과 같은 느낌.
+1. '|'를 사용하기.
+2. union() 함수를 사용하기.
+"""
+
+bruss = drinks['black russian']
+wruss = drinks['white russian']
+
+a = {1, 2}
+b = {2, 3}
+print(a | b)  # 1, 2, 3
+print(a.union(b))  # 1, 2, 3
+print(bruss | wruss)
+
+
+"""
+difference(members of the first set but not the second)
+1. '-' 기호 사용.
+2. difference() function 사용.
+"""
+
+print(a - b)
+print(a.difference(b))
+print('burss:', bruss, ',wruss:', wruss)
+print(bruss - wruss)
+print(wruss - bruss)
+
+"""
+이와 같이 대부분의 set 의 operations 들은 대표적으로
+다음와 같이 union, intersection, difference('|', '&', '-')를 사용한다.
+다른 예제가 나오기는 하지만, 거의 사용하지 않는다고 보면 된다.
+"""
+
+"""
+exclusive or(items in one set or other, but not both)
+1. '^' 기호를 사용
+2. symmetric_difference() 함수.
+"""
+
+print('a:', a, ', b:', b)
+print('a ^ b:', (a ^ b))
+print('a symmetric_difference b:', (a.symmetric_difference(b)))
+print('bruss ^ wruss:', (bruss ^ wruss))
+
+
+"""
+어느 set이 다른 set의 subset인지 확인하는 방법.
+1. '<=' 사용하기.
+2. issubset() 함수 사용.
+"""
+
+print('is a<=b ?', (a <= b), ',', (a.issubset(b)))
