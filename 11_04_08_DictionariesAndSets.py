@@ -546,9 +546,9 @@ wruss = drinks['white russian']
 
 a = {1, 2}
 b = {2, 3}
-print(a | b)  # 1, 2, 3
-print(a.union(b))  # 1, 2, 3
-print(bruss | wruss)
+# print(a | b)  # 1, 2, 3
+# print(a.union(b))  # 1, 2, 3
+# print(bruss | wruss)
 
 
 """
@@ -557,11 +557,11 @@ difference(members of the first set but not the second)
 2. difference() function 사용.
 """
 
-print(a - b)
-print(a.difference(b))
-print('burss:', bruss, ',wruss:', wruss)
-print(bruss - wruss)
-print(wruss - bruss)
+# print(a - b)
+# print(a.difference(b))
+# print('burss:', bruss, ',wruss:', wruss)
+# print(bruss - wruss)
+# print(wruss - bruss)
 
 """
 이와 같이 대부분의 set 의 operations 들은 대표적으로
@@ -575,10 +575,10 @@ exclusive or(items in one set or other, but not both)
 2. symmetric_difference() 함수.
 """
 
-print('a:', a, ', b:', b)
-print('a ^ b:', (a ^ b))
-print('a symmetric_difference b:', (a.symmetric_difference(b)))
-print('bruss ^ wruss:', (bruss ^ wruss))
+# print('a:', a, ', b:', b)
+# print('a ^ b:', (a ^ b))
+# print('a symmetric_difference b:', (a.symmetric_difference(b)))
+# print('bruss ^ wruss:', (bruss ^ wruss))
 
 
 """
@@ -587,4 +587,130 @@ print('bruss ^ wruss:', (bruss ^ wruss))
 2. issubset() 함수 사용.
 """
 
-print('is a<=b ?', (a <= b), ',', (a.issubset(b)))
+# print('is a <= b ?', (a <= b), ',', (a.issubset(b)))
+# print('is bruss < wruss ?:', (bruss <= wruss))
+
+# 그리고 자기자신은 자기자신의 subset 이기도하다.
+# print('is a<=a ?', (a <= a))
+
+
+"""
+Proper subset
+만약 proper subset이 되고자 한다면 다른 subset의 모든멤버를
+가지고 있어야 할뿐만 아니라, 더 가지고 있어야 한다.
+1. '<' 기호를 사용.
+"""
+
+# print('is a<b?', (a < b))
+# print('is a<a?', (a < b)) # subset의 것과는 다른 모습. a <= a 는 True.
+# print('is bruss < wruss ?', (bruss < wruss))
+
+# 이외에도 '>'나 '>='같은 다양한게 있지만, 거기서 거기므로 일단 패스.
+
+
+"""
+Set Comprehensions.
+set comprehension의 표현
+1. { expression for expression in iterable }
+2. { expression for expression in iterable if condition }
+간단한 것들은 list나, dictionary의 comprehension 과도 유사하다.
+"""
+
+# a_set = { number for number in range(1,6) if number % 3 == 1 }
+# print(a_set)
+
+
+"""
+Create an Immutable Set with frozenset()
+frozenset() 함수를 이용해서, 변하지 않는 set을 만들 수 있다.
+"""
+
+# print(frozenset((1,2,3)))
+# print(frozenset([1,2,3]))
+# print(frozenset({1,2,3}))
+# # 모두 동일한 frozenset 으로 출력되는 모습을 볼 수 있다.
+#
+# fs = frozenset([1,2,3])
+# # fs.add(4) # error가 발생한다. why. 변경이 안되니까!
+#
+# fd = {1,2,3}
+# fd.add(4)
+# print(fd)
+# # 반대로 정상작동 되는 모습.
+
+
+"""
+Data Structures So Far.
+list, tuple, dictionary 들은 index(list,tuple)로 접근 가능하거나
+혹은 key(dictionary)를 통해 접근 가능하다.
+반면에 set은 index나 key 등은 없다.
+"""
+
+# test_list = ['Hello', 'This', 'is']
+# test_tuple = ('Hello', 'This', 'is')
+# test_dict = {'Hello': 'World', 'This': 'what', 'is': 'you'}
+# test_set = {'Hello', 'this', 'is'}
+
+# print(test_list[2])
+# print(test_tuple[0])
+# print(test_dict['Hello'])
+# print(test_set) # test_set[0]시 오류가 발생하는 모습.
+# print(('Hello' in test_list))
+# print(('Hello' in test_tuple))
+# print(('Hello' in test_dict))
+# print(('Hello' in test_set))
+
+
+"""
+Make Bigger Data Structures
+우리는 boolean, number, string등을 list, tuple, set, dictionry 등에 결합해 사용해왔고
+앞으로는 더더욱 복잡하고 크기가 큰것을 다뤄볼 것이다.
+"""
+
+# marxes = ['Groucho', 'Chico', 'Harpo']
+# pythons = ['Chapman', 'Cleese', 'Gilliam', 'Jones', 'Palin']
+# stooges = ['Moe', 'Curly', 'Larry']
+
+# 위의 list들을 요소로 갖는 tuple을 만들기
+# tuple_of_list = (marxes, pythons, stooges)
+# tuple_of_list = marxes, pythons, stooges  # 위와 아래는 무슨 차이가 있을까?
+# print(tuple_of_list)
+#
+# list_of_lists = [marxes, pythons, stooges]  # tuple 과는 다르게 []과 명시되는 모습.
+# print(list_of_lists)
+#
+# dict_of_lists = {'Marxs': marxes, 'Pythons': pythons, 'Stooges': stooges}
+# print(dict_of_lists)
+
+""" 여기서 제한점은 오직 data type 뿐이다. 예를 들어
+dictionary의 key는 immutable로, list나 set, dictionary는
+key가 될수가 없다. 하지만 tuple은 가능하다라는 것에 주의하라."""
+
+
+"""Things to Do"""
+
+""" 8.1 """
+# e2f = dict(dog='chien', cat='chat', walrus='morse')
+e2f = {'dog': 'chien', 'cat': 'chat', 'walrus': 'morse'}
+# print(type(e2f), e2f)
+
+""" 8.2 """
+# print(e2f['walrus'])
+
+""" 8.3 Make a French-to-English dictionary called f2e from 2ef.
+Use the items method. """
+
+f2e = {}
+for english, french in e2f.items():
+    f2e[french] = english  # f2e = {french:english} 했더니 아님.
+# print(f2e)
+
+""" 8.4 Print the English equivalent of the French word chien """
+# print(f2e['chien'])
+
+""" 8.5 Print the set of English words from e2f. """
+# print(e2f.keys())
+
+""" 8.6 """
+
+
