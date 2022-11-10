@@ -709,8 +709,67 @@ for english, french in e2f.items():
 # print(f2e['chien'])
 
 """ 8.5 Print the set of English words from e2f. """
-# print(e2f.keys())
+# print(set(e2f.keys()))
 
-""" 8.6 """
+""" 8.6 """ # 내가 생각한것과는 달랏다.
+# animal = dict(cats=['Henri', 'Grumpy', 'Lucy'], octopi={}, emus={})
+# life = dict(animals=animal, plants={}, other={})  # multi lv dictionary
+# print(life)
+
+#정답
+life = {
+    'animals': {
+        'cats': ['Henri', 'Grumpy', 'Lucy'],
+        'octopo': {},
+        'emus': {},
+    },
+    'plants': {},
+    'other': {},
+}
+# dict에서 빈공간을 표시할때 ''가 아닌 {}으로 나타내도록 하자.
+
+""" 8.7 Print the top-level keys of life"""
+# print(life.keys())
+
+""" 8.8 Print the keys for life['animals']"""
+# print(life['animals'].keys())
+
+""" 8.9 Print the values for life['animals']['cats'] """
+# print(animals('cats'))  # 'dict' object is not callable 오류 발생.
+# print(life['animals']['cats'])
+
+""" 8.10 """
+# squares = {number: number*number for number in range(10)}
+# print(squares)
+
+""" 8.11 """
+# exam_set = {number for number in range(10) if number % 2 == 1}
+# print(exam_set)
+
+""" 8.12 """
+# 땡 완전 틀렸다.
+# for thing in ('Got %s' % number for number in range(10)):
+#     print(thing)
+
+""" 8.13 """
+# exam_keys = ('optimist', 'pessimist', 'troll')
+# exam_values = ('The glass is half full', 'The glass is half empty', 'How did you get a glass?')
+
+# exam_dict = {keys: values for keys, values in zip(exam_keys, exam_values)}
+# exam_dict = dict(zip(exam_keys,exam_values))  # 이게정답. 존나 간단하다.
+# print(exam_dict)
+
+""" 8.14 """
+# titles = ['Creature of Habit', 'Crewel Fate', 'Sharks On a Plane']
+# plots = ['Anun turn into a monster', 'A haunted yarn shop', 'Check your exits']
+# movies = {titles: plots for titles, plots in zip(titles, plots)}
+# movies = dict(zip(titles, plots))
+# print(movies)
+
+
+
+
+
+
 
 
