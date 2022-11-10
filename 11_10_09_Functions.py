@@ -233,8 +233,8 @@ def print_kwargs(**kwargs):
     print('keyword arguments:', kwargs)
 
 
-print(print_kwargs())
-print(print_kwargs(wine='merlot', entree='mutton', dessert='macaroon'))
+# print(print_kwargs())
+# print(print_kwargs(wine='merlot', entree='mutton', dessert='macaroon'))
 
 """ Argument의 order는 다음과 같다.
 1. Required Positional arguments: 함수 선언시 명시한 것들
@@ -245,7 +245,25 @@ print(print_kwargs(wine='merlot', entree='mutton', dessert='macaroon'))
 
 
 """ Keyword-Only Arguments
+무슨소린지 모르겠다, 예시를 통해좀 알아보자."""
+
+
+def print_data(data, *, start=0, end=100):
+    for value in (data[start:end]):
+        print(value)
+
+
+""" 여기서 *가 의미하는것은 다음의 start와 end 는 그들의 default 값이
+쓰고싶은게 아니라면 named arguments로 제공되어야 한다는것을 의미한다. 
+다음의 예시를 통해 한번 같이 살펴보자."""
+data = ['a', 'b', 'c', 'd', 'e', 'f']
+# print_data(data)
+# print_data(data, start=4)
+# print_data(data, start=1)
+# print_data(data, end=2)
+
+# data는 반드시 들어가지만 * 다음의 두 변수들은 들어가기도, 생략되기도 한다.
+
+
+""" Mutable and Immutable Arguments
 """
-
-
-
