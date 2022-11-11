@@ -84,12 +84,14 @@ None은 python의 특별한 value로 아무것도 없음을 나타낼때 쓰인�
 #     print("It's no thing")
 
 # 반면에 이 예시에서는 None이 false 취급이 아니다.
+# 'is' operator 를 사용한 모습이다.
+
 # thing = None
 # if thing is None:
 #     print("It's Nothing")
 # else:
 #     print("It's Something")
-# 'is' operator 를 사용한 모습이다.
+
 
 """ None이 필요한 이유는, empty value와 missing value를 구분하기 위함이다.
 분명 입력이 잘못됐을수는 있지만, 이는 없는것과는 다르기 때문이다."""
@@ -123,15 +125,13 @@ python은 function argument를 여타 언어와 다르게 매우 융통성있게
 이것은 value가 대응되는 parameter 에 순서대로 들어가는 것이다.
 예시를 통해 알아보자 """
 
+# 매우 흔하지만, positional argument의 단점은 위치를 기억해줘야 한다는 것이다.
+# 그렇지 않으면 의도된 바와 다르게, 의미가 매우 달라질 것이다. 다음 예시를 보라'
+
 # def menu(wine, entree, dessert):
 #     return {'wine': wine, 'entree': entree, 'dessert': dessert}
-
-
+#
 # print(menu('chardonay', 'chicken', 'cake', ))
-#
-# # 매우 흔하지만, positional argument의 단점은 위치를 기억해줘야 한다는 것이다.
-# # 그렇지 않으면 의도된 바와 다르게, 의미가 매우 달라질 것이다. 다음 예시를 보라
-#
 # print(menu('beaf', 'bagel', 'bordeaux'))  # 와인이 beef가 됐다!
 
 
@@ -140,8 +140,9 @@ keyword Arguemnts 는 앞서말한 positional argument 의 혼란은 피하기 �
 argument에 상응되는 parameter 를 명시해서, 순서가 달라도 제대로 출력되게
 하는 것이다. 다음 예시를 보자. """
 
-# print(menu(entree='beef', dessert='bagel', wine='bordeaux'))
 # 순서는 다를지 언정 제대로 매칭시켜줬기 때문에 정상 출력될 것이다.
+# 함수 자체에는 별 차이가 없다, 하지만 call 하는 과정에서 차이가 생기는 것.
+# print(menu(entree='beef', dessert='bagel', wine='bordeaux'))
 
 
 """ Specify Default Parameter Values
@@ -154,11 +155,12 @@ def menu(wine, entree, dessert='pudding'):
     return {'wine': wine, 'entree': entree, 'dessert': dessert, }
 
 
-# print(menu('chardonnay', 'chicken'))
 # default value 가 있어서 정상출력 되는 모습이다.
+# print(menu('chardonnay', 'chicken'))
 
-# print(menu('chardonnay', 'chicken', 'coffee'))
 # argument를 넣으면 기존의 default value가 대체된다.
+# print(menu('chardonnay', 'chicken', 'coffee'))
+
 
 """default 변수는 immutable variable로 설정해야 하며,
 초보 python programmer가 종종 list나 dictionary와 같이
@@ -183,13 +185,14 @@ def works(arg):  # 이곳에서 result를 선언하면 안된다.
 """ Explode/Gather Positional Arguments with *(asterisk)
 c, c++ 에서와 다르게 파이썬에서의 *는 기능이 다르다.
 파이썬에서 *는 여러개의 positional arguments를
-single tuple of parameter values로 바꿔준다. """
+single tuple of parameter values로 바꿔준다.
+혹은 함수외부에서 사용시 explode 의 기능을 보인다."""
 
 
 def print_args(*args):
     print('Positional Tuples:', args)
 
-
+# print_args('beyond', 'compare')
 # print_args(1, 2, 3, 'wait', 'hello', 'Doo')  # 놀랍게도 모두 출력된다!
 
 """ 이처럼 *는 매우 유용한데, function이 positional arguments를
@@ -206,16 +209,17 @@ def print_args(*args):
 #     print('All the rest', abcd)
 
 # print_more('essential', 'essential', 1, 2, 3, 'ahrararara')
+# print_more('not')  # args를 제외한 positional argument보다 적은 수의 argument를 넣었을 때.
 
 """ 또한 *args는 function의 inside냐 outside냐에 따라 그 기능도 달라진다.
 inside의 경우 values들을 gather 하는 기능을하고
 outside 에서는 valuse들을 explode 시킨다. """
 
-# *args를 통해 explode 시키는 모습
-
 """ 또한 *args는 다음과 같은 2가지의 경우에만 사용가능 하다는것에 주의해라. 
 1. function call
 2. function definition. """
+# *args를 통해 explode 시키는 모습
+
 # print_args(2, 5, 7, 'x')
 # args = (2, 5, 7, 'x')
 # print_args(args)
@@ -233,6 +237,7 @@ def print_kwargs(**kwargs):
     print('keyword arguments:', kwargs)
 
 
+# 내부의 선언이 보다 간단해졌고, dict 의 형태로 return 됨을 알 수 있다.
 # print(print_kwargs())
 # print(print_kwargs(wine='merlot', entree='mutton', dessert='macaroon'))
 
@@ -256,6 +261,7 @@ def print_data(data, *, start=0, end=100):
 """ 여기서 *가 의미하는것은 다음의 start와 end 는 그들의 default 값이
 쓰고싶은게 아니라면 named arguments로 제공되어야 한다는것을 의미한다. 
 다음의 예시를 통해 한번 같이 살펴보자."""
+
 data = ['a', 'b', 'c', 'd', 'e', 'f']
 # print_data(data)
 # print_data(data, start=4)

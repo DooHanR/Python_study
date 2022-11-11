@@ -717,15 +717,16 @@ for english, french in e2f.items():
 # print(life)
 
 #정답
-life = {
-    'animals': {
-        'cats': ['Henri', 'Grumpy', 'Lucy'],
-        'octopo': {},
-        'emus': {},
-    },
-    'plants': {},
-    'other': {},
-}
+# life = {
+#     'animals': {
+#         'cats': ['Henri', 'Grumpy', 'Lucy'],
+#         'octopo': {},
+#         'emus': {},
+#     },
+#     'plants': {},
+#     'other': {},
+# }
+
 # dict에서 빈공간을 표시할때 ''가 아닌 {}으로 나타내도록 하자.
 
 """ 8.7 Print the top-level keys of life"""
