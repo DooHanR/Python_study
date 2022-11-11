@@ -272,4 +272,384 @@ data = ['a', 'b', 'c', 'd', 'e', 'f']
 
 
 """ Mutable and Immutable Arguments
-"""
+list는 할당후에도 변경이 가능했지만, integer나 string은
+할당후에는 변경이 불가능하다. 이들이 Mutable, Immutable 의 특징을 갖고 있기 때문이다.
+이는 function에 argument를 passing 할때도 마찬가지다.
+
+만약 argument가 mutable 이라면, value는 function 내부에서 상응하는 parameter
+를 통해서 변경될 수 있다. 다음의 예시를 참고해보자."""
+
+outside = ['one', 'fine', 'day']
+
+
+def mangle(arg):
+    arg[1] = 'terrible!'
+
+
+# 이렇게 하지 않는게 바람직하다. 변경이 마구잡이로 일어나기 때문.
+# print(outside)
+# mangle(outside)
+# print(outside)
+
+
+""" Docstrings
+function body의 시작 부분에 string을 넣어 함수에 대한 document를
+추가 해줄 수 있다. 또한, 매우 길게 설정할 수도 있으며(세개의 따옴표를 이용)
+python의 help 함수를 통해 이러한 docstrings를 불러올 수 있다.
+다음 예시를 보자."""
+
+
+def echo(anything):
+    'echo return its input argument'
+    return anything
+
+
+# print(echo('get out!'))
+# print(help(echo))  # help 명령어를 통해 함수에대한 docstring을 출력할 수 있다.
+# print(echo.__doc__)  # formatting 없이 docstring 출력하는 방법
+
+""" __doc__ 는 docstring의 python internal variable이다.
+이러한 double underscore('__')는 많은 python 내부 변수로 사용되므로
+잘 알아두도록 하자. """
+
+
+""" Functions Are First-Class Citiznes
+python 에서는 심지어 함수조차도 object로 취급된다.
+이점을 이용해서 변수를 할당하거나, 다른 함수의 argument로 사용하거나
+return 조차 할 수 있기 때문에 여타 다른 언어에서 할 수 없었던,
+혹은 어려웠던 것들도 python 에서는 해낼 수 있다. 
+한번 다음을 통해 실험해보자. """
+
+
+def answer():
+    print(42)
+
+
+# print(answer())는 answer()이 return 하는게 없기 때문에 none이 출력됨.
+# print(answer())
+# answer()
+
+# 함수의 매개변수로 함수를 받는 함수.
+def run_something(func):
+    func()
+
+
+# run_something(answer)
+# print(type(run_something))
+""" 이때 parentheses(괄호) 가 없는것에 주의하라. 괄호는 이 function을 호출
+하겟다는 것을 의미하는것이며, 괄호가 없다면 함수는 object 처럼 다루어진다.
+그래서 저렇게 호출이 가능해지는 것이다."""
+
+
+def add_args(arg1, arg2):
+    print(arg1 + arg2)
+
+
+def run_something_with_args(func, arg1, arg2):
+    func(arg1, arg2)
+
+
+# 여기에 *args 와 **kwargs 를 결합하는 것도 가능하다.
+# run_something_with_args(add_args, 1, 2)
+
+
+def sum_args(*args):
+    return sum(args)
+
+
+def run_with_positional_args(func, *args):
+    return func(*args)
+
+
+# print(run_with_positional_args(sum_args, 1, 2, 3, 4, 5))
+""" function 은 마찬가지로 list, tuple, set, dictionary 등의 element로
+사용 할 수 있으며, 또한 immutable 요소 이기 때문에 dictionary의 key로도 
+사용이 가능하다."""
+
+
+""" Inner Functions.
+function 내부에 function 을 정의 할 수 있다."""
+
+
+def outer(a, b):
+    def inner(c, d):
+        return c + d
+    return inner(a, b)
+
+
+print(outer(4, 7))
+
+"""Inner function은 다른 function과 함께 복잡한 task를 처리할때 특히 유용하다.
+Inner function을통해 loop나, code duplication 을 방지 할 수 있다.
+다음의 예시를 한번 보자. """
+
+
+def knights(saying):
+    def inner(quote):
+        return f"We are the Knights who say: {quote}"  # fstring.
+    return inner(saying)
+
+
+print(knights('Yo!'))
+
+
+""" Closures 
+내부의 function은 closure 로 작동될 수 있다.
+closure function은 다른 function에 의해 동적으로 생성된 function 으로
+외부에서 생성된 변수의 value를 변경하거나, 혹은 저장할 수 있다."""
+
+"""다음의 예시를 한번 살펴보자. 여기서 몇가지 차이점이 있다.
+1. inner2()는 외부의 saying parameter를 인자로 받지않고 바로 사용한다
+2. knights2()는 이전과 다르게 function call을 return 하는게 아니라
+함수 자체의 이름을 리턴한다."""
+
+
+def knights2(saying):
+    def inner2():
+        return f"We are the knights who say: {saying}"
+    return inner2
+
+
+""" 내부의 inner2() function은 saying value가 passed 됐음을 알고있고, 이를
+기억한다. 그 이후 return inner2 라인에서는 inner2 function의 specialized copy
+를 return 한다.
+ 이를 어디서 왔는지를 기억하는 동적으로 생성된 closure 라고 한다."""
+
+a = knights2('Duck')
+b = knights2('Hasenpfeffer')
+
+print('a:', type(a), 'b:', type(b))  # 함수가 리턴되기 때문에 a, b는 함수가된다.
+
+# 함수가 리턴 됐기 때문에 함수 호출이 된다
+print(a())
+print(b())
+
+
+""" Anonymous Functions:lambda 
+python 에서 lambda function은 single statement로 나타낼 수 있는
+이름이 없는 function 이다. 자세한건 다음의 예시를 통해 알아보자. """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
