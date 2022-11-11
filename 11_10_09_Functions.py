@@ -377,7 +377,7 @@ def outer(a, b):
     return inner(a, b)
 
 
-print(outer(4, 7))
+# print(outer(4, 7))
 
 """Inner function은 다른 function과 함께 복잡한 task를 처리할때 특히 유용하다.
 Inner function을통해 loop나, code duplication 을 방지 할 수 있다.
@@ -390,7 +390,7 @@ def knights(saying):
     return inner(saying)
 
 
-print(knights('Yo!'))
+# print(knights('Yo!'))
 
 
 """ Closures 
@@ -415,14 +415,14 @@ def knights2(saying):
 를 return 한다.
  이를 어디서 왔는지를 기억하는 동적으로 생성된 closure 라고 한다."""
 
-a = knights2('Duck')
-b = knights2('Hasenpfeffer')
+# a = knights2('Duck')
+# b = knights2('Hasenpfeffer')
 
-print('a:', type(a), 'b:', type(b))  # 함수가 리턴되기 때문에 a, b는 함수가된다.
+# print('a:', type(a), 'b:', type(b))  # 함수가 리턴되기 때문에 a, b는 함수가된다.
 
 # 함수가 리턴 됐기 때문에 함수 호출이 된다
-print(a())
-print(b())
+# print(a())
+# print(b())
 
 
 """ Anonymous Functions:lambda 
@@ -430,145 +430,110 @@ python 에서 lambda function은 single statement로 나타낼 수 있는
 이름이 없는 function 이다. 자세한건 다음의 예시를 통해 알아보자. """
 
 
+# 일반적으로 구성했을 경우.
+def edit_story(words, func):
+    for word in words:
+        print(func(word))
 
 
+def enliven(word):
+    return word.capitalize() + '!'
 
 
+stairs = ['thud', 'meow', 'thud', 'hiss']
+# edit_story(stairs, enliven)
 
 
+# lambda 를 사용했을 경우. enliven 이라는 함수가 lambda 식으로 대체됨.
+# edit_story(stairs, lambda word: word.capitalize() + '!')
 
+""" lambda 식보다는 함수명을 사용하는게 더 나을수는 있지만 
+lambda가 유용한 경우는, 크기가 작은 여러개의 function을 정의하고
+그 이름을 기억해야 할때 그냥 한줄로 퉁칠 수 있기 때문에 
+그런 면에서는 더욱 간단하다. """
 
 
+""" Generators
+generator는 python 의 sequence creation object이다.
+generator를 통해 매우 큰 연속체를 이용할 수 있는데, 굳이
+메모리에 생성하고 저장할 필요 없이 즉석에서 사용 할 수 있다.
+ex)range(1,101) -> 다른 언어처럼 크기 100짜리를 만들 필요없이
+즉석에서 가볍게 만들고 제거됨."""
 
+# print(sum(range(1, 101)))
 
 
+""" Generator Functions
+generator function은 크기가 큰 연속체를 만들고 싶을때 사용한다.
+얼핏보면 normal function 과 유사하지만, value 를 return 할 때
+'yield' statement를 사용한다. return a말고. """
 
 
+def my_range(first=0, last=10, step=1):
+    number = first
+    while number < last:
+        yield number
+        number += step
 
 
+# print(my_range) # normal function 이긴 하다.
+ranger = my_range(1,10)
+# print(ranger) # 리턴 되는것은 generator object이다.
 
+""" 이때 generator 는 일회용이다. 메모리에 저장되지 않기 때문이다
+따라서 만약에 ranger를 두번 사용하려 하면 출력이 되지 않는걸 볼 수가 있다."""
 
+# print(list(ranger))  # 한번쓰면 사라져서 ranger 두번 사용 불가.
+for x in ranger:
+    print(x)
 
 
+""" Generator Comprehensions
+기존의 list, comprehension, set과 같이 유사하게 사용되지만
+둘러 싸고있는게 ()로, []나 {}이 아니다. 다음의 예시를 보자."""
 
+# 이 경우는 yield가 invisibly 됐다, generator object를 return 하는 경우이다.
+genobj = (pair for pair in zip(['a', 'b'], ['1', '2']))
+print(genobj)
 
+for thing in genobj:
+    print(thing)
 
 
+""" Decorators 
+decorator는 한 function을 input으로 받아서 다른 function 으로 return 하는 기능을 한다.
+보통 존재하는 function을 소스 코드의 변경없이 수정하고자 할때 사용하는 듯 하다. """
 
+""" 다음 세가지를 이용할 것이다.
+1. *args, **kwargs
+2. Inner functions
+3. Fucnitons as arguments"""
 
+"""정의되는 decorator function은 다음의 일들을 할 것이다.
+1. function의 name과 argument를 print 할 것이다. 
+2. argument 들로 function을 실행시킬 것이다.
+3. 결과를 출력
+4. modified function을 return 한다. """
 
 
+def document_it(func):
+    def new_function(*args, **kwargs):
+        print('Running function:', func.__name__)
+        print('Positional arguments:', args)
+        print('Keyword arguments:', kwargs)
+        result = func(*args, **kwargs)
+        print('Result:', result)
+        return result
+    return new_function
 
 
+def add_ints(a, b):
+    return a + b
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(add_ints(3, 5))
+cooler_add_ints = document_it(add_ints) # manual decorator assignment
+cooler_add_ints(3, 5)
 
 
 
