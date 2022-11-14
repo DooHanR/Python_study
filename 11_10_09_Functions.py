@@ -304,11 +304,12 @@ list는 할당후에도 변경이 가능했지만, integer나 string은
 
 """ Docstrings
 함수에 대한 설명을 하고싶을때, 삼중 따옴표를 이용해서 설명을 첨부 할 수 있다.
-그후 help() 명령어로, 해당 함수의 Docstring를 확인할 수 있다."""
+그후 help() 명령어로, 해당 함수의 Docstring를 확인할 수 있다.
+보통 함수의 기능에 대한 설명이 주가 될 것이다."""
 
 
 def echo(anything):
-    """echo return its input argument"""  # 보통 이중따옴표를 사용하는듯.
+    """echo return its input argument"""  # PEP기준 삼중따옴표를 사용하는듯.
     return anything
 
 
@@ -329,47 +330,49 @@ return 조차 할 수 있기 때문에 여타 다른 언어에서 할 수 없었
 한번 다음을 통해 실험해보자. """
 
 
-# def answer():
-#     print(42)
+def answer():
+    print(42)
 
 
-# print(answer())는 answer()이 return 하는게 없기 때문에 none이 출력됨.
-# print(answer())
+# print(answer())  # answer이 return 하는게 없다. 따라서 None이 출력.
 # answer()
 
 # 함수의 매개변수로 함수를 받는 함수.
-# def run_something(func):
-#     func()
+def run_something(func):
+    func()
 
 
 # run_something(answer)
 # print(type(run_something))
+
 """ 이때 parentheses(괄호) 가 없는것에 주의하라. 괄호는 이 function을 호출
 하겟다는 것을 의미하는것이며, 괄호가 없다면 함수는 object 처럼 다루어진다.
 그래서 저렇게 호출이 가능해지는 것이다."""
 
 
-# def add_args(arg1, arg2):
-#     print(arg1 + arg2)
+def add_args(arg1, arg2):
+    print(arg1 + arg2)
 
 
-# def run_something_with_args(func, arg1, arg2):
-#     func(arg1, arg2)
+def run_something_with_args(func, arg1, arg2):
+    func(arg1, arg2)
 
 
-# 여기에 *args 와 **kwargs 를 결합하는 것도 가능하다.
 # run_something_with_args(add_args, 1, 2)
 
-
-# def sum_args(*args):
-#     return sum(args)
+# 여기에 *args 와 **kwargs 를 결합하는 것도 가능하다.
 
 
-# def run_with_positional_args(func, *args):
-#     return func(*args)
+def sum_args(*args):
+    return sum(args)
+
+
+def run_with_positional_args(func, *args):
+    return func(*args)
 
 
 # print(run_with_positional_args(sum_args, 1, 2, 3, 4, 5))
+
 """ function 은 마찬가지로 list, tuple, set, dictionary 등의 element로
 사용 할 수 있으며, 또한 immutable 요소 이기 때문에 dictionary의 key로도 
 사용이 가능하다."""
@@ -379,10 +382,10 @@ return 조차 할 수 있기 때문에 여타 다른 언어에서 할 수 없었
 function 내부에 function 을 정의 할 수 있다."""
 
 
-# def outer(a, b):
-#     def inner(c, d):
-#         return c + d
-#     return inner(a, b)
+def outer(a, b):
+    def inner(c, d):
+        return c + d
+    return inner(a, b)
 
 
 # print(outer(4, 7))
@@ -392,10 +395,10 @@ Inner function을통해 loop나, code duplication 을 방지 할 수 있다.
 다음의 예시를 한번 보자. """
 
 
-# def knights(saying):
-#     def inner(quote):
-#         return f"We are the Knights who say: {quote}"  # fstring.
-#     return inner(saying)
+def knights(saying):
+    def inner(quote):
+        return f"We are the Knights who say: {quote}"  # fstring.
+    return inner(saying)
 
 
 # print(knights('Yo!'))
@@ -407,15 +410,16 @@ closure function은 다른 function에 의해 동적으로 생성된 function �
 외부에서 생성된 변수의 value를 변경하거나, 혹은 저장할 수 있다."""
 
 """다음의 예시를 한번 살펴보자. 여기서 몇가지 차이점이 있다.
-1. inner2()는 외부의 saying parameter를 인자로 받지않고 바로 사용한다
+1. inner2()는 외부의 saying parameter를 바로 사용한다.
+이전의 inner function 과 다르게 매개변수로 받지 않는다.
 2. knights2()는 이전과 다르게 function call을 return 하는게 아니라
-함수 자체의 이름을 리턴한다."""
+함수 자체를 리턴한다."""
 
 
-# def knights2(saying):
-#     def inner2():
-#         return f"We are the knights who say: {saying}"
-#     return inner2
+def knights2(saying):
+    def inner2():
+        return f"We are the knights who say: {saying}"
+    return inner2
 
 
 """ 내부의 inner2() function은 saying value가 passed 됐음을 알고있고, 이를
@@ -423,9 +427,9 @@ closure function은 다른 function에 의해 동적으로 생성된 function �
 를 return 한다.
  이를 어디서 왔는지를 기억하는 동적으로 생성된 closure 라고 한다."""
 
-# a = knights2('Duck')
-# b = knights2('Hasenpfeffer')
-
+# a = knights2('Duck')  # a는 함수가 된다.
+# b = knights2('Hasenpfeffer')  # b도.
+#
 # print('a:', type(a), 'b:', type(b))  # 함수가 리턴되기 때문에 a, b는 함수가된다.
 
 # 함수가 리턴 됐기 때문에 함수 호출이 된다
@@ -439,20 +443,21 @@ python 에서 lambda function은 single statement로 나타낼 수 있는
 
 
 # 일반적으로 구성했을 경우.
-# def edit_story(words, func):
-#     for word in words:
-#         print(func(word))
+def edit_story(words, func):
+    for word in words:
+        print(func(word))
 
 
-# def enliven(word):
-#     return word.capitalize() + '!'
+def enliven(word):
+    return word.capitalize() + '!'
 
 
-# stairs = ['thud', 'meow', 'thud', 'hiss']
+stairs = ['thud', 'meow', 'thud', 'hiss']
 # edit_story(stairs, enliven)
 
 
 # lambda 를 사용했을 경우. enliven 이라는 함수가 lambda 식으로 대체됨.
+# enliven 함수와 lambda 로 대체된 함수를 잘 비교해봐라.
 # edit_story(stairs, lambda word: word.capitalize() + '!')
 
 """ lambda 식보다는 함수명을 사용하는게 더 나을수는 있지만 
@@ -468,7 +473,7 @@ generator를 통해 매우 큰 연속체를 이용할 수 있는데, 굳이
 ex)range(1,101) -> 다른 언어처럼 크기 100짜리를 만들 필요없이
 즉석에서 가볍게 만들고 제거됨."""
 
-# print(sum(range(1, 101)))
+# (print(sum(range(1, 101))))
 
 
 """ Generator Functions
@@ -477,16 +482,17 @@ generator function은 크기가 큰 연속체를 만들고 싶을때 사용한�
 'yield' statement를 사용한다. return a말고. """
 
 
-# def my_range(first=0, last=10, step=1):
-#     number = first
-#     while number < last:
-#         yield number
-#         number += step
+def my_range(first=0, last=10, step=1):
+    number = first
+    while number < last:
+        yield number
+        number += step
 
 
 # print(my_range) # normal function 이긴 하다.
-# ranger = my_range(1,10)
-# print(ranger) # 리턴 되는것은 generator object이다.
+# ranger = my_range(1, 10)
+# print(ranger)
+# generator 는 자료형이 아닌 연속체인 object 이다. 따라서 print 할때 결과가 다소 다르다.
 
 """ 이때 generator 는 일회용이다. 메모리에 저장되지 않기 때문이다
 따라서 만약에 ranger를 두번 사용하려 하면 출력이 되지 않는걸 볼 수가 있다."""
@@ -497,20 +503,20 @@ generator function은 크기가 큰 연속체를 만들고 싶을때 사용한�
 
 
 """ Generator Comprehensions
-기존의 list, comprehension, set과 같이 유사하게 사용되지만
+기존의 list, dictionary, set과 같이 유사하게 사용되지만
 둘러 싸고있는게 ()로, []나 {}이 아니다. 다음의 예시를 보자."""
 
 # 이 경우는 yield가 invisibly 됐다, generator object를 return 하는 경우이다.
 # genobj = (pair for pair in zip(['a', 'b'], ['1', '2']))
-# print(genobj)
-
+# print(genobj)  # generator object 임을 출력한다.
+#
 # for thing in genobj:
 #     print(thing)
 
 
 """ Decorators 
 decorator는 한 function을 input으로 받아서 다른 function 으로 return 하는 기능을 한다.
-보통 존재하는 function을 소스 코드의 변경없이 수정하고자 할때 사용하는 듯 하다. """
+보통 원본 function의 소스 코드의 변경없이 수정하고자 할때 사용하는 듯 하다. """
 
 """ 다음 세가지를 이용할 것이다.
 1. *args, **kwargs
@@ -524,41 +530,186 @@ decorator는 한 function을 input으로 받아서 다른 function 으로 return
 4. modified function을 return 한다. """
 
 
-# def document_it(func):
-#     def new_function(*args, **kwargs):
-#         print('Running function:', func.__name__)
-#         print('Positional arguments:', args)
-#         print('Keyword arguments:', kwargs)
-#         result = func(*args, **kwargs)
-#         print('Result:', result)
-#         return result
-#     return new_function
-#
-#
+def document_it(func):
+    def new_function(*args, **kwargs):
+        print('Running function:', func.__name__)
+        print('Positional arguments:', args)
+        print('Keyword arguments:', kwargs)
+        result = func(*args, **kwargs)
+        print('Result:', result)
+        return result
+    return new_function
+
+
 # def add_ints(a, b):
 #     return a + b
 #
 #
 # print(add_ints(3, 5))
-# cooler_add_ints = document_it(add_ints) # manual decorator assignment
+# cooler_add_ints = document_it(add_ints)  # manual decorator assignment
 # cooler_add_ints(3, 5)
 
+# 위의 방식은 수동 decorator assignment로 @decorater_name 을 쓸수도 있다.
+# @decorate_name = @document_it
+@document_it
+def add_ints(a, b):
+    print(a + b)
 
 
+# add_ints(3, 4)  # 위의것보다 훨씬 간단하다!
 
 
+""" 또한 function 에 대해 한개 이상의 decorator 을 가질 수 있다.
+다음 예시를 통해 한번 알아보자."""
 
 
+def square_it(func):
+    def new_function(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result * result
+    return new_function
 
 
+@document_it
+@square_it
+def add_ints(a, b):
+    return a + b
 
 
+# add_ints(1, 2)  # 순서대로 document_it 실행후 square_it이 실행됐다.
 
 
+""" Namespaces and Scope
+변수의 이름이 같아도, 그것의 범위(scope)에 따라서 사용될 수도 있고 안 될 수도있다.
+만약 같은 지역내에 있다면 exception등이 발생 할 수 있지만, 서로 다른 지역에 그렇지 않다.
+먼저 global variable 에 대해 먼저 알아보자."""
+
+# function 을 틍해 global variable 의 value 얻기
+animal = 'fruitbat'
 
 
+def print_global():
+    print('inside print_global:', animal)
 
 
+# print('at the top level:', animal)
+# print_global()
+
+# 이때 global variable을 function을 통해서 바꾸려고 하면 에러가 발생한다.
+
+
+def change_and_print_global():
+    print('inside chagne_and_print_global:', animal)
+    animal = 'wombat'
+    print('after the change:', animal)
+
+
+# change_and_print_global()
+
+
+def change_local():
+    animal = 'wombat'  # 이건 global이 아니라 함수내의 local animal이다.
+    print('inside change_local:', animal, id(animal))
+
+
+# change_local()
+# print(animal, id(animal))
+
+
+# global variable을 쓰기위해선 explict에 선언한 후, global keyword를 쓰면된다.
+# explict is better than implicit
+
+animal = 'fruitbat'
+def change_and_print_global():
+    global animal  # animal 을 global로 쓰겠다는 의미인 거 같다.
+    animal = 'wombat'
+    print('inside change_and_print_global:', animal)
+
+
+# print(animal)
+# change_and_print_global()
+# print(animal)
+
+""" Python은 local, global variable을 다음의 함수를 통해 dictionary의 형태로 return 한다.
+1. locals() local namespace 에 있는 contents의 dictionary의 형태로 return
+2. globals() global namespace 에 있는 contents의 dictionary의 형태로 return. """
+
+animal = 'fruitbat'
+def change_local():
+    animal = 'wombat'  # local variable
+    print('locals:', locals())
+
+# print(animal)
+# change_local()
+# print('globals:', globals())
+
+
+"""Uses of _ and __ in Names
+(__)로 시작되고, 끝나는 것들은 python 내에서 예약되있는 것들이기 때문에 변수명으로 사용하면 안된다.
+function.__name__ => function의 이름.
+function.__doc__ => function의 docstring."""
+
+def amazing():
+    """This is the amazing function.
+    want to see it again?"""
+    print('This function is named:', amazing.__name__)
+    print('And its docstring is', amazing.__doc__)
+
+# amazing()
+
+
+""" Recursion 
+함수가 스스로를 호출한다면? 그걸 바로 recursion이라고 한다.
+물론 무한하게 스스로를 반복하는 것을 주의해야겠지만, python 에서는
+너무 많이 반복할 경우 exception 을 발생시키는 기능을 가지고 있다. """
+
+def dive():
+    return dive()
+
+# 996 번 반복되고 스스로 멈춰버림.
+# dive()
+
+
+""" Recursion은 uneven data를 처리할때 특히 유용하다 ex) lists of lists of lists.
+한번 list 의 모든 sublist를 flatten 한다고 가정해보자. """
+
+def flatten(lol):
+    for item in lol:
+        if isinstance(item, list):
+            for subitem in flatten(item):
+                yield subitem
+        else:
+            yield item
+
+
+lol = [1, 2, [3, 4, 5], [6, [7, 8, 9], []]]
+print(list(flatten(lol)))
+
+# flatten() 을 단순화 해보자
+def flatten(lol):
+    for item in lol:
+        if isinstance(item, list):
+            yield from flatten(item)
+        else:
+            yield item
+
+
+lol = [1, 2, [3, 4, 5], [6, [7, 8, 9], []]]
+print(list(flatten(lol)))
+
+
+""" Async Functions.
+'async' 와 'await' 는 python 3.5에 새로이 추가된 기능이다.
+이것들은 asynchronous function 들을 정의하고, 실행하기 위해 추가됐다.
+이들은 상대적으로 새롭고, 어렵고, 갈수록 중요해질 것이기 때문에 따로 분류됐다."""
+
+""" function 정의 이전에 async, function 호출 전에 await 를 본다면
+해당 함수들은 asynchronous 하다는 것만 기억하고, 일반 함수와의 차이점은
+asynchronous 함수들은 무조건 완료 보다는 control 을 give up 할 수 있다는 점이다."""
+
+
+""" Exceptions
+"""
 
 
 
