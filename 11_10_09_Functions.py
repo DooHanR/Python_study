@@ -16,30 +16,35 @@ def 를 입력, 이름, parentheses enclosing any input parameter
 그리고 colon(:) 등을 입력후 행동을 이어 입력하면 된다.
 이때 이름은 변수 이름을 짓는 방식과 같다. """
 
-# def do_nothing():
-#     print("Hello world!")
+
+def do_nothing():
+    pass
+#
+#
+# do_nothing()
+
 # parameter 가 없어도 괄호는 반드시 있어야 한다.
 # pass 의 경우, function이 아무 기능도 하지 않음을 보여주는 것.
-
-
-# do_nothing()
 
 
 """ Call a Function with Parentheses
 함수명(매개변수)의 형태로 함수를 호출 할 수 있다.
 ex)do_nothing() """
 
-# def make_a_sound():
-#     print('quack')
+
+def make_a_sound():
+    print('quack')
+
+
 # make_a_sound()
 
 
-# def agree():
-#     return False
+def agree():
+    return False
 
 
 # if agree():
-# print('Splendid!')
+#     print('Splendid!')
 # else:
 #     print('That was unexpected..')
 
@@ -47,27 +52,30 @@ ex)do_nothing() """
 """ Arguments and Parameters
 이제는 함수의 괄호 사이에 parameter를 넣어보자. """
 
-# def echo(anything):
-#     return anything + ' ' + anything
-#
-#
+def echo(anything):
+    return anything + ' ' + anything
+
+
 # print(echo('hello'))
+# print(echo('destiny'))
 # 위의 코드처럼 외부에서 arguments를 넣으면
 # 내부에 상응하는 parameter에 이값이 복사되어 function이 작동된다.
 
 
-# def commentary(color):
-#     if color == 'red':
-#         return "It's a tomato."
-#     elif color == 'green':
-#         return "It's a green pepper"
-#     elif color == 'bee purple':
-#         return "i don't know what it is, but only bees can see it."
-#     else:
-#         return "I've never heard of the color " + color + "."
-#
-#
+def commentary(color):
+    if color == 'red':
+        return "It's a tomato."
+    elif color == 'green':
+        return "It's a green pepper"
+    elif color == 'bee purple':
+        return "i don't know what it is, but only bees can see it."
+    else:
+        return "I've never heard of the color " + color + "."
+
+
 # exam_color = commentary("123")
+# test_for = commentary("green")
+# print(test_for)
 # print(exam_color)
 
 
@@ -99,15 +107,15 @@ None은 python의 특별한 value로 아무것도 없음을 나타낼때 쓰인�
 # argument가 True, False, None 인지 구별하는 함수.
 
 
-# def whatis(thing):
-#     if thing is None:
-#         print(thing, "is None")
-#     elif thing:
-#         print(thing, "is True")
-#     else:
-#         print(thing, "is False")
-#
-#
+def whatis(thing):
+    if thing is None:
+        print(thing, "is None")
+    elif thing:
+        print(thing, "is True")
+    else:
+        print(thing, "is False")
+
+
 # whatis(None)
 # whatis(0)
 # whatis(1)
@@ -127,12 +135,15 @@ python은 function argument를 여타 언어와 다르게 매우 융통성있게
 
 # 매우 흔하지만, positional argument의 단점은 위치를 기억해줘야 한다는 것이다.
 # 그렇지 않으면 의도된 바와 다르게, 의미가 매우 달라질 것이다. 다음 예시를 보라'
+# argument를 받는것 까지는 같으나, 그것을 dict의 value로 parameter 화 한다.
 
-# def menu(wine, entree, dessert):
-#     return {'wine': wine, 'entree': entree, 'dessert': dessert}
-#
+
+def menu(wine, entree, dessert):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+
 # print(menu('chardonay', 'chicken', 'cake', ))
-# print(menu('beaf', 'bagel', 'bordeaux'))  # 와인이 beef가 됐다!
+# print(menu('beaf', 'bagel', 'bordeaux'))  # 와인이 beaf가 됐다!
 
 
 """ Keyword Arguments
@@ -140,10 +151,9 @@ keyword Arguemnts 는 앞서말한 positional argument 의 혼란은 피하기 �
 argument에 상응되는 parameter 를 명시해서, 순서가 달라도 제대로 출력되게
 하는 것이다. 다음 예시를 보자. """
 
-# 순서는 다를지 언정 제대로 매칭시켜줬기 때문에 정상 출력될 것이다.
-# 함수 자체에는 별 차이가 없다, 하지만 call 하는 과정에서 차이가 생기는 것.
+# 함수의 내부 parameter를 명시해서 할당해주는것, 따라서 순서가 상관이 없다.
 # print(menu(entree='beef', dessert='bagel', wine='bordeaux'))
-
+# print(menu(dessert='chicken', entree='bibimbap', wine='sibssgial'))
 
 """ Specify Default Parameter Values
 parameter 에 default value를 구체화 할 수 있다.
@@ -155,11 +165,12 @@ def menu(wine, entree, dessert='pudding'):
     return {'wine': wine, 'entree': entree, 'dessert': dessert, }
 
 
-# default value 가 있어서 정상출력 되는 모습이다.
-# print(menu('chardonnay', 'chicken'))
-
+# 2가지 밖에 넣지 않았음에도, defaulut value 떄문에 정상출력.
 # argument를 넣으면 기존의 default value가 대체된다.
+
+# print(menu('chardonnay', 'chicken'))
 # print(menu('chardonnay', 'chicken', 'coffee'))
+# print(menu(wine='soda', entree='chicken'))
 
 
 """default 변수는 immutable variable로 설정해야 하며,
@@ -174,7 +185,8 @@ def menu(wine, entree, dessert='pudding'):
 
 
 def works(arg):  # 이곳에서 result를 선언하면 안된다.
-    result = [arg]  # 이게 없어지면 result에 점점 쌓이게 된다.
+    result = []  # 이게 중요! 매번 result를 비워주어야 한다.
+    result = arg
     return result
 
 
@@ -192,6 +204,7 @@ single tuple of parameter values로 바꿔준다.
 def print_args(*args):
     print('Positional Tuples:', args)
 
+
 # print_args('beyond', 'compare')
 # print_args(1, 2, 3, 'wait', 'hello', 'Doo')  # 놀랍게도 모두 출력된다!
 
@@ -200,20 +213,20 @@ def print_args(*args):
 많은 것들도 넣어줄 수 있다. 이떄 tuple의 형태가 된다는것에 주의."""
 
 
-# 반드시 *args 라고 할 필요는 없지만 관습적으로 args 라고 한다.
-# def print_more(required1, required2, *args):
-# def print_more(required1, required2, *abcd):
-#     print('Need this one', required1)
-#     print('Need this one too', required2)
-#     print('All the rest', args)
-#     print('All the rest', abcd)
+# # 반드시 *args 라고 할 필요는 없지만 관습적으로 args 라고 한다.
+def print_more(required1, required2, *args):
+    print('Need this one:', required1)
+    print('Need this one too:', required2)
+    print('All the rest:', args)  # 여러개의 것들이 하나의 tuple로 묶이는 것을 볼 수 있다..
+
 
 # print_more('essential', 'essential', 1, 2, 3, 'ahrararara')
-# print_more('not')  # args를 제외한 positional argument보다 적은 수의 argument를 넣었을 때.
+# print_more('english', 'korean', 'french', 1, 2, 3)
+# args를 제외한 positional argument보다 적은 수의 argument를 넣었을 때.
 
 """ 또한 *args는 function의 inside냐 outside냐에 따라 그 기능도 달라진다.
-inside의 경우 values들을 gather 하는 기능을하고
-outside 에서는 valuse들을 explode 시킨다. """
+1. inside의 경우 values들을 gather 하는 기능을하고
+2. outside 에서는 valuse들을 explode 시킨다. """
 
 """ 또한 *args는 다음과 같은 2가지의 경우에만 사용가능 하다는것에 주의해라. 
 1. function call
@@ -222,14 +235,15 @@ outside 에서는 valuse들을 explode 시킨다. """
 
 # print_args(2, 5, 7, 'x')
 # args = (2, 5, 7, 'x')
-# print_args(args)
-# print_args(*args)
+# print_args(args)  # tuple로 묶인상태로 출력
+# print_args(*args)  # 묶인 tuple이 풀림!
 
 
 """ Explode/Gather Keyword Arguments with **
 '**'는 keyword arguments를 dictionary로 group 하는 기능을 한다.
 argument의 name은 key가 되고 상응하는 것들이 value가 되는것이다.
-기존의 형식을 잘 생각해보면 이해가 될 것이다. 예시를 보자 """
+기존의 형식을 잘 생각해보면 이해가 될 것이다.
+그리고 kwargs도 explode, gather 하는 기능을 한다!"""
 
 
 # function 내부에서 kwargs 는 dictionary parameter이다.
@@ -238,19 +252,17 @@ def print_kwargs(**kwargs):
 
 
 # 내부의 선언이 보다 간단해졌고, dict 의 형태로 return 됨을 알 수 있다.
-# print(print_kwargs())
-# print(print_kwargs(wine='merlot', entree='mutton', dessert='macaroon'))
+# print_kwargs('exam')  # 내부에 명시된 key가 없기때문에 value만 넣으면 오류가 발생한다
+# print_kwargs(wine='merlot', entree='mutton', dessert='macaroon')  # 자유로운 삽입 가능.
 
 """ Argument의 order는 다음과 같다.
 1. Required Positional arguments: 함수 선언시 명시한 것들
 2. Optional Positional arguments: (*args)
 3. Optional keyword arguments: (**kwargs) """
 
-# 마찬가지로 kwargs도 explode, gather 하는 기능을 한다!
-
-
 """ Keyword-Only Arguments
-무슨소린지 모르겠다, 예시를 통해좀 알아보자."""
+무슨소린지 모르겠다, 예시를 통해좀 알아보자.
+data는 반드시 들어가지만 * 다음의 두 변수들은 들어가기도, 생략되기도 한다."""
 
 
 def print_data(data, *, start=0, end=100):
@@ -268,8 +280,6 @@ data = ['a', 'b', 'c', 'd', 'e', 'f']
 # print_data(data, start=1)
 # print_data(data, end=2)
 
-# data는 반드시 들어가지만 * 다음의 두 변수들은 들어가기도, 생략되기도 한다.
-
 
 """ Mutable and Immutable Arguments
 list는 할당후에도 변경이 가능했지만, integer나 string은
@@ -279,11 +289,11 @@ list는 할당후에도 변경이 가능했지만, integer나 string은
 만약 argument가 mutable 이라면, value는 function 내부에서 상응하는 parameter
 를 통해서 변경될 수 있다. 다음의 예시를 참고해보자."""
 
-outside = ['one', 'fine', 'day']
+# outside = ['one', 'fine', 'day']
 
 
-def mangle(arg):
-    arg[1] = 'terrible!'
+# def mangle(arg):
+#     arg[1] = 'terrible!'
 
 
 # 이렇게 하지 않는게 바람직하다. 변경이 마구잡이로 일어나기 때문.
@@ -293,19 +303,17 @@ def mangle(arg):
 
 
 """ Docstrings
-function body의 시작 부분에 string을 넣어 함수에 대한 document를
-추가 해줄 수 있다. 또한, 매우 길게 설정할 수도 있으며(세개의 따옴표를 이용)
-python의 help 함수를 통해 이러한 docstrings를 불러올 수 있다.
-다음 예시를 보자."""
+함수에 대한 설명을 하고싶을때, 삼중 따옴표를 이용해서 설명을 첨부 할 수 있다.
+그후 help() 명령어로, 해당 함수의 Docstring를 확인할 수 있다."""
 
 
 def echo(anything):
-    'echo return its input argument'
+    """echo return its input argument"""  # 보통 이중따옴표를 사용하는듯.
     return anything
 
 
 # print(echo('get out!'))
-# print(help(echo))  # help 명령어를 통해 함수에대한 docstring을 출력할 수 있다.
+# help(echo)  # help 명령어를 통해 함수에대한 docstring을 출력할 수 있다.
 # print(echo.__doc__)  # formatting 없이 docstring 출력하는 방법
 
 """ __doc__ 는 docstring의 python internal variable이다.
@@ -313,7 +321,7 @@ def echo(anything):
 잘 알아두도록 하자. """
 
 
-""" Functions Are First-Class Citiznes
+""" Functions Are First-Class Citizens
 python 에서는 심지어 함수조차도 object로 취급된다.
 이점을 이용해서 변수를 할당하거나, 다른 함수의 argument로 사용하거나
 return 조차 할 수 있기 때문에 여타 다른 언어에서 할 수 없었던,
@@ -321,8 +329,8 @@ return 조차 할 수 있기 때문에 여타 다른 언어에서 할 수 없었
 한번 다음을 통해 실험해보자. """
 
 
-def answer():
-    print(42)
+# def answer():
+#     print(42)
 
 
 # print(answer())는 answer()이 return 하는게 없기 때문에 none이 출력됨.
@@ -330,8 +338,8 @@ def answer():
 # answer()
 
 # 함수의 매개변수로 함수를 받는 함수.
-def run_something(func):
-    func()
+# def run_something(func):
+#     func()
 
 
 # run_something(answer)
@@ -341,24 +349,24 @@ def run_something(func):
 그래서 저렇게 호출이 가능해지는 것이다."""
 
 
-def add_args(arg1, arg2):
-    print(arg1 + arg2)
+# def add_args(arg1, arg2):
+#     print(arg1 + arg2)
 
 
-def run_something_with_args(func, arg1, arg2):
-    func(arg1, arg2)
+# def run_something_with_args(func, arg1, arg2):
+#     func(arg1, arg2)
 
 
 # 여기에 *args 와 **kwargs 를 결합하는 것도 가능하다.
 # run_something_with_args(add_args, 1, 2)
 
 
-def sum_args(*args):
-    return sum(args)
+# def sum_args(*args):
+#     return sum(args)
 
 
-def run_with_positional_args(func, *args):
-    return func(*args)
+# def run_with_positional_args(func, *args):
+#     return func(*args)
 
 
 # print(run_with_positional_args(sum_args, 1, 2, 3, 4, 5))
@@ -371,10 +379,10 @@ def run_with_positional_args(func, *args):
 function 내부에 function 을 정의 할 수 있다."""
 
 
-def outer(a, b):
-    def inner(c, d):
-        return c + d
-    return inner(a, b)
+# def outer(a, b):
+#     def inner(c, d):
+#         return c + d
+#     return inner(a, b)
 
 
 # print(outer(4, 7))
@@ -384,10 +392,10 @@ Inner function을통해 loop나, code duplication 을 방지 할 수 있다.
 다음의 예시를 한번 보자. """
 
 
-def knights(saying):
-    def inner(quote):
-        return f"We are the Knights who say: {quote}"  # fstring.
-    return inner(saying)
+# def knights(saying):
+#     def inner(quote):
+#         return f"We are the Knights who say: {quote}"  # fstring.
+#     return inner(saying)
 
 
 # print(knights('Yo!'))
@@ -404,10 +412,10 @@ closure function은 다른 function에 의해 동적으로 생성된 function �
 함수 자체의 이름을 리턴한다."""
 
 
-def knights2(saying):
-    def inner2():
-        return f"We are the knights who say: {saying}"
-    return inner2
+# def knights2(saying):
+#     def inner2():
+#         return f"We are the knights who say: {saying}"
+#     return inner2
 
 
 """ 내부의 inner2() function은 saying value가 passed 됐음을 알고있고, 이를
@@ -431,16 +439,16 @@ python 에서 lambda function은 single statement로 나타낼 수 있는
 
 
 # 일반적으로 구성했을 경우.
-def edit_story(words, func):
-    for word in words:
-        print(func(word))
+# def edit_story(words, func):
+#     for word in words:
+#         print(func(word))
 
 
-def enliven(word):
-    return word.capitalize() + '!'
+# def enliven(word):
+#     return word.capitalize() + '!'
 
 
-stairs = ['thud', 'meow', 'thud', 'hiss']
+# stairs = ['thud', 'meow', 'thud', 'hiss']
 # edit_story(stairs, enliven)
 
 
@@ -469,23 +477,23 @@ generator function은 크기가 큰 연속체를 만들고 싶을때 사용한�
 'yield' statement를 사용한다. return a말고. """
 
 
-def my_range(first=0, last=10, step=1):
-    number = first
-    while number < last:
-        yield number
-        number += step
+# def my_range(first=0, last=10, step=1):
+#     number = first
+#     while number < last:
+#         yield number
+#         number += step
 
 
 # print(my_range) # normal function 이긴 하다.
-ranger = my_range(1,10)
+# ranger = my_range(1,10)
 # print(ranger) # 리턴 되는것은 generator object이다.
 
 """ 이때 generator 는 일회용이다. 메모리에 저장되지 않기 때문이다
 따라서 만약에 ranger를 두번 사용하려 하면 출력이 되지 않는걸 볼 수가 있다."""
 
 # print(list(ranger))  # 한번쓰면 사라져서 ranger 두번 사용 불가.
-for x in ranger:
-    print(x)
+# for x in ranger:
+#     print(x)
 
 
 """ Generator Comprehensions
@@ -493,11 +501,11 @@ for x in ranger:
 둘러 싸고있는게 ()로, []나 {}이 아니다. 다음의 예시를 보자."""
 
 # 이 경우는 yield가 invisibly 됐다, generator object를 return 하는 경우이다.
-genobj = (pair for pair in zip(['a', 'b'], ['1', '2']))
-print(genobj)
+# genobj = (pair for pair in zip(['a', 'b'], ['1', '2']))
+# print(genobj)
 
-for thing in genobj:
-    print(thing)
+# for thing in genobj:
+#     print(thing)
 
 
 """ Decorators 
@@ -516,24 +524,24 @@ decorator는 한 function을 input으로 받아서 다른 function 으로 return
 4. modified function을 return 한다. """
 
 
-def document_it(func):
-    def new_function(*args, **kwargs):
-        print('Running function:', func.__name__)
-        print('Positional arguments:', args)
-        print('Keyword arguments:', kwargs)
-        result = func(*args, **kwargs)
-        print('Result:', result)
-        return result
-    return new_function
-
-
-def add_ints(a, b):
-    return a + b
-
-
-print(add_ints(3, 5))
-cooler_add_ints = document_it(add_ints) # manual decorator assignment
-cooler_add_ints(3, 5)
+# def document_it(func):
+#     def new_function(*args, **kwargs):
+#         print('Running function:', func.__name__)
+#         print('Positional arguments:', args)
+#         print('Keyword arguments:', kwargs)
+#         result = func(*args, **kwargs)
+#         print('Result:', result)
+#         return result
+#     return new_function
+#
+#
+# def add_ints(a, b):
+#     return a + b
+#
+#
+# print(add_ints(3, 5))
+# cooler_add_ints = document_it(add_ints) # manual decorator assignment
+# cooler_add_ints(3, 5)
 
 
 
