@@ -57,7 +57,7 @@ a_dog.nemesis = another_dog
 
 another_dog.name = "Flowerbutton"
 
-print(a_dog.age, a_dog.name, a_dog.nemesis.name)
+# print(a_dog.age, a_dog.name, a_dog.nemesis.name)
 
 """ 보통 attribute라 하면 object의 attribut이다.
 하지만 class 의 attribute도 있으므로 이에 주의하라.
@@ -68,6 +68,25 @@ print(a_dog.age, a_dog.name, a_dog.nemesis.name)
 Method는 class나 object 내부의 function을 의미한다.
 마찬가지로 다양하게 사용 될 수 있으며 뒤에서 더 자세히 다뤄볼 것이다."""
 
+"""Initialization(초기화)
+만약 생성시에 object attributes를 부여하고 싶다면
+python의 object 초기화 method 인 '__init__()' 를 사용해야 한다. """
+
+# 선언과 동시에 attribute 할당하기.
+# class Dog:
+#     def __init__(self):  # init의 parameter 로는 반드시 self이여야한다.
+#         pass
+
+class Dog:
+    def __init__(self, name):
+        self.name = name
 
 
-
+a_dog = Dog('doggy')
+""" 위의 한줄이 하는 일은 다음과 같다.
+1. Dog class 의 definition 을 찾는다.
+2. memory 에 새로운 object 를 생성한다.
+3. object의 init method를 호출한다. 이때 인자로 self와 name을 넘겨준다.
+4. 넘겨받은 name을 object의 name에 저장 한다.
+5. 생성된 object를 return 한다.
+6. object에 a_dog 라는 변수를 붙여준다. """
