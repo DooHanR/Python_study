@@ -683,7 +683,7 @@ def flatten(lol):
 
 
 lol = [1, 2, [3, 4, 5], [6, [7, 8, 9], []]]
-print(list(flatten(lol)))
+# print(list(flatten(lol)))
 
 # flatten() 을 단순화 해보자
 def flatten(lol):
@@ -695,7 +695,7 @@ def flatten(lol):
 
 
 lol = [1, 2, [3, 4, 5], [6, [7, 8, 9], []]]
-print(list(flatten(lol)))
+# print(list(flatten(lol)))
 
 
 """ Async Functions.
@@ -709,48 +709,142 @@ asynchronous 함수들은 무조건 완료 보다는 control 을 give up 할 수
 
 
 """ Exceptions
-"""
+python 에서는 exception을 사용해 오류를 나타낸다.
+만약 오류를 잡을수는 없다고 해도, 무슨 오류가 발생했는지 알리고
+프로그램을 종료시켜야 한다. 직접 하지않았더라도, python 에서 하기는
+하지만 직접하는게 더 나은 부분도 있을것이다. """
+
+short_list = [1, 2, 3]
+position = 5
+# short_list[position]
 
 
+""" Handle Errors with try and except 
+'try'를 통해 code를 감싸고, 'except'로 error handling을 시도하라."""
+
+# short_list = [1, 2, 3]
+# position = 5
+# try:
+#     short_list[position]  # try 내부 코드 run, 오류 발생시 except run.
+# except:
+#     print('EXCEPTION!: Need a position between 0 and', len(short_list)-1,
+#           ' but got', position)
+
+""" 우리가 여기서 행한 exception은 약간 포괄적인 형태의 exception이다.
+어느 종류의 exception이 발생해도 일괄적인 출력을 나타내며, 만약에 여러가지 형태의
+exception이 예쌍된다면 각각의 excetpion 을 만들어주는게 적절하다."""
+
+""" 떄떄로 exception 에 대한 더 자세한 정보를 얻고 싶을때가 있다.
+그럴때 'except exception as name' 을 사용하면 많은 정보를 얻을 수 있다.
+다음의 예시는 에러를 각각의 변수 err, other 에 저장하는 것을 보여준다."""
+
+# short_list = [1, 2, 3]
+# while True:
+#     value = input('Position [q to quit]? :')
+#     if value == 'q':
+#         break
+#     try:
+#         position = int(value)
+#         print(short_list[position])
+#     except IndexError as err:  # except exception as name
+#         print('Bad index', position)
+#     except Exception as other:  # except exception as name
+#         print('Something else broke:', other)
 
 
+"""Make your own exceptions
+앞서 했던 exception 들은 python 이나 library 에서 제공하는 것들이다.
+하지만 우리의 프로그램에서 발생할 수 있는 exception 에 대해서 우리가 직접
+exception을 만들 수 도 있다.
+ 이때 우리는 'class'를 이용해서 만들것이며, class 는 exception의 child 이다.
+한번 직접 예시를 만들어보자. """
+
+# uppercase word를 만나면 exception 을 발생시키는 함수.
+# class UppercaseException(Exception):
+#     pass
+#
+# words = ['eenine', 'meenine', 'miny', 'MO']
+# for word in words:
+#     if word.isupper():
+#         raise UppercaseException(word)
 
 
+""" Things to Do"""
+# 9.1
+def good():
+    name = ['Harry', 'Ron', 'Hermione']
+    return name
+
+# print(good())
+
+# 9.2
+# def get_odds():
+#     odd_number = (number for number in range(10) if number % 2 == 1)
+#     return odd_number
+
+# def get_odds():
+#     for number in range(1, 10, 2):
+#         yield number
+#
+# count = 1
+#
+# for number in get_odds():
+#     if count == 3:
+#         print("The third odd number is", number)
+#         break
+#     count += 1
+
+""" generator function에 대한 이해도 부족했을 뿐더러
+generator function 을 통해 생성되는 generator 가
+range(10)과 하등 다를바 없다 라는점도 제대로 지각하지 못했다"""
+
+# def test(func):
+#     print('start')
+#     def new_function():
+#         func()
+#         print('end')
+#     return new_function
+#
+#
+# @test
+# def greeting():
+#     print("Greetings, Earthling")
+#
+# greeting()
 
 
+def test(func):
+    def new_func(*args, **kwargs):  # 어느 변수가 넣어져도 대응 가능하게!
+        print('start')
+        result = func(*args, **kwargs)  # 혹시 func이 print 가 없을때 결과값을 주기위함.
+        print('end')
+        return result
+    return new_func
+
+@test
+def greeting():
+    print("Hello this world")
+
+# greeting()
 
 
+""" 내가 만든 함수는 작동하기만, 그럴듯하게 작동하고 변수가 대입되거나 할때의 경우를
+전혀 고려하지 않고있다, 반면에 답지의 solution은 함수가 print가 아닐때도
+고려하고 있으며, 매개변수가 무엇이든 받을 수 있도록 *,와 ** 모두 사용하고 있다.
+반성해라."""
 
 
+# 9.4
+class OopsException(Exception):
+    pass
+
+raise OopsException()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+try:
+    raise OopsException
+except OopException:
+    print('Caught an oops')
 
 
 
