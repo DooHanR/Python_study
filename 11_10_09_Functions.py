@@ -835,17 +835,18 @@ def greeting():
 
 
 # 9.4
-class OopsException(Exception):
-    pass
 
-raise OopsException()
-
-
-try:
-    raise OopsException
-except OopException:
-    print('Caught an oops')
-
+# class OopsException(Exception):
+#     pass
+#
+# raise OopsException()
+#
+#
+# try:
+#     raise OopsException
+# except OopException:
+#     print('Caught an oops')
+#
 
 
 
