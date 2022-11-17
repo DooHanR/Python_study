@@ -247,9 +247,10 @@ method가 변경되었을때, 자연스럽게 자식클래스도 해당 변경�
 """Multiple Inheritance
 object의 경우 여러개의 부모 클래스로부터 상속받을 수 있다.
 각각의 python class 에는 mro()라는 method와 __mroo__ 라는 attribute가 있다.
- mro() method는 해당 class이 object가 지닌 method, attribute를 가진
+
+1. mro() method는 해당 class이 object가 지닌 method, attribute를 가진
 class 들의 list를 리턴 한다.
- __mroo__ attribute 는 그러한 class들을 tuple로 나타낸 것이다.
+2. __mroo__ attribute 는 그러한 class들을 tuple로 나타낸 것이다.
 이때 여러개가 있으면 첫번째 것이 win 하는듯 하다.(상속이되나?)"""
 
 class Animal():
@@ -283,16 +284,53 @@ class Hinny(Horse, Donkey):
 
 mule = Mule()
 hinny = Hinny()
-print(mule.says())
-print(hinny.says())
+# print(mule.says())
+# print(hinny.says())
 
 
+""" Mixins
+class 정의에 extra 부모 클래스를 포함 할 수 있는데, 오직 helper 로써만 기능한다.
+이것은 다른 부모 클래스와 method를 전혀 공유하지 않는것을 의미하며, 이렇게 함으로써
+method resolution ambiguity 를 피할 수 있다."""
+
+class PrettyMixin():
+    def dump(self):
+        import pprint
+        pprint.pprint(vars(self))
+
+class Thing(PrettyMixin):
+    pass
+
+t = Thing()
+t.name = "Nyarlathotep"
+t.feature = "ichor"
+t.age = 'eldritch'
+# t.dump()
 
 
+"""In self Defense
+python 에 대한 비판중 하나는 instance method에 'self'라는 키워드를
+첫번째 argument로 넣어야 한다는 것이다.
+ 파이썬은 이러한 self argument를 obejct의 올바른 attribute 와
+method를 찾는데에 이용한다. 다음 예시를 통해 한번 살펴보자"""
+
+a_car = Car()
+a_car.exclaim()
+# Car.exclaim(a_car)  # 이렇게 해도 작동은 된다.
+
+""" 위의 것이 실행됐을때 과정을 봐보자.
+1. object a_car에 할당될 Class(Car)를 탐색한다.
+2. Car class의 self parameter를 통해 클래스의 method를 object에 넘겨준다."""
 
 
+""" Attribute Access
+python 에서 대부분의 object attribute와 method 들은 public이다.
+한번 direct approach를 다른 대체제들과 비교해보자."""
 
-
+"""Direct Access"""
+class Duck:
+    def __init__(self, input_name):
+        self.name = input_name
 
 
 
