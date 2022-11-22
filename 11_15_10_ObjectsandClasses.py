@@ -99,13 +99,13 @@ a_dog = Dog('doggy')
 """ '__init__()' method가 반드시 모든 class definition 에 필요한 것은 아니다.
 이것은 같은 class 에서 생성된 다른것들과 해당 object를 비교하기 위한 것이다.
 그리고 init() 함수는 여타 다른 언어의 생성자와는 엄연히 다르며,
-init() method는 initializer로 생각하라. """
+init() method는 initializer로 생각하라.
 
-# class 로 많은 object를 생성할 수는 있지만, 해당 class는 프로그램에
-# 오직 하나뿐이라는 것을 기억해라.
+- class의 유일성 : class 로 많은 object를 생성할 수는 있지만, 해당 class는 프로그램에
+오직 하나뿐이라는 것을 기억해라. """
 
 
-""" Inheritance
+""" Inheritance(상속)
 가끔 문제를 해결하다보면, 문제를 풀기에 기존의 코드가 매우 적합한데
 함부로 수정하자니 너무 복잡해지고, 새로 만들자니 시간과 공간의 낭비다.
 그래서 이에 대한 해답으로 나온것이 상속이다.
@@ -128,7 +128,7 @@ class Yugo(Car):  # 정말 상속하기 편하다. python 은 신이야.
 
 # 각각의 클래스로 object 생성하기.
 give_me_a_car = Car()
-give_me_a_Yogo = Yugo()
+give_me_a_Yugo = Yugo()
 
 class Car():
     def exclaim(self):
@@ -145,12 +145,12 @@ give_me_a_Yugo = Yugo()
 """ 상속은 보기에 매우 편해보일지는 모르겠지만, 다년간의 객체 지향 프로그래밍 경험에서 나온
 결론은 너무 잦은 상속의 사용은 프로그램을 유지보수 하기 힘들어진다는 것이다.
  따라서 우리는 다른 방식을 추천하는데, 다음의 2가지이다.
-aggregation과 composition 이다. 이 챕터에서 이 대체제 들을 공부 해볼것이다. """
+aggregation, composition 이다. 이 챕터에서 이 대체제 들을 공부 해볼것이다. """
 
 
 """Override a Method
 앞서 말했듯이 기존의 클래스를 상속한 새로운 클래스는 모든것을 상속받는다.
-그럼 이때, 대체하는 것은 어떻게 되는 것일까? 여기서 살펴보게 될 것이다."""
+그럼 이때, 부모의 것을 대체할 때를 알아보자."""
 
 class Car():
     def exclaim(self):
@@ -165,7 +165,7 @@ this_is_Car = Car()
 this_is_Yugo = Yugo()
 # this_is_Car.exclaim()
 # this_is_Yugo.exclaim()
-
+# 동일한 method가 override 된 모습.
 
 class Person():
     def __init__(self, name):
@@ -199,7 +199,7 @@ class Car():
 class Yugo(Car):
     def exclaim(self):
         print("I'm a Yugo, very yugo-ish")
-    def need_a_push(self):
+    def need_a_push(self):  # 새로운 method의 추가.
         print("A little help here?")
 
 this_is_a_Car = Car()
@@ -218,13 +218,14 @@ class Person():
     def __init__(self, name):
         self.name = name
 
-class EmailPerson(Person):
+class EmailPerson(Person):  # 상위 클래스 -> person
     def __init__(self, name, email):
         super().__init__(name)
-        # super().__init__ 에서 self argument pass 따라서 optional argument 만 추가하면됨.
+        # super().__init__ 에서 self argument를 pass.
+        # 따라서 optional argument 만 추가하면됨.
         self.email = email
 
-class VirtualPerson(Person):
+class VirtualPerson(Person):  # 상위 클래스 -> person
     def __init__(self, name, platform):
         super().__init__(name)
         self.platform = platform
@@ -250,8 +251,8 @@ method가 변경되었을때, 자연스럽게 자식클래스도 해당 변경�
 object의 경우 여러개의 부모 클래스로부터 상속받을 수 있다.
 각각의 python class 에는 mro()라는 method와 __mroo__ 라는 attribute가 있다.
 
-1. mro() method는 해당 class이 object가 지닌 method, attribute를 가진
-class 들의 list를 리턴 한다.
+1. mro() method는 특정 class의 object가 지닌 method, attribute를
+가지고 있는 class 들의 list를 리턴 한다.
 2. __mroo__ attribute 는 그러한 class들을 tuple로 나타낸 것이다.
 이때 여러개가 있으면 첫번째 것이 win 하는듯 하다.(상속이되나?)"""
 
@@ -286,8 +287,8 @@ class Hinny(Horse, Donkey):
 
 mule = Mule()
 hinny = Hinny()
-# print(mule.says())
-# print(hinny.says())
+# print(mule.says())  # donkey
+# print(hinny.says())  # horse
 
 
 """ Mixins
@@ -346,7 +347,7 @@ fowl.name = 'Daphne'
 그들에 접근하기 위해서는 getter나 setter 처럼, 간접적으로 접근하고 쓰기 위한것들이 필요하다.
 
  하지만 python 에서도 이름을 혼란스럽게 지어서 privacy 를 확보한 경우에
-getters나 setter를 사용해서 이용이 가능하다.
+getter나 setter를 사용해서 이용이 가능하다.
 (가장 좋은 방법은 'properties'를 사용하는것이다, 나중에 이야기 할것)
 
  이후에 등장하는 예제에서는, Duck class에 hidden_name 이라는 attribute 를 작성했다.
@@ -385,19 +386,21 @@ class Duck():
     def set_name(self, input_name):
         print('inside the setter')
         self.hidden_name = input_name
-    name = property(get_name, set_name)
+    name = property(get_name, set_name)  # 기존에 단 한줄이 추가됐다.
 
 # 이전의 것들도 여전히 작동은 한다.
-don = Duck('donald')
+# don = Duck('donald')
 # print(don.get_name())
 # don.hidden_name = 'abc'
 # print(don.get_name())
 
-# 하지만 이제는 property name을 사용해 hidden name을 변경시킬 수 있다.
-don = Duck('DooHan')
+
+# name 이라는 키워드로 get_name, set_name이 사용되는 것을 볼 수 있다.
+# don = Duck('DooHan')
 # print(don.name)
 # don.name = 'Eol'
 # print(don.name)
+
 
 """ 2번째 방식으로는 decorater를 추가해서 method 의 이름을 대체하는 것이다."""
 
@@ -408,12 +411,14 @@ class Duck():
     def name(self):
         print('inside the getter')
         return self.hidden_name
-    @name.setter
+    @name.setter  # method명.setter 의 형식인듯 ex)
     def name(self, input_name):
         print('inside the setter')
         self.hidden_name = input_name
 
-# 작동은 똑같은 모습.
+""" 기존의 name = property(get_name, set_name)과 비슷하지만
+선언부의 이름이 모두 name으로 동일하고 @property와 @name.setter가 추가된 점이 다르다."""
+
 # don = Duck('donald')
 # print(don.name)
 # don.name = 'Ronaldo'
@@ -430,15 +435,19 @@ class Circle():
     @property
     def diameter(self):
         return 2 * self.radius
+    @diameter.setter
+    def diameter(self, radius):
+        self.radius = radius
 
-# c = Circle(5)
+c = Circle(5)
 # print(c.radius)
 # print(c.diameter)
 
 # c.radius = 7
 # print(c.diameter)  # 자동 계산되는 모습을 볼 수 있다.
 # c.diameter = 20
-# setter property 를 설정하지 않으면 외부에서 건드릴 수 없다. 위에처럼.
+# print(c.radius)
+# setter property 설정후 변경 가능한 모습.
 
 """ direct attribute access 보다 property 사용이 더 나은점.
 attribute 의 definition을 변경한다면, 오직 class definition 내부에 있는
@@ -450,7 +459,7 @@ attribute 의 definition을 변경한다면, 오직 class definition 내부에 �
 class definition 외부에서 attribute가 노출되지 않도록 하는
 명명 규칙으로, (__) 으로 사용한다."""
 
-# 기존의 hidden_name 을 __name 으로 한번 바꿔보자.
+# 기존의 함수명 hidden_name 을 __name 으로 한번 바꿔보자.
 
 class Duck():
     def __init__(self, input_name):
@@ -467,16 +476,15 @@ class Duck():
 
 # fowl = Duck('Howard')
 # print(fowl.name)  # property 를 통한 접근. 따라서 접근가능.
-
-# fowl.name = 'Donald'
+#
+# fowl.name = 'Donald'  # setter 호출.
 # print(fowl.name)
 
 # print(fowl.__name)
 # 변수명을 이용한 접근에서는 오류가 발생한다. 접근할 수 없게 Mangling 된 것이다.
 
 """ 이와 같은 Mangling 은 우발적으로, 혹은 의도적으로 attribute에 접근하는 것을
-방지한다.
- 하지만 꼭꼭 접근하고 싶다면 다음과 같은 방법이 있다."""
+방지한다. 하지만 꼭꼭 접근하고 싶다면 다음과 같은 방법이 있다."""
 
 # print(fowl._Duck__name)  # inside the getter 가 출력 안되는것에 주의.
 
@@ -487,21 +495,22 @@ class에 attribute 를 할당할 수 있다. 그리고 할당된 것들은 자�
 class Fruit():
     color = 'red'
 
+# 변경 전의 동일한 상태.
 blueberry = Fruit()
 # print(Fruit.color)
 # print(blueberry.color)
 
 # 자식의 것을 바꿔도 class attribute 에 영향을 주진 않는다.
 blueberry.color = 'Blue'
-# print(f'class :{Fruit.color}, blueberry :{blueberry.color}')
+# print(f'Fruit :{Fruit.color}, blueberry :{blueberry.color}')
 
 # class 의 것을 바꿔도, 존재하는 자식 오브젝트의 것을 바꾸진 않는다.
 Fruit.color = 'Green'
-# print(f'class :{Fruit.color}, blueberry: {blueberry.color}')
+# print(f'Fruit :{Fruit.color}, blueberry: {blueberry.color}')
 
 # 하지만 새롭게 생성되는 오브젝트 의 것에는 반영된다.
 Watermelon = Fruit()
-# print(f'class: {Fruit.color}, watermelon: {Watermelon.color}')
+# print(f'Fruit: {Fruit.color}, watermelon: {Watermelon.color}')
 
 
 """ Method Types
