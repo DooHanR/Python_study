@@ -435,7 +435,7 @@ class Circle():
     @property
     def diameter(self):
         return 2 * self.radius
-    @diameter.setter
+    @diameter.setter  # method명.setter 의 형식.
     def diameter(self, radius):
         self.radius = radius
 
@@ -449,15 +449,19 @@ c = Circle(5)
 # print(c.radius)
 # setter property 설정후 변경 가능한 모습.
 
-""" direct attribute access 보다 property 사용이 더 나은점.
+"""
+ direct attribute access 보다 property 사용이 더 나은점.
 attribute 의 definition을 변경한다면, 오직 class definition 내부에 있는
-코드만 바꾸면 된다. 모든 caller 들이 아니라."""
+코드만 바꾸면 된다. 모든 caller 들이 아니라.
+"""
 
 
-""" Name Mangling  for Privacy
+"""
+Name Mangling  for Privacy
 (Mangling=변수, 함수의 이름을 짓이겨서 다르게 바꿔버리는것)
 class definition 외부에서 attribute가 노출되지 않도록 하는
-명명 규칙으로, (__) 으로 사용한다."""
+명명 규칙으로, (__) 으로 사용한다.
+"""
 
 # 기존의 함수명 hidden_name 을 __name 으로 한번 바꿔보자.
 
@@ -489,8 +493,10 @@ class Duck():
 # print(fowl._Duck__name)  # inside the getter 가 출력 안되는것에 주의.
 
 
-""" Class and Object Attributes 
-class에 attribute 를 할당할 수 있다. 그리고 할당된 것들은 자식에게 상속된다."""
+"""
+ Class and Object Attributes 
+class에 attribute 를 할당할 수 있다. 그리고 할당된 것들은 자식에게 상속된다.
+"""
 
 class Fruit():
     color = 'red'
@@ -513,7 +519,8 @@ Watermelon = Fruit()
 # print(f'Fruit: {Fruit.color}, watermelon: {Watermelon.color}')
 
 
-""" Method Types
+"""
+Method Types
 몇몇 method는 class의 일부이기도 하고, 몇몇은 class 내부의 object의 일부이기도하고
 어떤것들은 둘다 아니기도 하다.
 
@@ -526,4 +533,116 @@ Watermelon = Fruit()
  3. static method: 선행하는 @staticmethod decorator 가 있는 경우.
 첫번째 argument는 object나 class가 아니다."""
 
-""" Instance Methods"""
+"""
+Instance Methods
+- Instance Methods : class 정의 할때, 첫번째 argument로 self 가 들어가는 method.
+대부분의 직접 만든 class 에서 자주 보게 될 것이다. 그리고 지금까지 본 대부분의
+method 등이 Instacne Method 이다. 
+"""
+
+"""
+Class Methods
+- Class Method : class definition 단계에서, 
+선행하는 @classmethod 가 존재하는 경우, class method 라고 칭한다.
+class method는 class 에 완전히 영향을 끼친다, 그 예시로 이를 통해 만들어내는
+변경점들은 그 오브젝트들 모두에도 영향을 끼친다.
+ class method 의 parameter는 'cls' 라고 약속되어 있다.
+class 는 예약어 이기 떄문에 사용이 불가능 하기 때문!
+다음의 예시를 통해 한번 알아보자.
+"""
+
+class A():
+    count = 0
+    def __init__(self):
+        A.count += 1  # self.count 대신 A.count를 사용하는 모습.
+    def exclaim(self):
+        print("I'm an A!")
+    @classmethod
+    def kids(cls):  # class method 에서 매개 변수로 cls가 사용 된다는 것에 주의해라!
+        print(f"A has {A.count} little objects")  # A.count == cls.count
+
+
+test_a = A()
+test_a2 = A()
+test_a3 = A()
+
+# A.kids()  # class method의 호출.
+# test_a.exclaim()
+
+
+"""
+Static Methods
+ static method는 object나 class 모두 영향을 끼치지 않으며 편의를 위해 존재한다.
+@staticmethod 라는 decorator 선행하며 argument로 self나 cls등도 받지 않는다.
+다음의 예시를 통해 한번 살펴보자.
+"""
+
+class CoyoteWeapon():
+    @staticmethod
+    def commercial():
+        print('This CoyoteWeapon has been brought to you by Acme')
+
+# CoyoteWeapon.commercial()
+# 해당 method 에 접근하기위해 object 만들 필요없이 바로 접근 가능하다는 점에 주목.
+
+
+"""
+Duck Typing
+ python 은 loose implementation of polymorphism(다형성에 대한 느슨한 이행?)이다.
+그들의 클래스 와는 무관하게, method의 이름이나 argument에 따라 다른 object여도
+같은 operation 을 적용한다.
+ 다음의 Quote class에 동일한 initializer 를 사용해보자. 이때, 두개의 새로운 function을 넣자.
+1. who() : 저장된 'person' string의 value를 return 한다.
+2. says() : 저장된 'words' string를 리턴한다. 구체적인 punctuation 과 함께.
+"""
+
+class Quote():
+    def __init__(self, person, words):
+        self.person = person
+        self.words = words
+    def who(self):
+        return self.person
+    def says(self):
+        return self.words + '.'
+
+class QuestionQuote(Quote):
+    def says(self):
+        return self.words + '?'
+
+class ExclamationQuote(Quote):
+    def says(self):
+        return self.words + '!'
+
+"""
+하위클래스인 QuestionQuote나 Exclamation 에서 init method를 초기화 하지 않았기 때문에,
+상위 클래스의 것을 그대로 가져오며 따라서 override 된 method 에서도 self를 그대로 사용 할 수 있다.
+"""
+
+hunter = Quote('Elmer Fudd', "I'm hunting wabbits")
+# print(f"{hunter.who()} says: {hunter.says()}")
+
+hunted1 = QuestionQuote('Bugs Bunny', "What's up, doc")
+# print(f"{hunted1.who()} says: {hunted1.says()}")
+
+hunted2 = ExclamationQuote('Daffy Duck', "It's rabbit season")
+# print(f"{hunted2.who()} says: {hunted2.says()}")
+
+""" 기존의 객체 지향 프로그래밍과 마찬가지로, says method는 다양한 형태로 작동된다.
+하지만 python 에서는 여기서 더 나아가서 해당 method를 가지고 있는 어느 object 라도
+실행 할 수 있게 해준다."""
+class BabblingBrook():
+    def who(self):
+        return 'Brook'
+    def says(self):
+        return 'Babble'
+
+brook = BabblingBrook()
+
+def who_says(obj):  # obj를 실행시키는 함수인듯.
+    print(f"{obj.who()} says {obj.says()}")
+
+# 모든 object에 적용이 되는 모습이다.
+who_says(hunter)
+who_says(hunted1)
+who_says(hunted2)
+who_says(brook)
