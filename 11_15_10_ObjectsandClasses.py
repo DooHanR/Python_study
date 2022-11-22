@@ -47,8 +47,8 @@ a_dog = Dog()
 another_dog = Dog()
 # print(another_dog)
 
-# dog class 에서 object 가 어떻게 행동하라고
-# 명시하지 않았기 때문에 아무것도 출력되지 않는 모습이다.
+""" dog class 에서 object 가 어떻게 행동하라고
+명시하지 않았기 때문에 아무것도 출력되지 않는 모습이다. """
 
 # attribute 할당하기.
 a_dog.age = 10
@@ -57,7 +57,9 @@ a_dog.nemesis = another_dog
 
 another_dog.name = "Flowerbutton"
 
-# print(a_dog.age, a_dog.name, a_dog.nemesis.name)
+# print(f"dog age: {a_dog.age},"
+#       f" dog name: {a_dog.name},"
+#       f" dog nemesis: {a_dog.nemesis.name}")
 
 """ 보통 attribute라 하면 object의 attribut이다.
 하지만 class 의 attribute도 있으므로 이에 주의하라.
@@ -73,9 +75,9 @@ Method는 class나 object 내부의 function을 의미한다.
 python의 object 초기화 method 인 '__init__()' 를 사용해야 한다. """
 
 # 선언과 동시에 attribute 할당하기.
-# class Dog:
-#     def __init__(self):  # init의 parameter 로 반드시 self가 있어야 한다.
-#         pass
+class Dog:
+    def __init__(self):  # init의 parameter 로 반드시 self가 있어야 한다.
+        pass
 
 class Dog:
     def __init__(self, name):
