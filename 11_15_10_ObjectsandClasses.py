@@ -527,11 +527,12 @@ Method Types
  1. instance method: 선행하는 decorator 가 없는경우.
 첫번째 argument는 반드시 invidual object itself 를 refer 하는 'self' 이여야 함..
 
- 2. class method: 선행하는 @classmethod 가 있는 경우.
+ 2. class method: 선행하는 '@classmethod' 가 있는 경우.
 첫번째 argument는 class 자체를 refer하는 cls(class 말고)이여야 한다.
 
- 3. static method: 선행하는 @staticmethod decorator 가 있는 경우.
-첫번째 argument는 object나 class가 아니다."""
+ 3. static method: 선행하는 '@staticmethod' decorator 가 있는 경우.
+첫번째 argument는 object나 class가 아니다.
+"""
 
 """
 Instance Methods
@@ -545,7 +546,7 @@ Class Methods
 - Class Method : class definition 단계에서, 
 선행하는 @classmethod 가 존재하는 경우, class method 라고 칭한다.
 class method는 class 에 완전히 영향을 끼친다, 그 예시로 이를 통해 만들어내는
-변경점들은 그 오브젝트들 모두에도 영향을 끼친다.
+변경점들은 그 오브젝트 모두에 영향을 끼친다.
  class method 의 parameter는 'cls' 라고 약속되어 있다.
 class 는 예약어 이기 떄문에 사용이 불가능 하기 때문!
 다음의 예시를 통해 한번 알아보자.
@@ -627,9 +628,12 @@ hunted1 = QuestionQuote('Bugs Bunny', "What's up, doc")
 hunted2 = ExclamationQuote('Daffy Duck', "It's rabbit season")
 # print(f"{hunted2.who()} says: {hunted2.says()}")
 
-""" 기존의 객체 지향 프로그래밍과 마찬가지로, says method는 다양한 형태로 작동된다.
+"""
+ 기존의 객체 지향 프로그래밍과 마찬가지로, says method는 다양한 형태로 작동된다.
 하지만 python 에서는 여기서 더 나아가서 해당 method를 가지고 있는 어느 object 라도
-실행 할 수 있게 해준다."""
+실행 할 수 있게 해준다.
+"""
+
 class BabblingBrook():
     def who(self):
         return 'Brook'
@@ -642,7 +646,312 @@ def who_says(obj):  # obj를 실행시키는 함수인듯.
     print(f"{obj.who()} says {obj.says()}")
 
 # 모든 object에 적용이 되는 모습이다.
-who_says(hunter)
-who_says(hunted1)
-who_says(hunted2)
-who_says(brook)
+# who_says(hunter)
+# who_says(hunted1)
+# who_says(hunted2)
+# who_says(brook)
+
+
+"""
+Magic Methods
+ Magic methods 는 뭘까? 일단 여기서 말하는 Magic method는
+두개의 언더바(__)로 시작하고 끝나는 method 들을 지칭한다.
+그리고 Magic method를 통해 python 에서 연산자의 작동 방식을 원하는 대로
+변경 시킬 수 있다. ex)'=='가 string의 대문자/소문자 구분없이 비교 하도록.
+"""
+
+# 두 단어를 비교하는 'Word' class가 있다고 가정해보자. 이때 대소문자는 구별하지 않는다
+class Word():
+    def __init__(self, text):
+        self.text = text
+
+    def equals(self, word2):
+        return self.text.lower() == word2.text.lower()  # 대소문자 구별하지 않기위해.
+
+first = Word('Ha')
+second = Word('hA')
+third = Word('eh')
+
+# print(first.equals(second))
+# print(first.equals(third))
+
+# 여기서 기존의 equals() method를 특별한 이름인 '__eq__()'로 변경해볼것.
+class Word():
+    def __init__(self, text):
+        self.text = text
+    def __eq__(self, word2):
+        return self.text.lower() == word2.text.lower()
+
+first = Word('Ha')
+second = Word('hA')
+trhid = Word('No')
+
+# print(first == second)  # 기존의 first.equals(second) 와 다른모습, 연산자가 사용됨.
+# print(second == third)
+# print(first.__eq__(second))
+# print(first.__eq__(third))
+
+
+""" __eq__ 왜에도 __ne__(!=), __lt__(<), __gt__(>), __le__(<=), __ge__(>=)
+혹은 __add__(+), __sub__(-), __mul__(*), __floordiv__(//), __truediv__(/)
+__mod__(%), __pow__(**) 등이 있다. 이때 self 가 좌측, other이 우측에 해당한다.
+ 이외에도 __str__, __repr__ 등이 있다.
+1. __str__ 은 object를 어찌 print 할 것인지.
+2. __repr__ output으로 variable을 출력 하도록 한다.
+"""
+
+# __str__ , __repr__ 사용예시
+first = Word('ha')
+# print(first)
+
+"""
+Aggregation(집합) and Composition(구성)
+ 때때로 상속이 매력적인 선택지 일수도 있지만, composition 이나
+aggregation이 더 나은 선택일 수도 있다.
+ Composition은 전체와 부분이 강력한 연관 관계를 가지며, 같은 생명주기를 갖는다.
+ex) Car 와 Engine, House와 Room, 오리와 오리의 꼬리.
+ Aggreagation 은 전체와 부분이 연관 관계를 맺기는 하지만, 동일한 생명 주기는 아니다.
+ex) Person과 Address, 역사과목과 학생, 오리와 호수.
+"""
+
+class Bill():
+    def __init__(self, description):
+        self.description = description
+
+class Tail():
+    def __init__(self, length):
+        self.length = length
+
+class Duck():
+    def __init__(self, bill, tail):
+        self.bill = bill
+        self.tail = tail
+    def about(self):
+        print(f"This duck has a {self.bill.description} bill "
+              f"and a {self.tail.length} tail")
+
+
+a_tail = Tail('long')
+a_bill = Bill('wide orange')
+duck = Duck(a_bill, a_tail)
+# duck.about()
+
+
+"""
+When to Use Objects or Something Else.
+여기서는 언제 class나 module 등을 사용할지에 대한 가이드 라인을 제시해준다.
+
+ - Object 는 당신이 여러개의 instance가 필요하고, 각각의 행동(method)는 유사하나
+각각의 내부상태(attribute)는 다를때 대부분 유용하게 사용할 수 있다.
+
+ - Class 는 상속을 지원하지만, module 은 상속을 지원하지 않는다.
+ 
+ - 무언가를 오직 1개만 있기를 원한다면, module 이 가장 좋다. program 에서 python
+module을 아무리 참조해도 오직 한개의 copy만이 load 된다.(java, c++ 에서의 singleton)
+
+ - 만약에 여러개의 변수와 변수안에 여러 value가 있고 여러 function 으로 전달되어야 한다면
+class 로 구현하는게 훨씬 나을 수 있다. 점점 많은 변수가 추가되고 넘겨짐에 따라 프로그램이
+알아보기 너무 어렵게 바뀔 가능성이 있기 때문에 class 내부에 한번에 정의하는게 나을 것이다.
+
+ - 가능한 가장 간단한 solution 을 사용하라. 복잡한 기능 보다는 보다 단순하게
+해결하는게 가장 좋은 방법이다.
+
+- dataclass 라는것도 있는데 추후에 알아보게 될 것이다.
+"""
+
+"""
+Named Tuples
+ Named Tuple 이란 tuple의 subclass로 value를 position(offset방식)에 더불어
+name(.name 형식)을 통해서도 접근 가능한 tuple을 의미한다.
+ 앞서 다뤘던 Duck class를 한번 named tuple로 바꿔보자.
+이때 namedtuple function은 두개의 argument를 가지게 될 것이다.
+
+1. The name
+2. A string of the field names, separated by spaces.
+
+ 하지만 Name tuple은 python 에서 자동적으로 지원되지 않는다.
+따라서 Module 을 불러와야 한다. 다음 예시를 통해 한번 보자.
+"""
+
+# namedtuple 을 불러와 사용하는 예시.
+from collections import namedtuple
+Duck = namedtuple('Duck', 'bill tail')
+duck = Duck('wide orange', 'long')
+# print(duck)
+# print(duck.bill)
+# print(duck.tail)
+
+# dictionary 를 통해 named tuple을 만들 수 있다.
+
+# parts = dict(bill='wide orange', tail='long')
+parts = {'bill': 'wide orange', 'tail': 'long'}
+
+duck2 = Duck(**parts)  # '**' : keyword argument, dict의 key,value를 argument로.
+# duck2 = Duck(bill = 'wide orange', tail = 'long')  # 위와 똑같다.
+
+# print(duck2)
+
+""" Named tuple은 immutable 이지만, replace로 field를 대체하고 
+또 다른 named tuple을 return 할 수 있다. """
+
+duck3 = duck2._replace(tail='magnificent', bill='crushing')
+# print(duck3)
+
+# 또한 duck을 dictionary로 정의할 수도 있다.
+duck_dict = {'bill': 'wide orange', 'tail': 'long'}
+# print(duck_dict)
+
+duck_dict['color'] = 'green'  # dictionary 에 field 추가도 가능.
+# print(duck_dict)
+
+
+# duck.exam = 'good' name_tuple 방식으론 추가가 안된다.
+
+
+"""
+Named Tuple 에 대한 몇가지 특징을 정리하자면 다음과 같다.
+1. Named Tuple은 immutable object 처럼 보이고, 행동한다.
+2. object 보다는 공간, 시간적으로 효율적이다.
+3. attribute 접근방식이 offset 방싞뿐만아니라 .name 형식으로 접근가능하다.
+4. Named Tuple을 dictionary key로 사용 가능하다.
+"""
+
+
+"""
+Dataclasses
+ 많은 사람들은 object 를 주로 데이터를 저장하기 위해 만들고는 한다.
+방금 우리가 앞서 공부한 named tuple도 마찬가지로 data store 로 사용됐다.
+python 3.7 에서는 dataclasse 가 도입됐다.
+"""
+
+# 기존의 간단한 object
+class TeenyClass():
+    def __init__(self, name):
+        self.name = name
+
+teeny = TeenyClass('itsy')
+# print(teeny.name)
+
+# 똑같은 기능을 하는 dataclass.
+from dataclasses import dataclass
+@dataclass  # dataclass decorator 를 필요로 하는 모습.
+class TeenyDataClass:
+    name: str = 'basic'
+    age: int = 5
+
+"""
+attribue 선언 방식도 다소 다르다.
+name:type, name:type = val
+ex)color:str, color:str = 'red'
+"""
+
+teeny = TeenyDataClass('modified', '25')
+# print(teeny.name)
+# print(teeny.age)
+
+
+"""
+dataclass 내에서 argument 를 제공할때, 반드시 class 내부에서
+정해진 대로 제공하거나 혹은 named arguement를 이용해야 한다.
+"""
+
+from dataclasses import dataclass
+@dataclass
+class AnimalClass:
+    name: str
+    habitat: str
+    teeth: int = 0  # default value가 있어서 object 생성시 따로 지정안해줘도 문제x.
+
+snowman = AnimalClass('yeti', 'Himalayas', 46)
+nyaong = AnimalClass(habitat='anywhere', name='cat', teeth=24)
+# print(nyaong)
+# print(snowman)
+
+""" 다른 object 들처럼 attribute에 접근 가능하다. """
+# print(nyaong.habitat)
+# print(snowman.teeth)
+
+
+"""
+Attrs
+attr 없이 class를 만들고 무엇을 하자니 매우 복잡하고 함수도 여러번나와야하고
+typing도 여러번 해야하고 번거로운게 너무나 많다.
+그런데 이 attr 을 잘사용하면 이런 피곤함을 줄일 수 있는거 같다.
+한번 예제를 통해 살펴보자.
+"""
+
+import attr
+@attr.s
+class Point3D(object):
+    x = attr.ib()
+    y = attr.ib()
+    z = attr.ib()
+
+print(Point3D(1,2,3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
