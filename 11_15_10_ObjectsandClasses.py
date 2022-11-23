@@ -887,21 +887,48 @@ class Point3D(object):
     y = attr.ib()
     z = attr.ib()
 
-print(Point3D(1,2,3))
+# print(Point3D(1,2,3))
+#
+# print(Point3D(1,2,3) == Point3D(2,3,1))
+# print(Point3D(1,2,3) == Point3D(1,2,3))
+# print(Point3D(3,2,3) > Point3D(1,2,3))
+#
+# print(attr.asdict(Point3D(1,2,3)))
+
+""" 사실 아직 내 단계에서는 attr의 유용성이 아직 안와닿는게 사실이다.
+이론의 학습을 끝내고 실제 예제 단계로 넘어가면서 하게 될것들에 집중하고 싶다."""
 
 
+"""Things to Do"""
+
+# 10.1
+class Thing():
+    def __init__(self):
+        print(self)
 
 
+example = Thing()
+print(Thing)
+print(example) # its same.
 
+# 10.2
 
+class Thing2():
+    def __init__(self):
+        self.letters = 'abc'
+        # print(self.letters)
 
+# Thing2()
+Thing2 = Thing2()
+print(Thing2.letters)
 
+# 10.3
+class Thing3():
+    def __init__(self):
+        self.letters = 'xyz'
+        print(self.letters)
 
-
-
-
-
-
+Thing3()
 
 
 
