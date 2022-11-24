@@ -907,50 +907,167 @@ class Thing():
         print(self)
 
 
-example = Thing()
-print(Thing)
-print(example) # its same.
+# example = Thing()
+# print(Thing)
+# print(example)  # its same.
 
 # 10.2
 
-class Thing2():
-    def __init__(self):
-        self.letters = 'abc'
-        # print(self.letters)
+# class Thing2():
+#     def __init__(self):
+#         self.letters = 'abc'
+#         print(self.letters)
 
-# Thing2()
-Thing2 = Thing2()
+""" 이 예시는 class 자체가 아닌 class 에 의해 생성되는
+object에 abc라는 값이 들어가는 것이다. 따라서 class 자체에 부여하고자
+한다면 다음과 같이 선언해야 한다. """
+
+class Thing2():
+    letters = 'abc'
+
 print(Thing2.letters)
+# Thing2()
+# Thing2 = Thing2()
+# print(Thing2.letters)
 
 # 10.3
 class Thing3():
-    def __init__(self):
-        self.letters = 'xyz'
+    def __init__(self, letters):
+        self.letters = letters
         print(self.letters)
 
-Thing3()
+# Thing3('xyz')
+
+# 10.4
+class Element():
+    def __init__(self, name, symbol, number):
+        self.name = name
+        self.symbol = symbol
+        self.number = number
+
+# Element_obj = Element(symbol = 'H', name='Hydrogen', number=1)
+# Element_obj = Element('Hydrogen', 'H', 1)
+# print(Element_obj.name, Element_obj.symbol, Element_obj.number)
+
+# 10.5
+test_dict = dict(name='Hydrogen', symbol='H', number=1)
+
+# hydrogen = Element(**test_dict)  # 이거좀 주의하라. dict를 매개변수로 넘길때.
+# print(hydrogen.name, hydrogen.symbol, hydrogen.number)
+
+# 10.6
+class Element():
+    def __init__(self, name, symbol, number):
+        self.name = name
+        self.symbol = symbol
+        self.number = number
+    def dump(self):
+        print(self.name,
+              self.symbol,
+              self.number,)
+
+# hydrogen = Element(**test_dict)
+# hydrogen.dump()
+
+# 10.7
+
+# print(hydrogen)
+
+class Element():
+    def __init__(self, name, symbol, number):
+        self.name = name
+        self.symbol = symbol
+        self.number = number
+    def __str__(self):
+       return (f'{self.name}, {self.symbol}, {self.number}')
+       #  __str__ 의 경우 return 방식으로 해야 오류가 안생기는 모습.
+
+new_hydrogen = Element(**test_dict)
+print(new_hydrogen)  # 문제 생기는데 ?
+
+# 10.8
+
+class Element():
+    def __init__(self, name, symbol, number):
+        self.__name = name
+        self.__symbol = symbol
+        self.__number = number
+    @property
+    def name(self):
+        return self.__name
+    @property
+    def symbol(self):
+        return self.__symbol
+    @property
+    def number(self):
+        return self.__number
+
+""" 잘 모르겠다. 도대체가 property를 통해 뭘 어쩌라는건지 모르겟다."""
+test_dict = dict(name='Hydrogen', symbol='H', number=1)
+Element1 = Element(**test_dict)
+# print(Element1.number)
+# print(Element1.name)
+# print(Element1.symbol)
+""" 나는 매개변수를 넣어서 해당하느 것을 출력하는 건 줄 알았는데 그냥 단순하게
+method를 추가시키는 것이였다. """
+
+# 10.9
+class Bear():
+    def __init__(self):
+        pass
+    def eat(self):
+        return 'berries'
+
+class Rabbit():
+    def __init__(self):
+        pass
+    def eat(self):
+        return 'clover'
+
+class Octothrope():
+    def __init__(self):
+        pass
+    def eat(self):
+        return 'campers'
+
+bear = Bear()
+rabbit = Rabbit()
+octothrope = Octothrope()
+# print(f"{bear.eat()}, {rabbit.eat()}, {octothrope.eat()}")
+
+# 10.10
+class Laser():
+    def does(self):
+        return 'disintegrate'
+
+class Claw():
+    def does(self):
+        return 'crush'
+
+class SmartPhone():
+    def does(self):
+        return 'ring'
 
 
+class Robot(Laser, Claw, SmartPhone):
+    def __init__(self):
+        self.laser = Laser()
+        self.claw = Claw()
+        self.smartphone = SmartPhone()
+    def does(self):
+        print(f"laser: {self.laser.does()}\n"
+              f"Claw: {self.claw.does()}\n"
+              f"Smartphone: {self.smartphone.does()}\n")
+
+    # 위의 것이 훨씬 깔끔함을 알 수 있나? 일단 코딩하는데에는.
+    # def does(self):
+    #     print(f"Laser's do:{Laser.does(self)}\n"
+    #           f"Claw's do:{Claw.does(self)}\n"
+    #           f"SmartPhone's do:{SmartPhone.does(self)}\n")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+robbie = Robot()
+print( robbie.does() )
 
 
 
