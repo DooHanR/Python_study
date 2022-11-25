@@ -925,7 +925,7 @@ object에 abc라는 값이 들어가는 것이다. 따라서 class 자체에 부
 class Thing2():
     letters = 'abc'
 
-print(Thing2.letters)
+# print(Thing2.letters)
 # Thing2()
 # Thing2 = Thing2()
 # print(Thing2.letters)
@@ -983,7 +983,7 @@ class Element():
        #  __str__ 의 경우 return 방식으로 해야 오류가 안생기는 모습.
 
 new_hydrogen = Element(**test_dict)
-print(new_hydrogen)  # 문제 생기는데 ?
+# print(new_hydrogen)  # 문제 생기는데 ?
 
 # 10.8
 
@@ -1004,7 +1004,7 @@ class Element():
 
 """ 잘 모르겠다. 도대체가 property를 통해 뭘 어쩌라는건지 모르겟다."""
 test_dict = dict(name='Hydrogen', symbol='H', number=1)
-Element1 = Element(**test_dict)
+# Element1 = Element(**test_dict)
 # print(Element1.number)
 # print(Element1.name)
 # print(Element1.symbol)
@@ -1067,7 +1067,7 @@ class Robot(Laser, Claw, SmartPhone):
 
 
 robbie = Robot()
-print( robbie.does() )
+# print( robbie.does() )
 
 
 
