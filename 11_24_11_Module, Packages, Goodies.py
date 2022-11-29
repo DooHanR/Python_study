@@ -91,9 +91,9 @@ sys 모듈을 import 하고 path list를 사용해보면 된다.
 이것은 python이 해당 모듈을 찾기까지의 경로의 list를 의미한다. 
 """
 
-import sys
-for place in sys.path:
-    print(place)
+# import sys
+# for place in sys.path:
+#     print(place)
 
 """
 이때 random 과 같이 standary library 에 있는것을 현재 디렉토리에
@@ -151,3 +151,156 @@ south
 만약에 north 와 south에 module search path에 있다면
 single directory package 처럼 여전히 사용 할 수 있다.
 """
+
+"""
+Module Versus Objects
+어쩔때 module 내에 code를 넣어야 하고, 언제 object 에 넣어야 할까?
+그 둘은 여러 분야에서 매우 유사하게 사용 된다. thing.stuff 등과 같이 말이다.
+
+또한 module 내부의 클래스, 펑션, 전역 변수들은 외부에서도 사용 가능하며
+object는 property 와 (__)로 접근 권한등을 설정 할 수 있다.
+
+그리고 import 를 통해 module 내의 무언가를 변경시켜도
+그것은 복사된 것이 변경되는 것이기 때문에, 문제가 되진 않는다.
+"""
+
+"""
+Goodies in the Python Standarad Library.
+python 에는 정말 많은 standard library 가 있으며, 우리가 찾는
+대부분의 것들이 있을정도이며, 교재에도 이러한 library 등이 있는
+웹페이지나 교재들이 많이 소개 되어 있다.
+
+이후로도 나오는 chapter 에서도 우리는 여러가지 standard module에 대해
+공부하게 될 것이며, 일반적으로 사용되는 것들에 대해서도 많이 다뤄볼 것이다.
+"""
+
+"""
+Handle Missing Keys with setdefault() and defaultdict()
+dictionary에 존재하지 않는 key에 접근했을 때, exception 을 겪어봤을 것이다.
+그래서 exception 을 피하기위해 dict의 get() 함수를 사용하곤 했다.
+
+여기서 소개되는 setdefault() 함수는 get()과 유사하지만
+만약 key가 missing 됐으면 item 을 할당하는 기능을 한다.
+"""
+
+periodic_table = {'Hydrogen': 1, 'Helium': 2,}
+# print(periodic_table)
+
+# 존재하지 않는 key 의 경우, 할당됨을 볼 수 있다.
+carbon = periodic_table.setdefault('Carbon', 12)
+# print(carbon)
+# print(periodic_table)
+
+# 기존의 key 를 변경시키고자 하는 경우, 변경 되지 않음.
+helium = periodic_table.setdefault('Helium', 545)
+# print(helium)
+# print(periodic_table)
+
+"""
+defaultdict() 도 비슷하다. 다른점은 dictionary가 생성될때
+default value를 구체화 하며, argument로 function을 받는다.
+한번 예시를 통해 알아보자.
+"""
+
+from collections import defaultdict
+periodic_table = defaultdict(int)
+# 이제부터 missing value는 값이 0인 integer가 된다.
+
+periodic_table['Hydrogen'] = 1
+# print(periodic_table['Lead'])
+# print(periodic_table)
+
+""" 여기서 defaultdict() 의 argument로 들어간 function 은
+missing key 에 배정될 value를 return 하는 것 들이다.
+이후의 예제에서 no_idea 는 필요한 value를 return 하기 위함이다. """
+
+from collections import defaultdict
+
+def no_idea():
+    return 'Huh?'
+
+bestiary = defaultdict(no_idea)
+bestiary['A'] = 'Abominable Snowman'
+bestiary['B'] = 'Basilisk'
+# print(bestiary['A'])
+# print(bestiary['B'])
+# print(bestiary['C']) # 미 할당된 경우. Huh가 할당되어 출력되는 모습.
+# print(bestiary)
+
+""" 이외에도 int(), list(), dict() 과 같은 function을 사용 할 수 있다.
+만약에 argument 를 생략하는 경우에는 새로운 key 의 default value는
+None이 된다. 
+ lambda를 쓰는 경우, 간단하게 만들 수도 있다."""
+
+bestiary = defaultdict(lambda: 'Huh?')
+# print(bestiary['E'])
+
+# int()를 이용해 counter 만들어보기
+from collections import defaultdict
+food_counter = defaultdict(lambda: 0) # lambda 로도 작동이 된다.
+for food in ['spam', 'spam', 'eggs', 'spam']:
+    food_counter[food] += 1
+
+# for food, count in food_counter.items():
+#     print(food, count)
+
+""" 만약 여기서 defaultdict 을 사용하지 않았더라면
+food_counter의 값이 0으로 초기화 되지 않았기 때문에
+exception이 발생해서 반복문에서 dict_counter[food] 를
+0으로 설정해줘야 하는 수고로움이 일어나게 된다."""
+
+
+"""
+Count Items with Counter()
+앞서한 dict 의 빈도수 세기 기능을 하는 standard library가 있다.
+바로 counter() 이다.
+"""
+
+from collections import Counter
+breakfast = ['spam', 'spam', 'eggs', 'spam']
+breakfast_counter = Counter(breakfast)
+# print(breakfast_counter)  # 겁내 간단하다.
+
+# most_common() : 내림차순으로 모든 element를 return.
+# print(breakfast_counter.most_common())
+# print(breakfast_counter.most_common(1))  # 숫자가 주어지면 해당 갯수만큼. 내림
+
+# counter 를 combine 하는 것도 가능하다. 한번 보자
+
+lunch = ['eggs', 'eggs', 'bacon']
+lunch_counter = Counter(lunch)
+
+# print("breakfast:", breakfast_counter)
+# print("lunch", lunch_counter)
+# print("breakfast + lunch:", breakfast_counter + lunch_counter)  # 합치기.
+# print("breakfast - lunch:", breakfast_counter - lunch_counter)
+# print("lunch - breakfast:", lunch_counter - breakfast_counter)
+# print("lunch & breakfasat:", lunch_counter & breakfast_counter)
+# print("breakfast | lunch:", lunch_counter | breakfast_counter)
+
+"""
+Order by Key with OrderedDict()
+python 구 버전에서는 dictionary가 삽입된 순서대로 출력되지 않기때문에
+OrderedDict()과 같은 함수가 필요했다. 지금은 아니다.
+"""
+
+quotes = {'Moe': 'A',
+          'Larry': 'B',
+          'Curly': 'C'}
+
+# 최신버전이라 순서대로 출력, 테스트가 안됨.
+# for stooge in quotes:
+#     print(stooge)
+
+"""
+Stack + Queue == deque
+deque는 double ended queue 를 의미한다. stack, queue 모두의 특징을
+지니고 있으며 sequence의 양끝에서 더하거나, 삭제할 수 있다.
+ 
+ 이제 회문(거꾸로해도 같은것)인지 알기위해 우리는 단어의 양끝에서 중앙까지 확인할 것이다.
+1. popleft(): deque의 최좌측 item을 제거하고 return.
+2. pop(): 최우측 item 제거후 return.
+
+ 이것들을 통해 끝에서 부터 가운데까지 탐색해 나갈 것이다. 
+"""
+
