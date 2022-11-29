@@ -73,13 +73,81 @@ fast.py 와 advice.py 를 집어 넣을 것이다.
 from choices import fast, advice
 # choicies 디렉토리에서 fast, advice를 import 한다!
 
-print(f"Let's go to {fast.pick()}")
-print(f"Should we  take out? {advice.give()}")
+# 실행할 때 마다 결과물이 랜덤으로 출력된다.
+# print(f"Let's go to {fast.pick()}")
+# print(f"Should we  take out? {advice.give()}")
 
 
+"""
+The Module Search Path
+import choices 호출시, 현재 디렉토리에서 해당 choice를 탐색한다는 것을
+기억 할 것이다. 이때, 우리는 이러한 과정을 control 할 수 있다.
 
+또한 random 에서 choice() 함수를 사용했던 것을 보면, 우리의 현재
+디렉터리 에는 해당 random 모듈이 없으며, 외부에서 찾았음을 알 수 있다.
 
+이렇게 python interperter가 작동하는 것을 확인해보고 싶다면
+sys 모듈을 import 하고 path list를 사용해보면 된다.
+이것은 python이 해당 모듈을 찾기까지의 경로의 list를 의미한다. 
+"""
 
+import sys
+for place in sys.path:
+    print(place)
 
+"""
+이때 random 과 같이 standary library 에 있는것을 현재 디렉토리에
+정의한다면 해당 기능을 사용 할 수 없음에 주의하라.
+또한 코드를 통해 search path를 수정할 수도 있다.
+"""
 
+# import sys
+# sys.path.insert(0, "/my/modules")
+# 무서워서 실행 못시키겠다.
 
+"""
+Relative and Absolute Imports
+지금까지 현재 디렉토리, 서브 디렉토리, 스탠다드 library 등에서 import 했다.
+별 문제 없어보이지만, local module과 standard module의 이름이 겹치면
+무엇을 import 해야 될지 혼동이 생기게 된다.
+
+ 그래서 python은 absolute 와 relative import를 지원한다.
+지금까지의 import는 모두 absolute 였으며, relative의 사용법은 다음과 같다.
+
+- relative import 사용법.
+1. 같은 디렉토리에 있을 경우: from . import rougarou
+2. 바로 상위 디렉토리에 있을 경우: from .. import rougarou
+3. creatures 라는 형재 디렉토리에 있을 경우: from ..creatures import rougarou
+"""
+
+"""
+Namespace Packages
+package 를 directory를 따라서 namespace package 를 통해 나눌 수 있다.
+이는 package 가 너무 비대해져, 나누고 싶지만 나누는 도중 해당
+module 을 사용하고 있는 프로그램에 영향을 줄 수 있을때 유용하게 사용 될 수 있다.
+
+대안은 다음과 같다.
+1. critters(예시 package) 위에 새로운 location directories를 생성.
+2. 생성된 new parents 디렉토리의 밑에 critters의 cousin 을 만들어준다.
+3. 기존의 모듈들을 각각의 디렉토리로 이동시킨다.
+
+- 기존의 것.
+critters
+ -> rougarou.py
+ -> wendigo.py
+사용: from critters import wendigo, rougarou
+
+- parents directory 를 활용.
+north
+ ->critters
+  ->wendigo.py
+
+south
+ ->critters
+  ->rougarou.py
+  
+사용: from critters import wendigo, rougarou
+
+만약에 north 와 south에 module search path에 있다면
+single directory package 처럼 여전히 사용 할 수 있다.
+"""
