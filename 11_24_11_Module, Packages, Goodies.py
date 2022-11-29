@@ -304,3 +304,21 @@ deque는 double ended queue 를 의미한다. stack, queue 모두의 특징을
  이것들을 통해 끝에서 부터 가운데까지 탐색해 나갈 것이다. 
 """
 
+def palindrome(word):
+    from collections import deque
+    dq = deque(word)
+    while len(dq) > 1:
+        if dq.popleft() != dq.pop():
+            return False
+    return True
+
+# print(palindrome('a'))
+# print(palindrome('abc'))
+# print(palindrome('aba'))
+
+# 굳이 이런 방식말고 string을 revers 했을때 같은지 확인하면 됨.
+def another_palindrome(word):
+    return word == word[::-1]
+
+print(another_palindrome('a'))
+print(another_palindrome('ab'))
