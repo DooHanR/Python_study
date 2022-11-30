@@ -320,5 +320,116 @@ def palindrome(word):
 def another_palindrome(word):
     return word == word[::-1]
 
-print(another_palindrome('a'))
-print(another_palindrome('ab'))
+# print(another_palindrome('a'))
+# print(another_palindrome('ab'))
+
+"""
+Iterate over Code Structures with itertools
+itertools 에는 특수한 목적의 iterator function을 포함하고 있다.
+각각의 function 들은 for loop 가 시행될때 1개의 item을 리턴하며,
+call 사이에서 그 상태들을 기억한다.
+"""
+
+# chain() 함수 사용하는 모습. 주어진 인자를 엮는다(chain)
+import itertools
+# for item in itertools.chain([1, 2], [3, 4], ['a', 'b']):
+    # print(item)
+
+# cycle() 함수 사용하는 모습. 무한하게 반복됨.
+import itertools
+# for item in itertools.cycle([1, 2]):
+    # print(item)
+
+# accumulte() 함수는 accumulated value 들을 계산한다. default로는 sum 을 계산해냄.
+# import itertools
+# for item in itertools.accumulate([1, 2, 3, 4]):
+    # print(item)
+
+# 두번째 매개변수로 function 을 부여하면 기존의 동작(더하기)를 대체 할 수 있다.
+import itertools
+def multiply(a, b):
+    return a * b
+
+# for item in itertools.accumulate([1, 2, 3, 4], multiply):
+#     print(item)
+
+""" itertools 에는 이외에도 다양한 function들을 가지고 있으며, 잘 응용한다면
+시간을 아끼는데에 도움이 될 것이다. """
+
+"""
+Print Nicely with pprint()
+지금까지 우리는 print()로 출력해왔는데, 때떄로 읽기 힘들때가 많았다.
+그래서 좀 더 개선된 pprint()를 여기서 소개할 것이다.
+"""
+
+from pprint import pprint
+quotes = dict([('Moe', 'A wise guy, huh?'),
+               ('Larry', 'Ow!'),
+               ('Curly', 'Nyuk nyuk!'),])
+
+
+# print(quotes)  # 삽입순으로 그대로 출력.
+# pprint(quotes)  # 좀더 읽기 쉽게 출력되는듯?
+
+"""
+Get Random
+random 모듈내의 특정 function 등을 통해 sequence 에서
+무작위로 value를 뽑아낼 수 있다.
+"""
+
+from random import choice
+# pprint(choice(range(1001)))
+# pprint(choice('alphabet'))
+# pprint(choice(('a', 'one', 'and-a', 'two', 'three')))
+
+# 한번에 여러개의 랜덤 value를 얻고싶다면 숫자와 함께 sample() 을 사용하면 된다.
+from random import sample
+# print(sample([23, 9, 45, 'bacon', 'a', 'b', range(50)], 3))
+
+# 특정범위내의 무작위 수를 얻기위해서 randint(), randrange() 와 같은 함수도 있다.
+from random import randrange
+# print(randrange(34, 311))
+# print(randrange(38, 74, 5))  # 범위 지정 + step지정(건너뛰기)
+
+# random() 함수를 통해 0.0 과 1.0 사이의 진짜 random 한 숫자 얻기.
+from random import random
+# print(random())
+
+
+""" Things to Do """
+# 11.1
+# import zoo
+# zoo.hours()
+
+# 11.2
+import zoo as menagerie
+# menagerie.hours()
+# hours()  # 이렇게는 안되는듯 하다.
+
+# 11.3
+from zoo import hours
+# hours()  # direct로 import 따라서 바로 사용이 가능하다.
+
+# 11.4
+from zoo import hours as info
+info()
+
+# 11.5
+plain = dict(a=1, b=2, c=3)
+pprint(plain)
+
+# 11.6
+""" OrderedDict 만들 수 없다. 여기서는 지원을 안해!"""
+
+# 11.7
+from collections import defaultdict
+dict_of_lists = defaultdict(list)
+dict_of_lists['a'] = 'something for a'
+print(dict_of_lists['a'])
+
+
+
+
+
+
+
