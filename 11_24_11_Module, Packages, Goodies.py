@@ -412,11 +412,11 @@ from zoo import hours
 
 # 11.4
 from zoo import hours as info
-info()
+# info()
 
 # 11.5
 plain = dict(a=1, b=2, c=3)
-pprint(plain)
+# pprint(plain)
 
 # 11.6
 """ OrderedDict 만들 수 없다. 여기서는 지원을 안해!"""
@@ -424,7 +424,8 @@ pprint(plain)
 # 11.7
 from collections import defaultdict
 dict_of_lists = defaultdict(list)
-dict_of_lists['a'] = 'something for a'
+dict_of_lists['a'].append('something for a') # 이게 정답. append 라는게 따로있네?
+# dict_of_lists['a'] = 'something for a'
 print(dict_of_lists['a'])
 
 
