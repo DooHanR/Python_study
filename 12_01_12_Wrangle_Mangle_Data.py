@@ -137,14 +137,29 @@ Encode
 """
 
 snowman = '\u2603'
-print(snowman)
+# print(snowman)
+# print(len(snowman))  # 1글자 unicode character.
 
+# 이제 snowman 을 encoding 해보자.
+ds = snowman.encode('utf-8')  # utf-8 형식으로 encode
+# print(len(ds))  # 달라진 길이.
+# print(ds)  # 출력도 달라진다.
 
+""" 물론 UTF-8 말고 다른 encoding 방식을 사용하는것도 가능은 하지만, 만약에
+해당 encoding 방식으로 호환되지 않는 unicode string라면 오류가 발생한다.
+예를 들어 지금 상태에서 ascii encoding 을 사용하면 에러가 발생하게 된다."""
 
+# ds = snowman.encode('ascii') #  error 발생.
 
+"""
+encode() function 의 두번째 argument.
+두번째 argument는 encoding exception을 피하기 위해 취해진다.
+앞서 봤듯이, encoding 양식에 따라 지원하지 않으면 에러가 발생한다.
+하지만 두번째 argument를 이용해 그 error의 발생을 방지 할 수 있다.
+"""
 
-
-
+# encode 되지 않을때 그냥 던져버리는 'ignore'
+print(snowman.encode('ascii', 'ignore'))
 
 
 
