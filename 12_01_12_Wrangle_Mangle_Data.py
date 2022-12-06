@@ -292,9 +292,73 @@ eacute_normalize = unicodedata.normalize('NFC', eacute_combined1)  # 원본과 �
 Text Strings:Regular Expressions.
  앞서 까지는 간단한 string opeartion에 대해 공부했지만, 이제는 
 regular expression를 통해 보다 복잡한 pattern matching에 대해 공부할 것이다.
+이러한 것들은 모두 standard module 're' 에서 제공된다.
+match 하고싶은 pattern이라는 string을 정의하고, source 라는 string을 match 한다.
+한번 예시를 통해 살펴보자.
+"""
+
+import re
+result = re.match('You', 'Young Frankenstein')
+# print(result)
+
+""" 여기서 'You' 는 우리가 찾고있는 pattern 이며,
+'Young Frankenstein'은 우리가 원하는 string인 source 이다.
+match() 함수는 source가 pattern 으로 시작하는지를 확인한다.
+반면에 search() 함수는 source 내에 해당하는 pattern이 위치 상관없이 찾는다. """
+
+# pattern 을 compile 하는것은 match를 빠르게 하기 위함.
+import re
+youpattern = re.compile('You')
+
+# compiled 된 pattern 에 match를 수행.
+import re
+result = youpattern.match('Young Frankenstein')
+
+""" match()만이 pattern 과 soruce를 비교하는 유일한 방법은 아니다. 
+이외에도 아래와 같이 여러개 방식이 있다.
+- search() : 아무 위치에나, 처음으로 match 되는것을 return 한다. 
+- findall() : match 되면서 겹치지 않는 모든것들의 list를 return 한다.
+- split() : pattern 과 match 되는 source를 split 하고 string piece의
+list를 return 한다. 
+- sub() : replacement argument를 받아서 source의 pattern에 해당하는 것들을
+replacement로 대체 한다. """
 
 
 """
+Find Exact Beginning Match with match()
+ 그래서 string 'Young Frankenstein'이 word 'You'로 시작한다고 볼 수 있을까?
+다음의 코드를 한번 봐보자.
+"""
+
+import re
+source = 'Young Frankenstein'
+m = re.match('You', source)  # match starts at the beginning of source
+if m:  # match returns an object, do this to see what matched
+    print(m.group())
+
+m = re.match('^You', source)  # start anchor does the smae
+if m:
+    print(m.group())
+
+
+import re
+source = 'Young Frankenstein'
+# m = re.match('Frank', source)
+# if m:
+#     print(m.group())  # 이 경우에는 아무것도 출력 되지 않는다.
+
+# walrus operator 를 이용하면 위의 예시를 짧게 할 수 있다.
+if m := re.match('Frank', source):
+    print(m.group())
+
+
+
+
+
+
+
+
+
 
 
 
