@@ -159,7 +159,159 @@ encode() function 의 두번째 argument.
 """
 
 # encode 되지 않을때 그냥 던져버리는 'ignore'
-print(snowman.encode('ascii', 'ignore'))
+# print(snowman.encode('ascii', 'ignore'))
+
+# 알수없는 character 에 대해 '?'로 대체되는 'replace'
+# print(snowman.encode('ascii', 'replace'))
+
+# python unicode character string 으로 변환되는 'backslashreplace'
+# print(snowman.encode('ascii', 'backslashreplace'))
+
+# 출력가능한 unicode escape sequence 로 나타내고 싶을때 'xmlcharrefreplace'
+# print(snowman.encode('ascii', 'xmlcharrefreplace'))
+
+
+"""
+Decode
+ Decoding은 byte string을 unicode text string으로 바꾸는 것을 의미한다.
+우리가 외부에서 text를 받아올때, byte string으로 encoding 한다.
+여기서 까다로운 부분은 바로 실제로 무슨 encoding 기법이 사용됐는지를 파악하는 것이다.
+왜냐면 unicode string을 얻기위해 decoding 해야 되기 때문이다.
+
+ 문제는 byte string 내에 어느 encoding이 쓰였는지 나타내지 않는 다는 것이다.
+아무튼 예시를 통해 한번 살펴보자.
+"""
+
+place = 'caf\u00e9'
+# print(place)
+# print(type(place))
+
+# 위의 것을 UTF-8 방식으로 encoding 하기.
+place_bytes = place.encode('utf-8')
+# print(place_bytes)
+# print(type(place_bytes))
+# print(len(place_bytes))  # 크기가 5임에 주의. 마지막의 e 가 2개로 취급된듯.
+
+# 아무튼 다시 decoding 해보자.
+place2 = place_bytes.decode('utf-8')
+# print(place2)  # 원본으로 돌아왔다.
+
+# 이것은 우리가 똑같이 utf-8으로 encoding, decoding 한 결과. 만약 다른걸로 하면?
+# place3 = place_bytes.decode('ascii')  # ascii의 경우 error가 발생한다.
+
+place4 = place_bytes.decode('latin-1')
+place5 = place_bytes.decode('windows-1252')
+# print(place4, place5)
+
+# 이처럼 다양하게 할 수 있지만 가능하면 UTF-8으로 나타내도록 하자.
+
+
+"""
+HTML Entities
+ python 에서는 unicode 대신 HTML character entities 를 이용해 conver 하는
+또 다른 방식을 제공한다. 이 방식은 특히 web 에서 작업하는 경우 더 간단한 방식이다.
+게다가 unicode name을 일일히 찾아볼 필요도 없다. 다음 예시를 보자.
+"""
+
+import html
+# print(html.unescape("&egrave;"))
+# print(html.unescape("&#xe9;"))
+
+""" named entity translation 을 dictionary 형태로 import도 가능하다.
+이 경우 '&', ';' 둘다 drop 가능하다."""
+
+from html.entities import html5
+# print(html5["egrave"])
+# print(html5["egrave;"])  # 둘이 똑같음.
+
+""" single python unicode 문자 -> HTML entity name 의 경우
+ord() 에 character의 decimal value를 사용하라."""
+
+import html
+char = '\u00e9'
+dec_value = ord(char)
+# print(html.entities.codepoint2name[dec_value])
+
+# unicode string이 1글자 보다 더많은경우. 아래와 같이 한다
+
+place = 'caf\u00e9'
+byte_value = place.encode('ascii', 'xmlcharrefreplace')
+# print(byte_value)
+# print(byte_value.decode())  # byte_value를 HTML compatible string으로 바꾸기 위함.
+
+
+"""
+Normalization.
+ 몇몇의 unicode characters 들은 한번의 이상의 unicode encoding 으로 나타낼 수 있다.
+겉보기에는 같아보이지만, 내부 byte sequence가 다르기 때문에 같지는 않다.
+한번 예시를 통해 알아보자.
+"""
+
+eacute1 = 'é'  # UTF-8, pasted
+eacute2 = '\u00e9'  # Unicode code print
+eacute3 = '\N{LATIN SMALL LETTER E WITH ACUTE}'  # Unicode name
+eacute4 = chr(233)  # decimal byte value
+eacute5 = chr(0xe9)   # hex byte value
+# print(eacute1, eacute2, eacute3, eacute4, eacute5)
+# print(eacute1 == eacute2 == eacute3 == eacute5 == eacute5)
+
+# 몇가지 sanity check를 해보자
+import unicodedata
+# print(unicodedata.name(eacute1))
+# print(ord(eacute1))  # decimal integer
+# print(0xe9)
+
+# 이제 평범한 e와 accent를 합쳐 accented e를 한번 만들어 보자.
+eacute_combined1 = "e\u0301"
+eacute_combined2 = "e\N{COMBINING ACUTE ACCENT}"
+eacute_combined3 = "e" + "\u0301"
+# print(eacute_combined1, eacute_combined2, eacute_combined3)
+# print(eacute_combined1 == eacute_combined2 == eacute_combined3)
+# print("length of combined:", len(eacute_combined1))
+# print("length of basic:", len(eacute2))
+
+# 두개를 결합해 하나의 Unicode character를 만들었다. 그렇다면 이게 오리지널과 같을까?
+# print(eacute1 == eacute_combined1)  # 다르다.
+# print(eacute1, eacute_combined1)
+
+""" 그리고 위와같이 서로같은 형태처럼 보이지만 막상 그것을 이용해 뭔가를 하려고 하면
+똑같이 작동하지 않을 가능성이 높다. 
+ 이 경우에는 unicodedata module 내부의 normalize() function을 사용하면 된다."""
+
+import unicodedata
+eacute_normalize = unicodedata.normalize('NFC', eacute_combined1)  # 원본과 같아짐.
+# print(len(eacute_normalize))
+# print(eacute_normalize == eacute1)
+# print(unicodedata.name(eacute_normalize))
+
+""" 더 많은 정보를 원한다면 pg229 의 여러가지 Unicode 대한 정보들이 간략하게
+정리된 링크들이있으니 한번 참고해보라. """
+
+
+"""
+Text Strings:Regular Expressions.
+ 앞서 까지는 간단한 string opeartion에 대해 공부했지만, 이제는 
+regular expression를 통해 보다 복잡한 pattern matching에 대해 공부할 것이다.
+
+
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
