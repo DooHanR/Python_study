@@ -349,7 +349,9 @@ source = 'Young Frankenstein'
 
 # walrus operator 를 이용하면 위의 예시를 짧게 할 수 있다.
 if m := re.match('Frank', source):
-    print(m.group())
+    print(m.group())  # 그래도 맨처음에 Frank가 없어서 작동은 안된다.
+
+
 
 
 
