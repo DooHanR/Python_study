@@ -504,6 +504,54 @@ print(re.findall('wish|fish', source))
 # 시작지점에서 wish 찾기
 print(re.findall('^wish', source))  # 없으니 안나온다.
 
+# 시작지점에서 'I wish' 찾기
+print(re.findall('^I wish', source))
+
+# 끝 지점에서 fish 찾기
+print(re.findall('fish$', source))  # 없다 !
+
+# 끝지점에서 fish tonight. 찾기
+print(re.findall('fish tonight.$', source))
+
+""" 이런 '^' 과 '$' 들은 anchor 라고도 불린다.
+'^' anchor는 string의 시작지점에서 검색을 하고 '$' anchor는 끝에서 한다.
+'$' anchor를 사용할때 dot 을 escape 화 시키면 보다 정확하게 될 수 있다."""
+
+print(re.findall('fish tonight\.$', source))  # 무슨 차이인지는 모르겠다.
+
+# w, f로 시작하는 ish 찾기.
+print(re.findall('[wf]ish', source))  # wish, fish가 출력됨.
+
+# w, s, h중에서 최소한 1개는 포함하는 것.
+print(re.findall('[wsh]+', source))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
