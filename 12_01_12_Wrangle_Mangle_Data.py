@@ -333,12 +333,12 @@ Find Exact Beginning Match with match()
 import re
 source = 'Young Frankenstein'
 m = re.match('You', source)  # match starts at the beginning of source
-if m:  # match returns an object, do this to see what matched
-    print(m.group())
+# if m:  # match returns an object, do this to see what matched
+#     print(m.group())
 
-m = re.match('^You', source)  # start anchor does the smae
-if m:
-    print(m.group())
+m = re.match('^You', source)  # start anchor does the same
+# if m:
+#     print(m.group())
 
 
 import re
@@ -348,28 +348,92 @@ source = 'Young Frankenstein'
 #     print(m.group())  # 이 경우에는 아무것도 출력 되지 않는다.
 
 # walrus operator 를 이용하면 위의 예시를 짧게 할 수 있다.
-if m := re.match('Frank', source):
-    print(m.group())  # 그래도 맨처음에 Frank가 없어서 작동은 안된다.
+# if m := re.match('Frank', source):
+    # print(m.group())  # 그래도 맨처음에 Frank가 없어서 작동은 안된다.
+
+# 이제는 match() 말고 search()를 통해 해당 string 내에 Frank가 있는지 확인해보자.
+import re
+source = 'Young Frankenstein'
+m = re.search('Frank', source)
+# print(m)  # m에는 search, match 등을 실행한 정보가 담겨있음을 알 수 있다.
+# if m:
+#     print(m.group())
+
+# 한번 여기서는 pattern 을 변화시켜서 match를 다시 진행해보자.
+import re
+source = 'Young Frankenstein'
+m = re.match('.*Frank', source)
+# if m:
+#     print(m.group())
+
+""" .*Frank 에 대한 설명
+- '.' : any single character 를 의미.
+- '*' : zero or more of the preceding thing.
+- '.*' : any number of character(0개도 포함) 
+- 'Frank': 우리가 찾고자하는 것."""
 
 
+"""
+Find First Match with search()
+ search() 를 이용하면 string 내에 어디있든 찾고자하는 pattern을 찾을 수 있다.
+"""
 
+import re
+source = 'Young Frankenstein'
+# if m := re.search('Frank', source):
+#     print(m.group())
 
+"""
+Find All Matches with findall()
+ 지금까지는 match 되는 1개만 찾았었다.
+그런데 만약 당신이 string 내에 'n'이 몇개나 있는지 확인하고 싶다면
+무슨 방법을 써야 할까?
+"""
 
+# 일반적인 string 내의 n이 몇개있는지 파악하는 방법.
+import re
+source = 'Young Frankenstein'
+# if m := re.findall('n', source):
+#     print(m)
 
+# print(f'Found {len(m)} Mathces')
 
+# How about 'n' followed by any character
+import re
+source = 'Young Frankenstein'
+# if m := re.findall('n.', source):
+#     print(m) # 근데 n 자체는 출력이 되질 않는다. 어떻게해야할까?
 
+# 대안 방법.
+import re
+source = 'Young Frankenstein'
+# if m := re.findall('n.?', source):
+#     print(m)
 
+"""
+Split at Matches with split()
+여기서는 pattern 으로 string 을 list로 나누는 예시를 보여줄 것이다.
+(string의 split() method가 하는일과 유사함!)
+"""
 
+import re
+source = 'Young Frankenstein'
+m = re.split('n', source)
+print(m)
 
+"""
+Replace at Matches with sub()
+string의 replace()와도 비슷하다. 하지만 pattern을 기준으로 한다.
+"""
 
+import re
+if m := re.sub('n', '?', source):  # 'n'을 '?'로 대체.
+    print(m)
 
+"""
+Patterns:Special Characters
 
-
-
-
-
-
-
+"""
 
 
 
