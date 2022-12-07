@@ -419,7 +419,7 @@ Split at Matches with split()
 import re
 source = 'Young Frankenstein'
 m = re.split('n', source)
-print(m)
+# print(m)
 
 """
 Replace at Matches with sub()
@@ -427,30 +427,82 @@ string의 replace()와도 비슷하다. 하지만 pattern을 기준으로 한다
 """
 
 import re
-if m := re.sub('n', '?', source):  # 'n'을 '?'로 대체.
-    print(m)
+# if m := re.sub('n', '?', source):  # 'n'을 '?'로 대체.
+#     print(m)
 
 """
 Patterns:Special Characters
-
+일단 우리가 앞서 배운 기초들이다.
+- literal match with any nonspecial characters
+- Any single character except \n with '.'
+- Any number of the preceding character (including zero) with '*'
+- Optional (zero or one) of the preceding character with '?'
 """
 
+# alphanumeric : 숫자와 글자를 쓴.
+# whitespace : 공백문자(탭, 스페이스바, 개행 문자 등등)
+# word boundary : 단어경계, 컴퓨터에서 사용되는 데이터를 단어 단위로 구별하는 경계
 
+""" 
+Special characters
+- \d : A single digit
+- \D : A single nondigit
+- \w : An alphanumeric character
+- \W : An non-alphanumeric character
+- \s : A whitespace character
+- \S : A nonwhitespace character
+- \b : A word boundary (between a \w and a \W)
+- \B : A nonword boundary
 
+"""
+""" Python의 'string' module 은 우리가 테스트에 쓸 string 상수를 사전에 정의해놨다.
+여기서는 'printable' 을 사용하는데, 100개의 출력가능한 ASCII 문자들인데
+문자, 숫자, 공백문자, punctuation 등을 포함하고 있다. """
 
+import string
+printable = string.printable
+# print(len(printable))  # 정말 크기가 100인지?
+# print(printable[0:50])  # 무슨내용들이 있는지.
+# print(printable[50:])  # 50부터 끝까지. 공백문자들은 안보인다.
 
+# print(re.findall('\d', printable))  # 숫자를 모두 출력.
+# print(re.findall('\w', printable))
+# print(re.findall('\s', printable))
 
+"""
+정규 표현식(Regualr expression)은 ASCII에만 국한되는게 아니다.
+예를들어 '\d'는 unicode가 호출하는 모든 digit 에 대해 match 될 수 있다.
+한번 좀 변화된 예제를 사용해보자. 
+"""
 
+x = 'abc' + '-/*' + '\u00ea' + '\u0115'
+# print(re.findall('\w', x))
 
+"""
+Patterns: Using Specifiers
+ 이제 'punctuation pizza'를 만들어보자. 무엇을 이용해서?
+main pattern specifers for regualr expressions 들로 말이다.
+그리고 pattern sepcifiers 의 목록은 다음과 같다.
+expr과 이탈릭체의 단어는 any valid regular expression 을 의미한다.
 
+ 상당히 많은 pattern specifiers 들이 있지만 여기에 적기에는
+너무 번거로우므로, 공부하는 교재의 235pg(pdf 기준 265)를 참고하라.
+"""
 
+source = '''I wish I may, I wish I might
+Have a dish of fish tonight.'''
 
+""" 이제 좀 다른 regular expression pattern string을 사용해서
+source string과 match 시켜보려 할 것이다. """
 
+# wish를 찾기.
+print(re.findall('wish', source))
 
+# wish, fish를 찾기.
+print(re.findall('wish|fish', source))
 
-
-
-
+# 시작지점에서 wish 찾기
+print(re.findall('^wish', source))  # 없으니 안나온다.
 
 
 
