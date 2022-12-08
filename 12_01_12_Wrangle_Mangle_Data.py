@@ -585,14 +585,31 @@ print(the_byte_array)
 
 # the_bytes[1] = 255 , 변경이 불가능함을 알 수 있다.
 
+print(the_byte_array)
+the_byte_array[1] = 127
+print(the_byte_array)  # 변경된 모습.
+
+the_bytes = bytes(range(0, 256))
+the_byte_array = bytearray(range(0,256))
+# print(the_bytes)
+# print(the_byte_array)
+
+""" bytes가 bytearray data를 출력할때 python은 nonprintable byte에 \엑스(x) 를
+사용하며, printable 가능한것들에는 ASCII equivalents 들을 사용한다.
+한번 다음의 예시를 보자. """
+
+print(the_bytes)
 
 
+"""
+Convert Binary Data with struct
+ python 은 text를 다루는데는 많은 도구가 있지만, 비교적으로 binary data를 다루는데에는
+도구가 다소 적은 경향이 있다. 그래서 나타나는게 바로 struct module 이다.
+ struct module 에서는 data를 C나 C++ 에 있는 struct 와 같이 다룰 수 있다.
+그리고 struct를 사용해서 binary data를 pyhon data structures 간에 전환이 가능하다.
 
-
-
-
-
-
+ 위의 방식을 설명하기 위해, png 파일을 통해서 너비와 높이를 추출해내는 프로그램을 작성해볼것이다.
+"""
 
 
 
