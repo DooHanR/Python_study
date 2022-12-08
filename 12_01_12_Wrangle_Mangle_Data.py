@@ -453,8 +453,8 @@ Special characters
 - \S : A nonwhitespace character
 - \b : A word boundary (between a \w and a \W)
 - \B : A nonword boundary
-
 """
+
 """ Python의 'string' module 은 우리가 테스트에 쓸 string 상수를 사전에 정의해놨다.
 여기서는 'printable' 을 사용하는데, 100개의 출력가능한 ASCII 문자들인데
 문자, 숫자, 공백문자, punctuation 등을 포함하고 있다. """
@@ -496,53 +496,94 @@ Have a dish of fish tonight.'''
 source string과 match 시켜보려 할 것이다. """
 
 # wish를 찾기.
-print(re.findall('wish', source))
+# print(re.findall('wish', source))
 
 # wish, fish를 찾기.
-print(re.findall('wish|fish', source))
+# print(re.findall('wish|fish', source))
 
 # 시작지점에서 wish 찾기
-print(re.findall('^wish', source))  # 없으니 안나온다.
+# print(re.findall('^wish', source))  # 없으니 안나온다.
 
 # 시작지점에서 'I wish' 찾기
-print(re.findall('^I wish', source))
+# print(re.findall('^I wish', source))
 
 # 끝 지점에서 fish 찾기
-print(re.findall('fish$', source))  # 없다 !
+# print(re.findall('fish$', source))  # 없다 !
 
 # 끝지점에서 fish tonight. 찾기
-print(re.findall('fish tonight.$', source))
+# print(re.findall('fish tonight.$', source))
 
 """ 이런 '^' 과 '$' 들은 anchor 라고도 불린다.
 '^' anchor는 string의 시작지점에서 검색을 하고 '$' anchor는 끝에서 한다.
 '$' anchor를 사용할때 dot 을 escape 화 시키면 보다 정확하게 될 수 있다."""
 
-print(re.findall('fish tonight\.$', source))  # 무슨 차이인지는 모르겠다.
+# print(re.findall('fish tonight\.$', source))  # 무슨 차이인지는 모르겠다.
 
 # w, f로 시작하는 ish 찾기.
-print(re.findall('[wf]ish', source))  # wish, fish가 출력됨.
+# print(re.findall('[wf]ish', source))  # wish, fish가 출력됨.
 
 # w, s, h중에서 최소한 1개는 포함하는 것.
-print(re.findall('[wsh]+', source))
+# print(re.findall('[wsh]+', source))
+
+# ght 와 함께있는 1개의 non-alphanumeric.
+# print(re.findall('ght\W', source))
+
+# wish가 뒤따르는 I 찾기.
+# print(re.findall('I (?=wish)', source))
+
+# i가 선행하는 wish 찾기.
+# print(re.findall('(?<=I) wish', source))
+
+""" 가끔 regular expression patter 과 python string rule이 충돌할 때가있다.
+바로 '\b' 를 사용하는 경우인데, 정규 표현식에서는 word의 beginning를 의미하지만
+python string 에서는 backspace를 의미한다.
+ 이와 같은 출동을 피하기 위해서는 escape 문자를 사용해, python의 raw string을 사용해
+정규 표현식과 python 의 string rule 과 충돌하는 것을 막아주어야 한다. """
+
+# print(re.findall('\bfish', source))  # fish로 시작하는것 찾기인데, 출력이 안됨!
+# print(re.findall(r'\bfish', source))  # raw string 형태로 사용하니 정상처리 되는모습.
+
+"""
+Patterns:Specifying match() output
+ match(), search() 함수등을 이용할때 모든 결과들은 object m에서 m.group()의 형태로
+리턴된다. 그리고 만약에 pattern을 괄호 안에 넣었다면, match는 그것의 group에 생성된다.
+그리고 m.groups()로 tuple의 형태로 접근가능하게 된다.
+"""
+
+m = re.search(r'(. dish\b).*(\bfish)', source)
+# print(m.group())
+# print(m.groups())
 
 
+# delve : (찾기위해)뒤지다.
+""" 
+Binary Data
+ Text data는 다소 어려울 수 있지만, binary data는 다소 흥미로울 수 있다.
+여기서 당신은 'endianness'(컴퓨터의 프로세서가 data를 어떻게 byte로 바꾸는지)와
+정수에대한 'sign bit'를 알아야 한다.
+ 또한 binary file format이나 network packet을 data를 추출하고 변경시키기 위해서라도
+뒤져봐야할 수도있다.
+ 따라서 이 section 에서는 python 에서의 기초적인 binary data에 대한 wrangling등을
+다뤄볼 것이다. (근데 wrangling 가 뭐지?)
+"""
 
+"""
+bytes and bytearray
+ python 3 에서는 8비트의 정수(0~255)를 사용하는데, 두가지의 타입이 있다.
+- bytes : immutable, tuple of bytes 와 같다.
+- bytearray : mutable, list of bytes 와 같다.
+예제와 함께 살펴보자.
+"""
 
+# list인 blist, bytes 변수인 the_bytes, bytearaay 변수인 the_byte_array 생성.
+blist = [1, 2, 3, 255]
+print(type(blist))
+the_bytes = bytes(blist)
+print(the_bytes)
+the_byte_array = bytearray(blist)
+print(the_byte_array)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# the_bytes[1] = 255 , 변경이 불가능함을 알 수 있다.
 
 
 
