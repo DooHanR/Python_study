@@ -577,17 +577,17 @@ bytes and bytearray
 
 # list인 blist, bytes 변수인 the_bytes, bytearaay 변수인 the_byte_array 생성.
 blist = [1, 2, 3, 255]
-print(type(blist))
+# print(type(blist))
 the_bytes = bytes(blist)
-print(the_bytes)
+# print(the_bytes)
 the_byte_array = bytearray(blist)
-print(the_byte_array)
+# print(the_byte_array)
 
 # the_bytes[1] = 255 , 변경이 불가능함을 알 수 있다.
 
-print(the_byte_array)
+# print(the_byte_array)
 the_byte_array[1] = 127
-print(the_byte_array)  # 변경된 모습.
+# print(the_byte_array)  # 변경된 모습.
 
 the_bytes = bytes(range(0, 256))
 the_byte_array = bytearray(range(0,256))
@@ -598,7 +598,7 @@ the_byte_array = bytearray(range(0,256))
 사용하며, printable 가능한것들에는 ASCII equivalents 들을 사용한다.
 한번 다음의 예시를 보자. """
 
-print(the_bytes)
+# print(the_bytes)
 
 
 """
@@ -611,7 +611,54 @@ Convert Binary Data with struct
  위의 방식을 설명하기 위해, png 파일을 통해서 너비와 높이를 추출해내는 프로그램을 작성해볼것이다.
 """
 
+import struct
+valid_png_header = b'\x89PNG\r\n\x1a\n'
+data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR' + \
+       b'\x00\x00\x00\x9a\x00\x00\x00\x8d\x08\x02\x00\x00\x00\xc0'
+if data[:8] == valid_png_header:
+    width, height = struct.unpack('>LL', data[16:24])
+    # print('Valid PNG, width', width, 'height', height)
+    print(f'Valid PNg, width: {width} height: {height}')
+else:
+    print('Not a vaild PNG')
 
 
+"""
+ 이 코드에 대한 간략한 설명을 첨부한다.
+- data : data 에는 PNG file 로 부터 처음의 30 bytes 를 포함한다. 여기서
+분리해놓은 이유는 page 크기에 맞추려고..
+- valid_png_header : png 파일의 시작점을 표시해주는 8 bit sequence를 포함한다.
+- width, height : width는 bytes 16~19, height는 20~23 에서 추출했다.
+
+ 여기서 LL 은 format string 으로 unpack() 함수로 하여금 byte sequence를 어떻게 해석하고
+그들을 python data type으로 어떻게 assemble 할지를 의미한다.
+- '>' : 정수들이 big-endian 형식으로 저장된다 라는것을 의미.
+- '<' : 정수들이 little-endian 형식으로 저장됨.
+- '각각의 L' : 네개의 unsigned long integer를 의미.
+"""
+
+# 각각의 four-byte value를 직접적으로 검사하기.
+# print(data[16:20])
+# print(data[20:24])
+
+""" big 과 little endian 의 방식은 최우측, 최좌측 어느 지점에 숫자를 나타내는가이다.
+- big endian 의 경우: b'\x00\x00\x00\x9a'
+- little endian 의 경우: b'\x01\x00\x00\x00' """
+
+# python data를 byte로 convert 하고싶다면 struct의 pack() function 을 사용하라.
+
+import struct
+print(struct.pack('>L', 154))
+print(struct.pack('<L', 1))
+
+exam = struct.pack('>L', 154)
+print(struct.unpack('>L', exam))  # little endian 방식으로 하면 overflow 발생하는듯?
 
 
+"""
+Convert Bytes/Strings with binascii()
+"""
+
+"""
+Bit Operators
+"""
