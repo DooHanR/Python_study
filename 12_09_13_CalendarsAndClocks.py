@@ -164,6 +164,96 @@ daylight savings time은 하절기에 1시간 댕기는 것을 의미하는데,
 야기하기가 쉬우므로 사용을 피하도록 해라. """
 
 
+"""
+Read and Write Dates and Times
+ 앞서 얘기햇듰이, dates 와 times를 쓰는 방식에는 여러가지가 있다.
+isoformat() 처럼 표준적인 방식 외에도, ctime() function 과 같이 epoch를
+string 으로 바꿀 수도 있다.
+
+ 또한 strftime() method를 이용. dates,times 를 string으로 바꿀수 있다.
+이 함수는 datetime, date, time, time module 내부에 모두 있으며
+output을 구체화 하기위해 format string을 사용한다.
+
+포맷스트링은 다양한 종류가 있으며 알고싶다면 pg 284의 Table 13-2를 참고해라.
+"""
+
+import time
+fmt = "It's %A, %B %d, %Y, local time: %I:%M:%S%p"
+t = time.localtime()
+print(t)
+print(time.strftime(fmt, t))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
