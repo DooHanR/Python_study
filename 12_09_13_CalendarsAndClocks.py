@@ -44,13 +44,129 @@ today = date(2022, 12, 13)
 # print(today.isoformat())
 
 """ iso 는 ISO 8601로 국제 표준 date/time 표현방식이다. 
-저자도 이 방식을 즐겨 사용하며 권장되는 방식인듯 하다. """
+저자도 이 방식을 즐겨 사용하며 권장되는 방식인듯 하다.
+그리고 이후에 나오는 strptime(), strftime() 라는
+dates를 parsing, formatting 하는 method에 대해 알아볼 것이다. """
 
 # today() method를 이용 오늘의 날짜 만들어내기.
 from datetime import date
-now = date.today()
-print(now)
-print(now.isoformat())
+now = date.today()  # 계속해서 오늘의 날짜가 나올 것이다.
+# print(now)
+# print(now.isoformat())
+
+# timedelta object를 이용해 data에 time interval을 추가해보기.
+from datetime import timedelta
+one_day = timedelta(days = 1)
+tomorrow = now + one_day
+
+# print(tomorrow)
+# print(now + one_day*8)
+# print(now - one_day)
+
+# date의 범위. 따라서 역사적인, 혹은 천문학적인 계산은 불가능하다.
+# print(date.min)
+# print(date.max)
+
+# datetime의 time object는 하루의 시간을 나타내는데 사용된다. (시간, 분, 초)
+from datetime import time
+noon = time(12, 0, 0)
+# print(noon)
+# print(noon.hour)
+# print(noon.minute)
+# print(noon.second)
+# print(noon.microsecond)
+# print(time(14))  # 명시하지않으면 00분으로 간주한다.
+
+# datetime object는 date, time 모두 포함한다. 다음의 예시를 한번 보자.
+from datetime import datetime
+some_day = datetime(2022, 1, 4, 5, 4, 5, 4)
+# some_day = datetime.now()
+# print(some_day)
+# print(some_day.isoformat())  # 'T'는 date와 time을 구별해주는 역할을 한다.
+
+# 또한 datetime 에도 now method가 있다!
+now = datetime.now()
+# print(now)
+# print(now.year)
+# print(now.month)
+# print(now.day)
+# print(now.hour)
+# print(now.minute)
+# print(now.second)
+# print(now.microsecond)
+
+# datetime 속으로 time과 date object 들을 combine 해보기.
+from datetime import datetime, time, date
+noon = time(12)
+this_day = date.today()
+noon_today = datetime.combine(this_day, noon)
+# print(noon_today)
+
+# datetime 에서 date, time을 뽑아낼 수도 있다. date(), time() method를 써보자.
+# print(noon_today)
+# print(noon_today.date())
+# print(noon_today.time())
+
+"""
+Using the time Module
+ datetime 모듈내에 time object이 있음에도 불구, 별개의 time module이 존재하며
+time module 내에 또 time() 이 존재한다. (???)
+ 절대 시간을 나타내는 방법중 하나는, 바로 시작점에서부터의 초를 세는것이다.
+Unix time은 1970년 7월 1일부터 시작한 초의 모임을 사용한다.
+이러한 것을 epoch 라고도 부르는가 본데, system 내에서 dates,times를 교환하는
+가장 간단한 방법이라고 한다? 한번 예시를 통해 알아보자.
+"""
+
+import time
+now = time.time()
+# print(now)  # 뉴욕의 1970년때부터 지금까지의 초.
+
+# epoch value를 string 으로 바꿀수도 있다.
+# print(time.ctime(now))
+
+""" Epoch value는 서로 다른 시스템에서 date, time을 교환하기위한 최소공분모로 사용될 수 있다.
+예를 들어 javascript의 경우, 그리고 가끔 구체적인 날짜, 시간을 알고싶을때
+time 에서는 struct_time object를 제공한다.
+- localtime() : system의 time zone내에서의 시간을 제공.
+- gmtime() : UTC 기준에서 시간을 제공. """
+
+# print(time.localtime(now))
+# print(time.gmtime(now))
+# print(time.localtime())  # 생략하면 현재시간을 나타내준다.
+# print(time.gmtime())
+
+""" 위의 함수를 통해 출력되는, struct_time values
+- tm_wday : Day of week : 0(Monday)~6(Sunday)
+- tm_yday : Day of year : 1~366 
+- tm_isdt : Daylight savings? : 0 = no, 1 = yes, -1 = unknown. """
+
+""" 이때 struct_time 내부의 tm_... 등을 type 하고싶진 않을 것이다.
+struct_time 은 named_tuple 처럼 행동하기 때문에 index들을 사용할 수 있다."""
+
+import time
+now = time.localtime()
+# print(now)
+# print(now[0])
+# print(list(now[x] for x in range(9)))
+
+# 반면에 mktime() method는 struct_time object를 epoch second로 바꾼다.
+tm = time.localtime()
+print(time.mktime(tm))
+
+""" 교재에서 주는 시간과 관련해 몇가지 팁이 있다.
+ 첫째로, 가능한한 UTC를 사용하라는 것이다.
+UTC 는 absolute time 이기때문에 만약 서버의 시간을 설정해야한다면
+절대로 local time 을 사용하지 말고 UTC를 사용하도록 해라.
+
+ 둘째는, 가능한한 daylight savings time의 사용을 피하라는 것이다.
+daylight savings time은 하절기에 1시간 댕기는 것을 의미하는데, 
+이와 같은 기능은 봄에 한시간 당겨지고, 가을쯤에 한시간 미뤄져서 혼란을
+야기하기가 쉬우므로 사용을 피하도록 해라. """
+
+
+
+
+
 
 
 
