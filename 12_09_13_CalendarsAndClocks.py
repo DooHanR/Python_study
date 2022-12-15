@@ -234,6 +234,7 @@ print(de)
 """ 
 Alternative Modules
 이 외에도 여러개 있으며 참고 하길 바란다. pg 288.
+변경.
 """
 
 
