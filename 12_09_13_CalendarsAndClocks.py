@@ -151,7 +151,7 @@ now = time.localtime()
 
 # 반면에 mktime() method는 struct_time object를 epoch second로 바꾼다.
 tm = time.localtime()
-print(time.mktime(tm))
+# print(time.mktime(tm))
 
 """ 교재에서 주는 시간과 관련해 몇가지 팁이 있다.
  첫째로, 가능한한 UTC를 사용하라는 것이다.
@@ -174,14 +174,76 @@ string 으로 바꿀 수도 있다.
 이 함수는 datetime, date, time, time module 내부에 모두 있으며
 output을 구체화 하기위해 format string을 사용한다.
 
+ 그리고 strptime() method를 이용. string의 형태를 입력받아 dates, times 로
+전환또한 가능하다.
+
 포맷스트링은 다양한 종류가 있으며 알고싶다면 pg 284의 Table 13-2를 참고해라.
 """
 
 import time
 fmt = "It's %A, %B %d, %Y, local time: %I:%M:%S%p"
 t = time.localtime()
-print(t)
-print(time.strftime(fmt, t))
+# print(t)
+# print(time.strftime(fmt, t))
+
+from datetime import date
+some_day = date(2022, 12, 15)
+fmt = "It's %A, %B %d, %Y, local time: %I:%M:%S%p"
+# print(some_day.strftime(fmt))  # 입력되지 않은 사항은 default인 midnight 처리한다.
+
+from datetime import time
+some_time = time(9, 23)
+# print(some_time.strftime(fmt))  # 마찬가지로 default로 date가 설정되고 시간만 설정된다.
+
+""" string->date,time 하고 싶다면 strptime() 함수와 함께 format string을 사용해라.
+한번 year-month-day로 나타내보자. 이때 '-'(dash)를 사용해야 함에 주의해라. """
+
+import time
+fmt = "%Y-%m-%d"  # 연 월 일
+# time.strptime("2019 01 29", fmt)  # string을 date로. 이떄 형식이 맞지않음.
+# print(time.strptime("2022-12-15", fmt))  # 형식에 맞춰야 정상출력.
+
+# 이번에는 space로 출력하고 싶을때
+fmt = "%Y %m %d"
+# print(time.strptime("2022 12 15", fmt))
+
+
+""" 두번째로 할 것은 string을 여러 국가에 맞춰 여러 종류의 언어로 나타내 봅시다."""
+
+import locale
+from datetime import date
+halloween = date(2022, 10, 31)
+for lang_country in ['en_us', 'fr_fr', 'de_de', 'es_es', 'is_is', ]:
+    locale.setlocale(locale.LC_TIME, lang_country)
+    halloween.strftime('%A, %B %d')
+
+import locale
+names = locale.locale_alias.keys()
+
+good_names = [name for name in names if len(name) == 5 and name[2] == '_']
+# print(good_names[:5])
+
+# 독일 language locales를 원한다면 다음과 같이 하라
+de = [name for name in good_names if name.startswith('de')]
+print(de)
+
+""" pg 287 에도 python time inter-conversion의 요약이 그림으로
+잘되어있으니 추후에 꼭 확인해보도록 하라. """
+
+
+""" 
+Alternative Modules
+이 외에도 여러개 있으며 참고 하길 바란다. pg 288.
+"""
+
+
+
+
+
+
+
+
+
 
 
 
