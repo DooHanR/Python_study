@@ -90,11 +90,32 @@ fout = open('relativity', 'wt')
 print(poem, file=fout, sep='', end='')
 fout.close()
 
+""" 만약 large source string이 있다면, chunk를 입력할 수 있다.(slices를 이용)
+소스가 모두 끝날떄까지(until the source is done). 한번 예시를 보자."""
 
+fout = open('relativity', 'wt')
+size = len(poem)
+offset = 0
+chunk = 100
+while True:
+    if offset > size:
+        break
+    fout.write(poem[offset:offset+chunk])
+    offset += chunk
 
+fout.close()
+# slice를 통해 exception 없이 끝을 넘어서까지도 가능하게해준다.
+# 크기는 150인데 100, 100 2번 반복하니까!
 
+# x를 사용하면 이미 존재하는 경우에는, 쓰기가 불가능. 이 경우는 에러가 생긴다
+# fout = open('relativity', 'xt')
 
-
+# 이 경우에는 exception handler를 통해 해결 볼 수 있다
+try:
+    fout = open('relativity', 'xt')
+    fout.write('stomp stomp stomp')
+except FileExistsError:
+    print('Error: hey! relativity is already exists! Be careful dude!')
 
 
 
