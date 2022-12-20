@@ -117,6 +117,11 @@ try:
 except FileExistsError:
     print('Error: hey! relativity is already exists! Be careful dude!')
 
+"""
+Read a Text File with read(), readline(), readlines() 
+(텍스트 파일을 read(), readline(), readlines() 함수로 읽어보기.)
+
+"""
 
 
 
