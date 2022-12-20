@@ -250,9 +250,24 @@ Change Position with seek()
 """
 
 fin = open('bfile', 'rb')
-print(fin.tell())
+print(fin.tell())  # 현재 위치를 출력. 시작지점에 존재함.
+print(fin.seek(255))  # 이동한 위치를 출력.
 
+bdata = fin.read()
+print(f"bdata length: {len(bdata)}")
+print(f"bdata[0]: {bdata[0]}")
 
+""" 파일내에 포인터가 가리키는곳이 255이기 때문에, fin.read()시 255 위치에서부터
+읽고 255 다음이 바로 끝나는 지점이므로, 아래에 bdata의 길이와 0의 offset에 해당하는
+것들이 그것에 맞춰서 나오게 된 것이다.
+ 이는 read, write와 같이 파일을 다루는 기능이 현재 위치한 offset을 기준으로 행해진다는
+것을 알 수 있으며, 평상시에는 시작지점인 0에서부터 시작한다는 것을 알 수 있다."""
+
+""" seek() 함수는 두번쨰 매개변수로 origin을 지정해 몇가지 기능을 수행할 수 있다.
+seek(offset, origin) 일때.
+- origin == 0 (default) : 시작지점에서부터 offset 만큼 이동한다.
+- origin == 1 : 현재 위치에서 offset 만큼 이동.
+- origin == 2 : 끝의 위치에서 offset 만큼 이동. """
 
 
 
