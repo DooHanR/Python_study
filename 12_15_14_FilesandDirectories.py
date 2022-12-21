@@ -237,8 +237,8 @@ Close Files Automatically by Using with
 - 'with expression as variable:', 예시를 한번 보자.
 """
 
-with open('relativity', 'wt') as fout:
-    fout.write(poem)
+# with open('relativity', 'wt') as fout:
+#     fout.write(poem)
 
 # 이 이후에는 file이 자동적으로 닫히게 된다.
 
@@ -250,12 +250,12 @@ Change Position with seek()
 """
 
 fin = open('bfile', 'rb')
-print(fin.tell())  # 현재 위치를 출력. 시작지점에 존재함.
-print(fin.seek(255))  # 이동한 위치를 출력.
+# print(fin.tell())  # 현재 위치를 출력. 시작지점에 존재함.
+# print(fin.seek(255))  # 이동한 위치를 출력.
 
 bdata = fin.read()
-print(f"bdata length: {len(bdata)}")
-print(f"bdata[0]: {bdata[0]}")
+# print(f"bdata length: {len(bdata)}")
+# print(f"bdata[0]: {bdata[0]}")
 
 """ 파일내에 포인터가 가리키는곳이 255이기 때문에, fin.read()시 255 위치에서부터
 읽고 255 다음이 바로 끝나는 지점이므로, 아래에 bdata의 길이와 0의 offset에 해당하는
@@ -269,34 +269,113 @@ seek(offset, origin) 일때.
 - origin == 1 : 현재 위치에서 offset 만큼 이동.
 - origin == 2 : 끝의 위치에서 offset 만큼 이동. """
 
+# 여러가지 방식으로 파일의 마지막 byte를 읽어보자.
+
+fin = open('bfile', 'rb')
+
+# print(fin.seek(-1))
+# print(fin.seek(-1, 2))  # 끝지점에서 -1칸만큼 이동. 따라서 255?
+# print(fin.tell())
+
+# 파일의 끝까지 읽기.
+bdata = fin.read()
+# print(f"len bdata: {len(bdata)}")
+# print(f"bdata[0]: {bdata[0]}")
+
+# 파일의 현재위치에서 seeking 하기.
+fin = open('bfile', 'rb')
+# print(fin.tell())  # 현재위치
+fin.seek(254, 0)  # 시작지점에서 254만큼 이동!
+# print(fin.tell())  # 변경후 위치.
+
+fin.seek(1, 1)  # 현재위치에서 1칸 전진
+# print(fin.tell())  # 변경된 위치.
+
+bdata = fin.read()  # 현재 위치에서 파일의 끝까지.
+# print(bdata[0])
 
 
+""" 이러한 기능은 binary file에 유용하며 text 파일에 적용하기는 애매 할 수 있다.
+왜냐면 ASCII 와 같이 한 문자에 하나의 byte를 사용하는 경우가 아니라면,
+예를들어 UTF-8 과 같은경우, offset 을 계산하는게 매우 어렵기 때문이다."""
 
 
+"""
+Memory Mapping
+ Memory-map은 mmap 모듈 내에 있는 기능으로, file의 읽기, 쓰기의 대체제 이다.
+이것은 file의 내용물을 메모리 내의 bytearray 처럼 보이게 하는데
+자세한 내용은 해당 링크를 확인하자.
 
+documentation: https://oreil.ly/GEzkf
+exmaples: https://oreil.ly/GUtdx
+"""
 
+"""
+File Operations
+ Python도 다른 언어들과 마찬가지로, unix 이후에 file operation을 패턴화 했다.
+chown(), chmod() 와 같은 함수가 그러한데, 요즘 새롭게 나타난 것들이 있다.
+여기서는 일단 python 이 어떻게 기존의 os.path 모듈의 함수와 함께 다루는지 보여주고
+새롭게 나온 pathlib 모듈을 사용하는 것을 보여줄 것이다.
+"""
 
+"""
+Check Existence with exists()
+ exists() 함수를 통해 파일의 존재여부를 확인할 수 있다.
+이때 상대경로/절대경로의 방식이 있으니, 잘 선택해서 쓰자.
+"""
 
+import os
+# print(os.path.exists('oops.txt'))
+# print(os.path.exists('./oops.txt'))
+# print(os.path.exists('waffles'))
 
+"""
+Check Type with isfile()
+ isfile() 은 매개변수로 받은 이름이 file, directory, symbolic link 인지
+여부를 확인 한다.
+- isfile(name)
+- isdir(directory)
+- isabs() : 입력받은 argument가 absolute pathname인지 여부를 결정한다.
+"""
 
+# print(os.path.isabs('/big/fake/name'))
+# print(os.path.isdir('.'))
+# print(os.path.isfile('oops.txt'))
+# print(os.path.isdir('oops.txt'))
 
+"""
+Copy with copy()
+ copy() 는 shutil module 에 속하는 기능이다.
+다음의 예시를 한번 보라.
+"""
 
+# import shutil
+# shutil.copy('oops.txt', 'ohno.txt')
 
+# shutil.move() 는 복사후 원본을 제거한다. 주의해라.
 
+"""
+Change Name with rename()
+ 이름을 변경시킬 수 있다.
+"""
 
+import os
+# os.rename('ohno.txt', 'ohwell.txt')
 
+"""
+Link with link() or symlink()
+ file은 한곳에 존재하지만, 여러이름을 가질 수 있으며 이를 link 라고 한다.
 
+- low level hard link : 주어진 file의 모든 이름을 알기가 어렵다.
+- symbolic link : 파일의 모든 이름을 저장해 접근이 가능케하는 대체 방식.
 
+- link() : hard link 생성
+- symlink() : symbolic link 생성
+"""
 
-
-
-
-
-
-
-
-
-
+os.link('oops.txt', 'yikes.txt')
+print(os.path.isfile('yikes.txt'))
+print(os.path.islink('yikes.txt'))
 
 
 
