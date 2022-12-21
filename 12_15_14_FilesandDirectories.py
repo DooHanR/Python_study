@@ -363,7 +363,7 @@ import os
 # os.rename('ohno.txt', 'ohwell.txt')
 
 """
-Link with link() or symlink()
+Link with link() or symlink() : link(), symlink()로 Link 하기.
  file은 한곳에 존재하지만, 여러이름을 가질 수 있으며 이를 link 라고 한다.
 
 - low level hard link : 주어진 file의 모든 이름을 알기가 어렵다.
@@ -373,26 +373,157 @@ Link with link() or symlink()
 - symlink() : symbolic link 생성
 """
 
-os.link('oops.txt', 'yikes.txt')
-print(os.path.isfile('yikes.txt'))
-print(os.path.islink('yikes.txt'))
+# hard link 사용 예시.
+# os.link('oops.txt', 'yikes.txt')
+# print(os.path.isfile('yikes.txt'))
+# print(os.path.islink('yikes.txt'))
+
+# symbolic link 사용 예시.
+# os.symlink('oops.txt', 'jeepers.txt')  # 권한이 없다는데??
+# print(os.path.islink('jeepers.txt'))
+
+"""
+Change Permissions with chmod() : chmod()로 권한 바꾸기?
+ Unix 에서, chmod()는 사용자들의 읽기, 쓰기, 실행 권한을 조정할 수 있다.
+그리고 사용자의 종류에 따라 user, group, others 로 분류해서 권한을 설정한다.
+"""
+
+# owner 만 읽을수 있도록 권한 변경하기.
+# os.chmod('oops.txt', 0o400)
+
+# 기존의 방식이 싫다면 stat 모듈을 이용하기.
+import stat
+# os.chmod('oops.txt', stat.S_IRUSR)
+
+"""
+Change Ownership with chown() : chown() 으로 소유권 바꾸기.
+ 이 기능도 Unix/Linux/Mac 에서 익숙할 것이다.
+이것을 통해 uid(user id), gid(group id)를 변경해 소유권을 바꿀 수 있다.
+예시를 한번 보자.
+"""
+
+uid = 5
+gid = 22
+# os.chown('oops', uid, gid)
+
+"""
+Delete a File with remove() : remove() 로 파일 제거하기.
+ oops.txt를 여기서 제거해볼 것이다.
+"""
+
+# os.remove('oops.txt')
+# print(os.path.exists('oops.txt'))  # 삭제 됐는지?
 
 
+"""
+Directory Operations. : 디렉토리 운영(?)
+ 대부분의 운영 체제 에는 파일은 계층구조의 형태로 저장되어 있다.
+여기서 배우는 os 모듈에서도 마찬가지이며, 다음에 제시 되는
+function 등을 통해 그들을 관리한다. 
+"""
 
+"""
+Create with mkdir() : mkdir() 함수로 디렉토리 만들기.
+"""
 
+# os.mkdir('poems')
+# print(os.path.exists('poems'))
 
+"""
+Delete with rmdir() : rmdir() 로 디렉토리 제거하기.
+ rmdir()로 디렉토리를 제거해보자.
+"""
 
+# os.rmdir('poems')
+# print(os.path.isdir('poems'))
 
+""" 
+List Contents with listdir(): listdir()로 내용물 리스트 확인하기.
+ 직접 예시를 한번 보자. 
+"""
 
+# os.mkdir('poems')
+# print(os.listdir('poems'))  # 디렉토리 내부의 컨텐츠 list화.
+#
+# fout = open(r'poems/mcintyre/the_good_man', 'wt')
+# fout.write("""Hey this is example.""")
+# fout.close()
 
+# print(os.listdir('poems'))
 
+# 뭔가 오류가 있는지 해당 경로로 파일이 생성되지 않는다. 왤까.
 
+"""
+Change Current Directory with chdir(): chdir()로 현재 디렉토리 변경.
+ 디렉토리의 이동을 할 수 있다.
+"""
 
+import os
+# os.chdir('poems')  # 실행시키진 않는다. 귀찮으니까 !
+# os.listdir('.')
 
+"""
+List Matching Files with glob() : glob() 함수를 통해 file 매칭.
+ glob() 는 Unix 에서도 곧잘 쓰이는 파일, 디렉토리 검색 함수이다.
+매우 강력한 기능으로 다음과 같은 규칙이 있다.
 
+- '*": match everything
+- ? : match single character
+- [abc] : 문자 a, b, or c 를 찾는다.
+- [!abc] : 문자 a, b, c 를 제외하고 찾는다.
+"""
 
+import glob
+# print(glob.glob('1*'))
 
+"""
+Pathnames
+ 현대의 모든컴퓨터는 계층구조로 된 파일과 디렉토리를 가지고 있다.
+이때 특정 파일이나, 디렉토리로 가려면 경로가 필요한데 이것을 바로
+pathname 이라고 한다.
 
+ 이떄 pathname 에는 두가지가 있다
+- 절대 경로: root 에서부터 해당 지점 까지의 경로.
+- 상대 경로: 현재 위치에서 해당 지점 까지의 경로.
+
+ 또한 ('/') 와 ('\\') 사이의 구별도 고려 해야한다.
+- Unix, Mac, Web 에서의 경우 : 보통의 slash 를 사용한다.
+- Windows 의 경우 : backslash 를 사용한다.
+
+ python 의 경우는 보통의 slash를 separator 로 사용하며,
+window 의 경우는 backslash 를 사용하기 때문에 방법이 두개 있다.
+1. double backslash 사용하기.
+2. python의 raw string 사용하기
+"""
+
+win_file = 'eek\\urk\\snort.txt'
+win_file2 = r'eek\urk\snort.txt'
+print(win_file)
+print(win_file2)
+
+"""
+ pathname을 만들때 다음의 세가지를 유의해라.
+- 적절한 path separation character 을 사용하라 ('/', '\') 
+- pathname 을 만들어라.
+- pathlib 을 사용해라. 
+"""
+
+"""
+Get a Pathname with abspath() : abspath() 함수로 pathname 얻기.
+ abspath() 함수는 relative name을 absolute로 바꿔준다.
+다음의 예시를 한번 봐보자. 
+"""
+
+# print(os.path.abspath('oops.txt'))
+
+"""
+Get a symlink Pathname with realpath()
+ symlink 가 앞서 oops.txt와 jeepers.txt 끼리 만들어졌는데,
+정상적으로 처리했다면 jeeprs.txt를 통해 oops.txt의 경로를
+얻어낼 수가 있다.
+"""
+
+# print(os.path.realpath('jeepers.txt'))  # symlink 형성에 실패. jeepers의 위치가 나옴.
 
 
 
