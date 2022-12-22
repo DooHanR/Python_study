@@ -496,10 +496,10 @@ window 의 경우는 backslash 를 사용하기 때문에 방법이 두개 있�
 2. python의 raw string 사용하기
 """
 
-win_file = 'eek\\urk\\snort.txt'
-win_file2 = r'eek\urk\snort.txt'
-print(win_file)
-print(win_file2)
+# win_file = 'eek\\urk\\snort.txt'
+# win_file2 = r'eek\urk\snort.txt'
+# print(win_file)
+# print(win_file2)
 
 """
  pathname을 만들때 다음의 세가지를 유의해라.
@@ -525,16 +525,58 @@ Get a symlink Pathname with realpath()
 
 # print(os.path.realpath('jeepers.txt'))  # symlink 형성에 실패. jeepers의 위치가 나옴.
 
+"""
+Build a Pathname with os.path.join() : os.path.join() 으로 pathname build 하기.
+ 여러개의 경로로된 pathname을 만들때, os.path.join() 을 이용해 적절한 path separation 문자와 함께
+여러개의 경로를 결합시킬 수 있다. 다음의 예시를 보자.
+"""
+
+import os
+# win_file = os.path.join("eek", "urk")
+# print(win_file)  # eek 와 urk 가 결합.
+# win_file = os.path.join(win_file, "snort.txt")
+# print(win_file)  # 위에 적힌 경로들이 모두 적용된것을 볼 수 있다
+
+""" 하지만 이 방식은 어디에서(Mac, Linux, Windows) 실행되느냐에 따라
+결과값이 다르게 출격되기 때문에 문제가 될 수 있다.
+따라서 pathlib 모듈이 등장하게 된다. """
+
+"""
+Used pathlib : pathlib 사용해보기.
+ pathlib 기능은 3.4에 추가된것으로, os.path를 대체하기 위해 도입됐다.
+아무튼 한번 사용예시를 보자.
+"""
+
+from pathlib import Path
+file_path = Path('eek') / 'urk' / 'snort.txt'  # 기존의 형식과 상이한것을 볼 수있다.
+print(file_path)  # 내가 윈도우라 그런가? back slash로 나오는데?
+# print(file_path.name)
+
+""" 이러한 pathlib 내부의 함수를 통해 다른 시스템에서 실행시 어떻게 나올지를
+파악 할 수도 있는데, 다른 운영체제의 사용자들에게 도움을 주고자할때 쓸 수 있겠다. """
+
+from pathlib import PureWindowsPath
+# print(PureWindowsPath(file_path))
+
+# https://oreil.ly/yN87f 모든 추가적인 내용은 이 link에 있다.
 
 
+""" 
+BytesIO and StringIO
+ 만약에 memory 내에 data가 있고, file을 필요로하는 function을 호출하고싶을때는
+어떻게 해야할까? 아마도 임시파일에 읽기, 쓰기 없이 data를 수정하고 넘겨주고 싶을것이다.
+ 
+ 이럴때 쓸수 있는 두가지의 method가 있다.
+이것들은 data를 file-like object로 바꾸어줘서 file function 에서
+사용하기 용이하게 바꾸어 준다.
 
+- io.BytesIO : binary data(bytes)
+- io.StringIO : text data(str)
 
+ 위의 예시로 적합한게 data formant conversion 이다.
+여기서는 image data를 읽고, 쓰는 PIL library를 적용해볼 것이다.
 
-
-
-
-
-
+"""
 
 
 
