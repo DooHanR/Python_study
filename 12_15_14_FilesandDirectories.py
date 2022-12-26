@@ -549,7 +549,7 @@ Used pathlib : pathlib 사용해보기.
 
 from pathlib import Path
 file_path = Path('eek') / 'urk' / 'snort.txt'  # 기존의 형식과 상이한것을 볼 수있다.
-print(file_path)  # 내가 윈도우라 그런가? back slash로 나오는데?
+# print(file_path)  # 내가 윈도우라 그런가? back slash로 나오는데?
 # print(file_path.name)
 
 """ 이러한 pathlib 내부의 함수를 통해 다른 시스템에서 실행시 어떻게 나올지를
@@ -587,12 +587,37 @@ from io import BytesIO
 from PIL import Image
 import sys
 
+def date_to_img(data):
+    """ PIL Image object를 return함. with data from in-memory <data> """
+    fp = BytesIO(data)
+    return Image.open(fp)  # memory 에서 읽음.
 
+def img_to_data(img, fmt=None):
+    """ PIL Image 에서부터 image data를 리턴. fmt의 형식으로. """
+    fp = BytesIO()
+    if not fmt:
+        fmt = img.format  # original format를 keep.
+    img.save(fp, fmt)  # memory에 입력.
+    return fp.getvalue()
 
+def convert_image(data, fmt=None):
+    """ image data를 PIL image data로 convert. """
+    img = date_to_img(data)
+    return img_to_data(img, fmt)
 
+def get_file_data(name):
+    """ Return PIL Image object for image file <name> """
+    img = Image.open(name)
+    print("img", img, img.format)
+    return img_to_data(img)
 
-
-
+if __name__ == "__main__":
+    for name in sys.argv[1:]:
+        data = get_file_data(name)
+        print("in", len(data), data[:10])
+        for fmt in ("gif", "png", "jepg"):
+            out_data = convert_image(data, fmt)
+            print("out", len(out_data), out_data[:10])
 
 
 
