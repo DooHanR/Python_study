@@ -575,8 +575,17 @@ BytesIO and StringIO
 
  위의 예시로 적합한게 data formant conversion 이다.
 여기서는 image data를 읽고, 쓰는 PIL library를 적용해볼 것이다.
+PIL library 내의 image object의 open(),save() 함수의 첫번째 매개변수는
+'filename', 'file-lie object' 이다.
 
+ 아래의 예시로 나올 코드는 BytesIo를 이용해 읽고 in-memory data를 출력한다.
+한개 이상의 image 파일을 읽어서, 세가지 다른 format으로 전환시키는데
+이때 길이와 첫 10byte를 출력한다.
 """
+
+from io import BytesIO
+from PIL import Image
+import sys
 
 
 
