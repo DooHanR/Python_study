@@ -53,6 +53,120 @@ Create a Process with multiprocessing
 심지어 여러개의 독립적인 process로 생성 가능하다. 한번 다음의 예시를 보자.
 """
 
+# import multiprocessing
+# import os
+#
+# def whoami(what):
+#     print("Process %s says: %s" % ( os.getpid(), what))
+#
+# if __name__ == "__main__":
+#     whoami("I'm the main Program")
+#     for n in range(4):
+#         p = multiprocessing.Process(target=whoami,
+#                                     args=("I'm function %s" % n, ))
+#         p.start()
+
+# mp.py 파일을 생성해 Terminal 에서 'python mp.py'로 실행한다.
+
+""" Multiprocessing 내의 Process() function은 새로운 process를 생성하고
+내부의 do_this() 을 실행시킨다. 앞서 이 코드에서는 4번 반복했기 때문에
+4번 생성하고 4번 실행하게 되는것이다. 
+
+ 또한 multiprocessing 내에는 작업에 걸리는 시간을 줄이기 위해 많은 bell과 whistle
+이 있으며, process 간의 상호소통등을 가능케 하는 다양한 기능등도 포함하고 있다.
+또한 concurrency에 대한 내용도 있지만 추후에 주로 다루게 될 것이다."""
+
+"""
+Kill a Process with terminate()
+ process 를 종료하고싶다면 terminate() 함수를 이용하면 된다
+아래의 코드를 별도의 파일에 저장후 python 해당 파일이름 으로 실행 하면 된다.
+"""
+
+# import multiprocessing
+# import time
+# import os
+#
+# def whoami(name):
+#     print("I'm %s, in process %s" % (name, os.getpid()))
+#
+# def loopy(name):
+#     whoami(name)
+#     start = 1
+#     stop = 1000000
+#     for num in range(start, stop):
+#         print("\tNumber %s of %s. Honk!" % (num, stop))
+#         time.sleep(0.5)
+#
+# if __name__ == '__main__':
+#     whoami("main")
+#     p = multiprocessing.Process(target=loopy, args=('loppy',))
+#     p.start()
+#     time.sleep(10)
+#     p.terminate()
+
+
+"""
+Get System Info with os
+ os module 내에는 다양한 기능이 있으며, 특히나
+information function도 존재하며 사용예시를 한번 살펴보자.
+"""
+
+import os
+# os.uname()  # 해당 기능은 Unix에서만 실행되며 windows 에서는 사용하지 못한다!
+# print(os.getloadavg())  # 이것도 마찬가지로 안됨.
+# print(os.cpu_count())  # 와 이건 된다.
+
+import os
+# print(os.system('dir\w'))  # 다 깨져서 나온다. 뭐가 문젤가?
+
+"""
+Get Process Info with psutil
+ 써드 파티 package인 'psutil' 또한 system, process 에 관한 정보를 제공한다.
+특히 이전의 것들과 다르게 여러가지 운영체제에 지원한다.
+"""
+
+import psutil
+print(psutil.cpu_times(True))  # 정상출력됨.
+print(psutil.cpu_percent(True))  # 얼마나 cpu 쓰고있는지.
+print(psutil.cpu_percent(percpu=True))
+
+
+"""
+Command Automation
+ 종종 수동으로 여러가지 일을 처리하곤 하는데, python 에는 훌륭한 써드 파티 관리 도구가 있다.
+관련된 topic, 'task queues'이다. 추후에 얘기하게 될 것이다.
+"""
+
+"""
+Invoke
+ 'fabric' tool의 version1 은 사용자로 하여금 파이썬 코드로된 local, remote task를
+작성하는것을 가능케 해준다. 그리고 개발자들은 이것을 두개로 분할했다.
+
+- fabric2 (remote)
+- invoke (local)
+
+ invoke의 주 사용처중 하나는 함수를 command-line arguments로 만들어주는 것이다.
+한번 tasks.py 파일을 만들어서 한번 살펴보자.
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
