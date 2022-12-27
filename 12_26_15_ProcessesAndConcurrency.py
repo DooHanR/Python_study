@@ -39,8 +39,19 @@ import subprocess
 # ret = subprocess.getoutput('date')  # 실행이 아예안됨.
 # print(ret)
 
-ret = subprocess.getoutput('date -u')
-print(ret)
+# ret = subprocess.getoutput('date -u')
+# print(ret)
+
+""" subprocess 를 이용한 모든 process 생성은 실행이되지 않는다.
+실행시간이 너무 오래걸리든, 뭘 하든간에 말이다. 따라서 대부분의 예제를
+스킵하게 됐다. """
+
+
+"""
+Create a Process with multiprocessing
+ 'multiprocessing' module을 이용해서 python의 function을 분리된 process로 실행시키거나
+심지어 여러개의 독립적인 process로 생성 가능하다. 한번 다음의 예시를 보자.
+"""
 
 
 
