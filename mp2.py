@@ -11,11 +11,11 @@ def loopy(name):
     stop = 1000000
     for num in range(start, stop):
         print("\tNumber %s of %s. Honk!" % (num, stop))
-        time.sleep(1)
+        time.sleep(0.5)
 
 if __name__ == '__main__':
     whoami("main")
     p = multiprocessing.Process(target=loopy, args=('loppy',))
     p.start()
-    time.sleep(3)
+    time.sleep(10)
     p.terminate()
