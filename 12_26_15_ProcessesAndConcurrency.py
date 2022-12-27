@@ -149,8 +149,16 @@ Invoke
 한번 tasks.py 파일을 만들어서 한번 살펴보자.
 """
 
-
-
+"""
+Other Command Helpers
+ invoke와 유사하지만, 어떻게 쓰느냐에 따라 더 나을수도 있는 것들이다
+ 
+- click : https://click.palletsprojects.com/
+- doit : http://pydoit.org/
+- sh : http://amoffat.github.io/sh
+- delegator : https://github.com/kennethreitz/delegator.py
+- pypeln : https://cgarciae.github.io/pypeln
+"""
 
 
 
