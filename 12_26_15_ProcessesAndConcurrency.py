@@ -160,7 +160,13 @@ Other Command Helpers
 - pypeln : https://cgarciae.github.io/pypeln
 """
 
+"""
+Concurrency
+ http://bit.ly/concur-lib 해당 링크에서 concurrency 에 대한 많은 package 와
+technique 에 대해 공부할 수 있지만, 여기서는 대표적인 것 하나만 다뤄볼 것이다.
 
+
+"""
 
 
 
