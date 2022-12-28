@@ -165,10 +165,45 @@ Concurrency
  http://bit.ly/concur-lib 해당 링크에서 concurrency 에 대한 많은 package 와
 technique 에 대해 공부할 수 있지만, 여기서는 대표적인 것 하나만 다뤄볼 것이다.
 
+ 만약 컴퓨터를 쓸때, 당신이 기다리고 있다면 대개 다음의 이유들 때문이다.
+- I/O bound : 이게 대부분의 경우이다.
+- CPU bound : 과학적, 그래픽 계산 떄문에 발생한다.
 
+ 다음의 두 단어들도 concurrency도 연관되있다.
+- Synchronous : 한개가 다른 것에 따르는 형태이다. 부모를 줄지어 따르는 새끼오리들처럼.
+- Asynchronous : 각각의 task가 독립적이다. 호수 이리저리에 흩어져있는 거위떼들 처럼.
+
+ concurrency는 실제생활 문제를 수행하려고 할때, 어느시점에서 반드시 마주치게 될 문제들이며
+따라서 매우 중요하다. 느린 작업 하나 때문에 다른 작업들이 모두 정체된다고 생각해보면,
+매우 큰 문제임을 알 수 있을 것이다.
+ single machine 에서 가능한 여러개의 task를 수행하고자 할때는, 각각의 업무들이
+독립적으로 실행되게 해야한다.
+ 하지만 그럼에도 불구하고, concurrent computing은 regular computing보다 매우 복잡하며
+무사히 마무리되기 어려운 방식이기도 하다.
+
+ 이처럼 여러 문제를 다룰 수 있는 방법은 바로 'queue'이다.
 """
 
+# take away : 떠나가다
 
+"""
+Queues
+ queue는 list와 유사하다. 한 지점에서 들어오고 다른 지점에서 나간다. 
+흔히 말하는 FIFO(First in First out)와 같다.
+ 접시 닦는것으로 비유했을때, 하나를 닦고, 말린후, 놓는것과 여러개를 동시에
+닦고, 말리고, 놓는것등이 해당할 것이다. 이 모두 synchronous appraoch 이며
+한명의 worker가 한번에 한개씩 해내는 것이다.
+
+ 이 방법 말고는, helper나 여러사람이 하는 것이다. task를 나눠서할 수 있다면
+효율이 매우 빨라질 것이다.
+ 근데 이때 작업자들간의 속도가 다를때 문제가 발생한다. 모두 수행되어야하는 필수적인
+업무이기 때문에, 결국 가장 느린 작업자의 속도대로 task가 진행될 것이다.
+
+ 일반적으로 queue는 정보를 가지고 있는 message 를 운송한다.
+일례로 work queue, job queue, task queue 등이 해당되며
+washer, dryer, putawayer 에게 업무를 분담하는것도 해당하겠다.
+그리고 이러한 작업들도 worker를 늘리면 업무도 빠르게 끝나게 될 것이다.
+"""
 
 
 
