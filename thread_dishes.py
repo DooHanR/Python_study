@@ -1,0 +1,1 @@
+""" 앞서 했던 process-based dish example 을 thread를 이용해 다시 만들어보기."""
