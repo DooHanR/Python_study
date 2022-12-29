@@ -213,18 +213,123 @@ multiprocessing module 내에 queue function이 포함돼있다.
 intermediate dish_queue가 있다 가정하고, dishes.py 내에 작성해보자.
 """
 
+# dishes.py 의 파일내용.
+
+# import multiprocessing as mp
+#
+# def washer(dishes, output):
+#     for dish in dishes:
+#         print(f"Washing {dish} dish")
+#         output.put(dish)
+#
+# def dryer(input):
+#     while True:
+#         dish = input.get()
+#         print(f"Drying {dish} dish")
+#         input.task_done()
+
+""" 메인 함수를 선언해야 오류가 안생기는듯 하다. 왜일까? 
+-> 메인 함수 선언시 논리적 구조가 개선되고 독립된 실행 프로그램으로써 다루어진다고 한다.
+아직 잘 모르겠으니, 더 공부해보자."""
+
+# if __name__ == '__main__':
+#     dish_queue = mp.JoinableQueue()
+#     dryer_proc = mp.Process(target=dryer, args=(dish_queue,))
+#     dryer_proc.daemon = True
+#     dryer_proc.start()
+#
+#     dishes = ['salad', 'bread', 'entree', 'dessert']
+#     washer(dishes, dish_queue)
+#     dish_queue.join(
+
+
+""" JoinableQueue와 join method를 통해 washer가 모든 dish가 말려졌음을 알기위해 사용됨. 
+이 위의 queue 는 python iterator 처럼 보이지만, 사실 washer와 dryer 사이의 communication에
+따라서 process가 시작된다.
+ 또한 이외에도 다양한 queue type이 multiprocessing module 내에 존재하며
+다음의 링크를 통해 확인해 볼 수 있다. : http://bit.ly/multi-docs """
+
+
+"""
+Threads
+ thread는 process의 모든것에 접근가능하면서, process 와 함께 실행된다.
+multiprocessing module에는 threading 이라는게 있는데, process 대신에
+thread를 사용하는 것이다. 한번 thread로 process example을 테스트 해보자.
+"""
+
+# thread1. py의 내용.
+
+# import threading
+#
+# def do_this(what):
+#     whoami(what)
+#
+# def whoami(what):
+#     print("Thread %s says: %s" % (threading.current_thread(), what))
+#
+# if __name__ == '__main__':
+#     whoami("I'm the main program")
+#     for n in range(4):
+#         p = threading.Thread(target=do_this,
+#                              args=("I'm function %s" % n,))
+#         p.start()
+
+""" process-based dish example 을 thread 를 이용해서 reproduce 해볼 것이다.
+다음의 thread_dishes.py 에서 나타날 것이다. """
+
+# thread_dishes.py 의 내용.
+
+# import threading, queue
+# import time
+#
+# def washer(dishes, dish_queue):
+#     for dish in dishes:
+#         print ("Washing", dish)
+#         time.sleep(5)
+#         dish_queue.put(dish)
+#
+# def dryer(dish_queue):
+#     while True:
+#         dish = dish_queue.get()
+#         print ("Drying", dish)
+#         time.sleep(10)
+#         dish_queue.task_done()
+#
+# dish_queue = queue.Queue()
+# for n in range(2):
+#     dryer_thread = threading.Thread(target=dryer, args=(dish_queue,))
+#     dryer_thread.start()
+#
+# dishes = ['salad', 'bread', 'entree', 'dessert']
+# washer(dishes, dish_queue)
+# dish_queue.join()
 
 
 
+""" 
+ Thread와 multiprocessing 의 차이점은, 바로 Thread 에는 terminate() function이 없다는
+것이다. thread를 마구잡이로 제거하면 심각한 버그가 생길 수 있기 때문에, terminate가 없는것이다.
 
+ 또한 Thread는, 특히나 C나 C++처럼 memory 를 다루는 곳에서 위험하다. thread 에 의해 생기는
+버그는 찾기도 힘들며, 고치기도 힘들다. 그래서 thread를 사용하기 위해서는, 반드시 program 내의
+code들이 thread safe 이여야 한다. 예를 들어 앞선 thread의 사용처럼 전역 변수를 사용하지 않아
+여타 코드에 영향이 안가게 해야 한다.
 
+ process를 여러개 사용하는것은, 여러개의 집마다 각각 한명의 사람이 들어가 있는거와 같다.
+거기에 무슨 물체를 두어도 그대로 있게 될 것이다. 반면에 thread를 사용하는것은 마치 유령이
+있는것과도 같아서, 유령이 무슨 물체(변수)를 건들여도 파악하기 힘든것과 마찬가지이다.
+ 
+ 하지만 thread에 단점만 있는것도 아니다, 만약 thread에 전역 변수가 involved 되있지 않다면
+thread 는 유용하고 안전한 방식이 된다. 예를 들어 I/O operation 에서 thread는 각각의
+variable 들이 있기 때문에, data를 가지고 다투지 않아서 속도 향상을 기대할 수 있다.
 
+ 그리고 또 thread는 때때로 전역 변수를 바꾸는데 좋은 방식이기도 하다.
+사실 다중 thread를 사용하는 주요 이유중 하나가 바로, data를 나누고자 할때이다.
 
+ thread를 이용해 변수를 수정할때, data를 안전하게 공유하는 안전한 방법은 바로
+'software lock'이다. 변경이 일어나고 있을때, 다른 thread로 하여금 접근을 막는 방식이다.
 
-
-
-
-
-
-
-
+ 아무튼 python 에서는 다음과 같이 권장한다.
+- Thread의 경우 : I/O-bound problems.
+- Processes, networking, event의 경우 : CPU-bound problem 의 경우. 
+ """
