@@ -205,7 +205,13 @@ washer, dryer, putawayer 에게 업무를 분담하는것도 해당하겠다.
 그리고 이러한 작업들도 worker를 늘리면 업무도 빠르게 끝나게 될 것이다.
 """
 
-
+"""
+Processes
+ queue를 구현하는데는 다양한 방법이 있지만, 앞서 사용했던
+multiprocessing module 내에 queue function이 포함돼있다.
+일단 1명의 washer와 여러명의 dryer process, 그리고
+intermediate dish_queue가 있다 가정하고, dishes.py 내에 작성해보자.
+"""
 
 
 
