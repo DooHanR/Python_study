@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     dishes = ['salad', 'bread', 'entree', 'dessert']
     washer(dishes, dish_queue)
-    dish_queue.join(
+    dish_queue.join()
 
 
 """ JoinableQueue와 join method를 통해 washer가 모든 dish가 말려졌음을 알기위해 사용됨. 
