@@ -333,3 +333,42 @@ variable 들이 있기 때문에, data를 가지고 다투지 않아서 속도 �
 - Thread의 경우 : I/O-bound problems.
 - Processes, networking, event의 경우 : CPU-bound problem 의 경우. 
  """
+
+"""
+concurrent.futures
+ concurrent.futures 는 thread 나 multiple process 를 사용할떄 수반하는 수많은 세부사항들을
+간단하게 하기 위해 python 3.2에 추가됐다. concurrent.futures 는 asynchronous 한 worker들을 
+thread(I/O bound), process(CPU bound)를 이용해 schedule 할 수 있게 해준다.
+그들의 상태를 추적하고 결과를 모으기 위해 미래로 돌아갈 것이다. (이게무슨소리지?)
+ 
+
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
