@@ -340,16 +340,139 @@ concurrent.futures
 간단하게 하기 위해 python 3.2에 추가됐다. concurrent.futures 는 asynchronous 한 worker들을 
 thread(I/O bound), process(CPU bound)를 이용해 schedule 할 수 있게 해준다.
 그들의 상태를 추적하고 결과를 모으기 위해 미래로 돌아갈 것이다. (이게무슨소리지?)
- 
+ 아래의 예시에서 cf.py를 작성해볼 것이다. 여기서 test function 인 calc() 가 하는 기능은 다음과 같다.
 
+- 1초 동안 sleep.
+- argument의 square root를 계산후 return.
+
+이 프로그램에서는 기본값이 3인, 사용할 작업자의 수를 argument로 받아서
+thread pool 과 process pool 에서 일하게 하고, 경과시간을 출력한다.
+values list 는 다섯 개의 숫자(calc 함수에 한번에 보내질)를 포함한다.
 """
 
+""" 정수를 입력받아 해당 정수만큼의 worker가 프로그램 내에
+정해져있는 작업의 양을 처리하는데 얼마나 걸리는지 출력하는 프로그램. """
 
+# cf.py
 
+# from concurrent import futures
+# import math
+# import time
+# import sys
+#
+# def calc(val):
+#     time.sleep(1)
+#     result = math.sqrt(float(val))
+#     return result
+#
+# def use_threads(num, values):
+#     t1 = time.time()
+#     with futures.ThreadPoolExecutor(num) as tex:
+#         results = tex.map(calc, values)
+#     t2 = time.time()
+#     return t2 - t1
+#
+# def use_processes(num, values):
+#     t1 = time.time()
+#     with futures.ProcessPoolExecutor(num) as pex:
+#         results = pex.map(calc, values)
+#     t2 = time.time()
+#     return t2 - t1
+#
+# def main(workers, values):
+#     print(f"Using {workers} workers for {len(values)} values")
+#     t_sec = use_threads(workers, values)
+#     print(f"Threads took {t_sec:.4f} seconds")
+#     p_sec = use_processes(workers, values)
+#     print(f"Processes took {p_sec:.4f} seconds")
+#
+# if __name__ == '__main__':
+#     workers = int(sys.argv[1])
+#     values = list(range(1, 6))  # 1 ~ 5
+#     main(workers, values)
 
+"""
+ one-second sleep() 은 각 계산에 최소한 1초를 걸리게 하기위함이다. 
+그래서 다음과 같이 진행되게 된다.
+- worker 가 한명일 경우 : 혼자서 5작업 진행. 그래서 최소 5초 이상이 걸리게 된다.
+- worker 가 다섯명일 경우 : 5명이서 5작업. 따라서 각각 하나씩 맡아서 1초 이상이다.
+- worker 가 세명일 경우 : 3명이서 5작업. 따라서 2번으로 나눠 진행되므로 최소 2초이다.
 
+ 여기서 우리는 의도적으로 square root를 출력하지 않았는데, elapsed time을 강조하기 위해서다.
+아무튼 간에 square root를 출력하고 싶다면 아래의 예제를 보라.
+"""
 
+# cf2.py 의 코드내용.
 
+# from concurrent import futures
+# import math
+# import sys
+#
+# def calc(val):
+#     result = math.sqrt(float(val))
+#     return val, result
+#
+# def use_threads(num, values):
+#     with futures.ThreadPoolExecutor(num) as tex:
+#         tasks = [tex.submit(calc, value) for value in values]
+#         for f in futures.as_completed(tasks):
+#             yield f.result()
+#
+# def use_processes(num, values):
+#     with futures.ProcessPoolExecutor(num) as pex:
+#         tasks = [pex.submit(calc, value) for value in values]
+#         for f in futures.as_completed(tasks):
+#             yield f.result()
+#
+# def main(workers, values):
+#     print(f"Using {workers} workers for {len(values)} values")
+#     print("Using threads:")
+#     for val, result in use_threads(workers, values):
+#         print(f"{val} {result:.4f}")
+#     print("Using processes:")
+#     for val, result in use_processes(workers, values):
+#         print(f'{val} {result:.4f}')
+#
+# if __name__ == '__main__':
+#     workers = 3
+#     if len(sys.argv) > 1:
+#         workers = int(sys.argv[1])
+#     values = list(range(1, 6))  # 1 ~ 5
+#     main(workers, values)
+
+""" 
+ 이처럼 concurrent.futures 는 다음 예제들처럼
+여러개가 동시에 발생하는 task 를 처리하는데 적합하다.
+
+- Crawling URLs on the web
+- 파일 processing ex) 이미지 resizing
+- Calling services APIs.
+
+ 여기 추가적인 내용이 있는 링크가 있지만, 훨씬 기술적이다.
+https://docs.python.org/3/library/concurrent.futures.html
+"""
+
+"""
+Green Threads and gevent
+ 앞서 봤듯이, 개발자들은 느린 구간을 별도의 thread나 process를 통해 처리한다.
+이것의 대표적인 예시로 Apache web server가 해당된다.
+
+ 또다른 대안으로는, event-based programming이라는게 있다.
+event-based program은 task를 나누어주면서, central event loop를 반복하면서 실행한다.
+NGINX web server 가 이와 같이 동작하며, 보통 Apache 보다는 빠르다.
+
+ gevent library 는 event-based 이며, 정돈된 trick을 달성해냈다. 
+normal imperative code를 작성하면, coroutine 으로 바꾸어 준다.
+어찌보면 generator 와 비슷한데, 다른 generator 와 소통할수 있고 어디에 있는지
+계속 추적할 수 있는 generator 이다.
+ 
+ gevent 는 많은 python의 standard object 의 mechanism을 사용하기 위해 변경시킨다.
+하지만 몇몇 c로 쓰인 python 내의 code 에서는 적용되지 않기도 한다.
+
+ socket module 내에 gethostbyname 이라는 함수가 있는데, 이게 작동하는 동안 다른것을
+할 수 없기 떄문에 기다려야 한다. 반면에 gevent version 을 사용하면 여러개의 site를
+독립적으로 검색할 수 있다. 한번 다음예제를 보자.
+"""
 
 
 
