@@ -474,7 +474,7 @@ normal imperative code를 작성하면, coroutine 으로 바꾸어 준다.
 독립적으로 검색할 수 있다. 한번 다음예제를 보자.
 """
 
-
+print("holly shit i did nothing.")
 
 
 
