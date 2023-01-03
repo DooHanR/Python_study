@@ -474,8 +474,20 @@ normal imperative code를 작성하면, coroutine 으로 바꾸어 준다.
 독립적으로 검색할 수 있다. 한번 다음예제를 보자.
 """
 
+# gevent_test.py 의 코드
 
+# import gevent
+# from gevent import socket
+# hosts = ['www.crappytaxidermy.com', 'www.walterpottertaxidermy.com',
+#          'www.antique-taxidermy.com']
+# jobs = [gevent.spawn(gevent.socket.gethostbyname, host) for host in hosts]
+# gevent.joinall(jobs, timeout=5)
+# for job in jobs:
+#     print(job.value)
 
+""" gevent.spawn() 함수는 greenlet(green thread, microthread) 를 생성하는데
+이는 각각의 gevent.socket.gethostbyname(url)을 실행시키기 위함이다.
+기존의 normal thread 와의 차이점은 block 시키지 않는다는 것이다."""
 
 
 
